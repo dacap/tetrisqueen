@@ -2,12 +2,7 @@
 
 VERSION = 1.3.1
 
-ZIP = zip -9
-EXT = .zip
-
 default: all
-
-
 
 DOC_FILES = \
 	qtetris/AUTHORS.en \
@@ -67,25 +62,19 @@ BIN_QNX_FILES = \
 	$(BIN_FILES) \
 	qtetris/qtetris
 
-
-
 src:
 	@echo Making source distribution...
 	cd ../..
-	$(ZIP) qtetris-$(VERSION).src$(EXT) $(SRC_FILES)
+	zip -9 qtetris-$(VERSION).src.zip $(SRC_FILES)
 	cd qtetris/src
 	@echo Done!
-
-
 
 dat:
 	@echo Making DATA distribution...
 	cd ../..
-	$(ZIP) qtetris-$(VERSION).dat$(EXT) $(DAT_FILES)
+	zip -9 qtetris-$(VERSION).dat.zip $(DAT_FILES)
 	cd qtetris/src
 	@echo Done!
-
-
 
 dos:
 	@echo Making MS-DOS packages...
@@ -93,11 +82,9 @@ dos:
 	-make depend
 	make DEBUGMODE=
 	cd ../..
-	$(ZIP) qtetris-$(VERSION).bin-dos$(EXT) $(BIN_DOS_FILES)
+	zip -9 qtetris-$(VERSION).bin-dos.zip $(BIN_DOS_FILES)
 	cd qtetris/src
 	@echo Done!
-
-
 
 win:
 	@echo Making Windows packages...
@@ -105,35 +92,28 @@ win:
 	-make depend
 	make DEBUGMODE=
 	cd ../..
-	$(ZIP) qtetris-$(VERSION).bin-win$(EXT) $(BIN_WIN_FILES)
+	zip -9 qtetris-$(VERSION).bin-win.zip $(BIN_WIN_FILES)
 	cd qtetris/src
 	@echo Done!
-
-
 
 uni:
 	@echo Making UNIX packages...
 	-./fixunix.sh
 	-make depend
 	make STATICLINK=1 DEBUGMODE=
-	cd ../.. ; $(ZIP) qtetris-$(VERSION).bin-uni$(EXT) $(BIN_UNI_FILES)
+	cd ../.. ; tar -czf qtetris-$(VERSION).bin-uni.tar.gz $(BIN_UNI_FILES)
 	@echo Done!
-
-
 
 qnx:
 	@echo Making QNX packages...
 	-./fixqnx.sh
 	-make depend
 	make STATICLINK=1 DEBUGMODE=
-	cd ../.. ; $(ZIP) qtetris-$(VERSION).bin-qnx$(EXT) $(BIN_QNX_FILES)
+	cd ../.. ; zip -9 qtetris-$(VERSION).bin-qnx.zip $(BIN_QNX_FILES)
 	@echo Done!
-
-
 
 all:
 	@echo "Rules:"
 	@echo "  src, dat, dos, win, uni, qnx"
-
 
 

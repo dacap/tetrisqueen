@@ -11,4 +11,7 @@ cd ..
 utod .../*.bat .../*.c .../*.h .../makefile.*
 utod .../*.arg .../*.cfg .../*.en .../*.es
 
+cd src
+
 echo Done!
+

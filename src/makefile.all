@@ -6,7 +6,6 @@ include $(MAKEFILE_INC)
 
 .PHONY: default all msg clean distclean depend
 
-
 default: msg $(TARGET_NAME)
 	@echo Done!
 
