@@ -1,7 +1,11 @@
-2001-10-09  David A. Capello
+2001-10-16  David A. Capello
 
 	* New release 1.4: then a long time, fixed a fatal error in the
 	  previous distribution: I was forget `makedata.sh' :o)
+	* Replaced the old interface fix* to fix.sh and fix.bat.
+
+2001-10-09  David A. Capello
+
 	* Optimized: the arguments recognition.
 
 2001-09-12  David A. Capello

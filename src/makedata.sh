@@ -1,11 +1,11 @@
-#!/bin/sh
+#! /bin/sh
 # Copyright (C) 1999, 2000, 2001 by David A. Capello
 
 datautil=dat
 datafile=../qtetris.dat
 headfile=data.h
 
-if [ -f $datafile ]; then rm $datafile; fi
+if [ -f $datafile ] ; then rm $datafile ; fi
 
 $datautil -t BMP -a $datafile data/*.bmp
 $datautil -t PAL -a $datafile data/palette.bmp data/finalpal.bmp

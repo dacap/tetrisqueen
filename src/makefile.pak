@@ -33,12 +33,8 @@ SRC_FILES = \
 	qtetris/src/makefile.uni \
 	qtetris/src/makefile.vc \
 	qtetris/src/makefile.wat \
-	qtetris/src/fixdjgpp.bat \
-	qtetris/src/fixmingw.bat \
-	qtetris/src/fixmsvc.bat \
-	qtetris/src/fixqnx.sh \
-	qtetris/src/fixunix.sh \
-	qtetris/src/fixwat.bat \
+	qtetris/src/fix.bat \
+	qtetris/src/fix.sh \
 	qtetris/src/ldmsvc.arg \
 	qtetris/src/ldwat.arg \
 	qtetris/src/data/tmpfile.txt \
@@ -97,36 +93,32 @@ dat:
 
 dos:
 	@echo Making DOS packages...
-	-./fixdjgpp.bat
+	-./fix.bat djgpp
 	-make depend
-	./makedata.bat
 	make DEBUGMODE=
 	cd ../.. ; zip -9 qtetris/qtetris-$(VERSION).bin-dos.zip $(BIN_DOS_FILES) ; cd qtetris/src
 	@echo Done!
 
 win:
 	@echo Making Windows packages...
-	-./fixmsvc.bat
+	-./fix.bat msvc
 	-make depend
-	./makedata.bat
 	make DEBUGMODE=
 	cd ../.. ; zip -9 qtetris/qtetris-$(VERSION).bin-win.zip $(BIN_WIN_FILES) ; cd qtetris/src
 	@echo Done!
 
 uni:
 	@echo Making UNIX packages...
-	-./fixunix.sh
+	-./fix.sh unix
 	-make depend
-	./makedata.sh
 	make STATICLINK=1 DEBUGMODE=
 	cd ../.. ; tar -chozf qtetris/qtetris-$(VERSION).bin-uni.tar.gz $(BIN_UNI_FILES)
 	@echo Done!
 
 qnx:
 	@echo Making QNX packages...
-	-./fixqnx.sh
+	-./fix.sh qnx
 	-make depend
-	./makedata.sh
 	make STATICLINK=1 DEBUGMODE=
 	cd ../.. ; zip -9 qtetris/qtetris-$(VERSION).bin-qnx.zip $(BIN_QNX_FILES)
 	@echo Done!

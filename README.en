@@ -268,11 +268,11 @@ able to create the data file and their corresponding header file.
 To compile successfully the game, you should have Allegro, and if you have
 Allegro you are suposed to know how to compile it. Now, the process to build
 TETRIS Queen is exactly the same (or practically the same). Go to the
-directory `qtetris/src', and run one of the files fixdjgpp, fixmingw,
-fixmsvc, fixunix or fixwat (depending on your compiler and platform). Then
-run `make depend' and finally `make' from the commandline. If everything
-goes well, you will have the game ready to play, and if not, you will have
-to warn me, since I didn't test some versions (ie: the Watcom port).
+directory `qtetris/src', and run one of the two files fix.bat or fix.sh
+(depending on your operating system). Then run `make depend' and finally
+`make' from the commandline. If everything goes well, you will have the game
+ready to play, and if not, you will have to warn me, since I didn't test
+some versions (ie: the Watcom port).
 
 On the other hand, if it is the first time that you compile the game (or you
 modify the data sources), you will reconstruct the data file executing
@@ -282,8 +282,8 @@ modify the data sources), you will reconstruct the data file executing
 Here you have an example of how it would be to compile the game in DOS
 with DJGPP:
 
-  >fixdjgpp
-  >makedata
+  >fix.bat djgpp
+  >makedata.bat
   >make depend
   >make
 

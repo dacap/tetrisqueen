@@ -1,21 +1,20 @@
 TETRIS Queen - Versión 1.4
-Copyright (C) 1999, 2000, 2001 por David A. Capello 
+Copyright (C) 1999, 2000, 2001 por David A. Capello
 ---------------------------------------------------
 
-Este programa es software libre; usted puede redistribuirlo y/o
-modificarlo bajo los términos de la Licencia Pública General GNU
-(o GNU General Public License) publicada por la Fundación de Software
-Libre (Free Software Foundation); cualquier versión 2 de la Licencia,
-o (a su elección) alguna versión más antigua.
+Este programa es software libre. Puede redistribuirlo y/o modificarlo bajo
+los términos de la Licencia Pública General GNU según es publicada por la
+Free Software Foundation, bien de la versión 2 de dicha Licencia o bien
+(según su elección) de cualquier versión posterior.
 
-Este programa es distribuido con la esperanza de que sea útil,
-pero SIN GARANTÍA ALGUNA; sin incluso la garantía implícita
-de COMERCIALIZACIÓN o IDONEIDAD PARA UN PROPOSITO PARTICULAR.
-Vea la GNU General Public License para más detalles.
+Este programa es distribuido con la esperanza de que sea útil, pero SIN
+GARANTIA ALGUNA, incluso sin la garantía implícita de COMERCIALIZACION o
+IDONEIDAD PARA UN PROPOSITO PARTICULAR. Véase la Licencia Pública General
+de GNU para más detalles.
 
-Usted debe de haber recibido una copia de la GNU General Public
-License junto con este programa; si no, escriba a la Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Debería haber recibido una copia de la Licencia Pública General junto con
+este programa. Si no ha sido así, escriba a la Free Software Foundation,
+Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
 1. ÍNDICE
@@ -278,11 +277,11 @@ Para compilar satisfactoriamente el juego, deberá tener la librería Allegro,
 y si tiene Allegro, se supone que tiene una mínima idea sobre cómo
 compilarlo. Ahora, el proceso para TETRIS Queen es exactamente el mismo (o
 bastante parecido). Vaya al directorio `qtetris/src', y ejecute uno de los
-archivos fixdjgpp, fixmingw, fixmsvc, fixunix o fixwat (dependiendo del
-compilador y plataforma). Luego, ejecute `make depend' y finalmente `make'
-desde la línea de comandos. Si todo sale bien, tendrá el juego hecho y listo
-para ejecutar, y si no, me deberá avisar que algo anda mal, ya que algunas
-versiones ni fueron probadas (la de Watcom por ej.).
+dos archivos fix.sh o fix.bat (dependiendo de su sistema operativo). Luego,
+ejecute `make depend' y finalmente `make' desde la línea de comandos. Si
+todo sale bien, tendrá el juego hecho y listo para ejecutar, y si no, me
+deberá avisar que algo anda mal, ya que algunas versiones ni fueron probadas
+(la de Watcom por ej.).
 
 Por otro lado, si es la primera vez que compila el juego (o modifica los
 datos fuentes), deberá reconstruir el archivo de datos ejecutando
@@ -291,8 +290,8 @@ datos fuentes), deberá reconstruir el archivo de datos ejecutando
 
 Aquí tiene un ejemplo de cómo sería compilar el juego en DOS con DJGPP:
 
-  >fixdjgpp
-  >makedata
+  >fix.bat djgpp
+  >makedata.bat
   >make depend
   >make
 

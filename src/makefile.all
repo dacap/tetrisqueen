@@ -11,7 +11,7 @@ default: msg $(TARGET_NAME)
 all: default
 
 msg:
-	@echo Compiling TETRIS Queen...
+	@echo Compiling Qtetris...
 
 clean:
 	-rm -fv $(CLEAN_FILES)

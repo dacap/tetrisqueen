@@ -1,3 +1,9 @@
+2001-10-16  David A. Capello
+
+	* Nueva release 1.4: luego de un largo tiempo, arreglado un error
+	  fatal de la anterior versión: me había olvidado `makedata.sh' :o)
+	* Reemplazada la vieja interface fix* a fix.sh y fix.bat.
+
 2001-10-09  David A. Capello
 
 	* Mejorado: el reconocimiento de argumentos.

@@ -262,7 +262,7 @@ static void draw(void *null)
     scale = MIN(scale, ALBUM_W);
 
     /* draw the scaled background */
-    if ((scale >= 0) && (background >= ALBUM_FIRST) {
+    if ((scale >= 0) && (background >= ALBUM_FIRST)) {
       BITMAP *bmp = create_bitmap(scale, scale);
 
       if (bmp) {
