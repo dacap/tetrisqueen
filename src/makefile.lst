@@ -14,7 +14,8 @@ TARGET_SRC_FILES = \
 	objects.c \
 	piece.c \
 	player.c \
-	playgame.c
+	playgame.c \
+	qtetris.c
 
 CLEAN_FILES = \
 	qtetris.dsw \
@@ -46,4 +47,3 @@ DISTCLEAN_FILES = \
 	data.h \
 	makefile.dep \
 	makefile
-

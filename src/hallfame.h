@@ -34,6 +34,8 @@ void reset_high_scores(int game_mode);
 int make_a_new_record(struct PLAYER *player, int game_mode);
 void add_new_record(struct PLAYER *player, int game_mode);
 
+int merge_records(const char *filename);
+
 int play_hall_of_fame(void);
 
 

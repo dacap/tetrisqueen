@@ -21,7 +21,7 @@
 #include <allegro/aintern.h>
 
 #include "menu.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "hallfame.h"
 #include "credits.h"
 #include "player.h"
@@ -64,73 +64,74 @@ static int play_proc(void);
 
 static MENU sound_test_menu[] =
 {
-  { "LEFT",		test_sound_proc,	NULL,		0,	(void *)1 },
-  { "CENTRE",		test_sound_proc,	NULL,		0,	(void *)2 },
-  { "RIGHT",		test_sound_proc,	NULL,		0,	(void *)3 },
-  { "FLIP PAN", 	test_sound_proc,	NULL,		0,	(void *)4 },
-  { "BACK",		back_proc,		NULL,		0,	NULL },
-  { NULL,		NULL,			NULL,		0,	NULL }
+  { "LEFT",             test_sound_proc,        NULL,           0,      (void *)1 },
+  { "CENTRE",           test_sound_proc,        NULL,           0,      (void *)2 },
+  { "RIGHT",            test_sound_proc,        NULL,           0,      (void *)3 },
+  { "FLIP PAN",         test_sound_proc,        NULL,           0,      (void *)4 },
+  { "BACK",             back_proc,              NULL,           0,      NULL },
+  { NULL,               NULL,                   NULL,           0,      NULL }
 };
 
 
 
 static MENU controls_config_menu[] =
 {
-  { control_str[0],	reconfig_control,	NULL,		0, (void *)1 },
-  { control_str[1],	reconfig_control,	NULL,		0, (void *)2 },
-  { control_str[2],	reconfig_control,	NULL,		0, (void *)3 },
-  { control_str[3],	reconfig_control,	NULL,		0, (void *)4 },
-  { control_str[4],	reconfig_control,	NULL,		0, (void *)5 },
-  { "RESET",		reconfig_control,	NULL,		0, (void *)6 },
-  { "BACK",		back_proc,		NULL,		0, NULL },
-  { NULL,		NULL, 			NULL,		0, NULL }
+  { control_str[0],     reconfig_control,       NULL,           0, (void *)1 },
+  { control_str[1],     reconfig_control,       NULL,           0, (void *)2 },
+  { control_str[2],     reconfig_control,       NULL,           0, (void *)3 },
+  { control_str[3],     reconfig_control,       NULL,           0, (void *)4 },
+  { control_str[4],     reconfig_control,       NULL,           0, (void *)5 },
+  { "RESTORE",          reconfig_control,       NULL,           0, (void *)6 },
+  { "DEFAUT",           reconfig_control,       NULL,           0, (void *)7 },
+  { "BACK",             back_proc,              NULL,           0, NULL },
+  { NULL,               NULL,                   NULL,           0, NULL }
 };
 
 
 
 static MENU controls_menu[] =
 {
-  { "PLAYER 1", 	controls_update,	controls_config_menu,	0, (void *)1 },
-  { "PLAYER 2", 	controls_update,	controls_config_menu,	0, (void *)2 },
-  { "CALIBRATE JOYSTICK",controls_calibrate,	NULL,			0, NULL },
-  { "BACK",		back_proc,		NULL,			0, NULL },
-  { NULL,		NULL,			NULL,			0, NULL }
+  { "PLAYER 1",         controls_update,        controls_config_menu,   0, (void *)1 },
+  { "PLAYER 2",         controls_update,        controls_config_menu,   0, (void *)2 },
+  { "CALIBRATE JOYSTICK",controls_calibrate,    NULL,                   0, NULL },
+  { "BACK",             back_proc,              NULL,                   0, NULL },
+  { NULL,               NULL,                   NULL,                   0, NULL }
 };
 
 
 
 static MENU game_mode_menu[] =
 {
-  { "CLASSIC",		play_proc,		NULL, 0, (void *)GAME_MODE_CLASSIC },
-  { "DESTROYER",	play_proc,		NULL, 0, (void *)GAME_MODE_DESTROYER },
-  { "BACK",		back_proc,		NULL, 0, NULL },
-  { NULL,		NULL,			NULL, 0, NULL }
+  { "CLASSIC",          play_proc,              NULL, 0, (void *)GAME_MODE_CLASSIC },
+  { "DESTROYER",        play_proc,              NULL, 0, (void *)GAME_MODE_DESTROYER },
+  { "BACK",             back_proc,              NULL, 0, NULL },
+  { NULL,               NULL,                   NULL, 0, NULL }
 };
 
 
 
 static MENU options_menu[] =
 {
-  { sound_str,		NULL,			NULL,		0, NULL },
-  { music_str,		NULL,			NULL,		0, NULL },
-  { "SOUND TEST",	NULL,			sound_test_menu,0, NULL },
-  { "CONTROLS", 	NULL,			controls_menu,	0, NULL },
-  { "RESET HIGH SCORES",select_player_proc,	game_mode_menu,	0, NULL },
-  { "BACK",		back_proc,		NULL,		0, NULL },
-  { NULL,		NULL,			NULL,		0, NULL }
+  { sound_str,          NULL,                   NULL,           0, NULL },
+  { music_str,          NULL,                   NULL,           0, NULL },
+  { "SOUND TEST",       NULL,                   sound_test_menu,0, NULL },
+  { "CONTROLS",         NULL,                   controls_menu,  0, NULL },
+  { "RESET HIGH SCORES",select_player_proc,     game_mode_menu, 0, NULL },
+  { "BACK",             back_proc,              NULL,           0, NULL },
+  { NULL,               NULL,                   NULL,           0, NULL }
 };
 
 
 
 static MENU main_menu[] =
 {
-  { "1 PLAYER",		select_player_proc,	game_mode_menu,		0,		(void *)1 },
-  { "2 PLAYERS",	select_player_proc,	game_mode_menu,		0,		(void *)2 },
-  { "HALL OF FAME",	play_hall_of_fame,	NULL,			D_INTERNAL,	NULL },
-  { "OPTIONS",		options_start,		options_menu,		0,		NULL },
-  { "CREDITS",		play_credits,		NULL,			D_INTERNAL,	NULL },
-  { "EXIT",		exit_proc,		NULL,			0,		NULL },
-  { NULL,		NULL,			NULL,			0,		NULL }
+  { "1 PLAYER",         select_player_proc,     game_mode_menu,         0,              (void *)1 },
+  { "2 PLAYERS",        select_player_proc,     game_mode_menu,         0,              (void *)2 },
+  { "HALL OF FAME",     play_hall_of_fame,      NULL,                   D_INTERNAL,     NULL },
+  { "OPTIONS",          options_start,          options_menu,           0,              NULL },
+  { "CREDITS",          play_credits,           NULL,                   D_INTERNAL,     NULL },
+  { "EXIT",             exit_proc,              NULL,                   0,              NULL },
+  { NULL,               NULL,                   NULL,                   0,              NULL }
 };
 
 
@@ -197,11 +198,11 @@ static int controls_update(void)
   if (active_menu->dp)
     player_s = (((int)active_menu->dp) == 1)? &player1: &player2;
 
-  sprintf(control_str[0], "LEFT: %s",		get_control_name(player_s->control.left));
-  sprintf(control_str[1], "RIGHT: %s",		get_control_name(player_s->control.right));
-  sprintf(control_str[2], "DOWN: %s",		get_control_name(player_s->control.down));
-  sprintf(control_str[3], "ROT. LEFT: %s",	get_control_name(player_s->control.rot_left));
-  sprintf(control_str[4], "ROT. RIGHT: %s",	get_control_name(player_s->control.rot_right));
+  sprintf(control_str[0], "LEFT: %s",       get_control_name(player_s->control.left));
+  sprintf(control_str[1], "RIGHT: %s",      get_control_name(player_s->control.right));
+  sprintf(control_str[2], "DOWN: %s",       get_control_name(player_s->control.down));
+  sprintf(control_str[3], "ROT. LEFT: %s",  get_control_name(player_s->control.rot_left));
+  sprintf(control_str[4], "ROT. RIGHT: %s", get_control_name(player_s->control.rot_right));
 
   return D_O_K;
 }
@@ -224,19 +225,19 @@ static int controls_calibrate(void)
 
       text_mode(-1);
       textprintf_centre(screen, datafile[FONTGAME_PCX].dat, SCREEN_W/2, 48, -1,
-	"Calibrating joystick %d", i+1);
+        "Calibrating joystick %d", i+1);
 
       textout_centre(screen, datafile[FONTGAME_PCX].dat, msg, SCREEN_W/2, 64, -1);
       textout_centre(screen, datafile[FONTGAME_PCX].dat, "and press a key.", SCREEN_W/2, 80, -1);
 
       if ((readkey() & 0xFF) == 27)
-	return D_O_K;
+        return D_O_K;
 
       if (calibrate_joystick(i) != 0) {
-	textout_centre(screen, datafile[FONTGAME_PCX].dat,
-	  "Error calibrating joystick!", SCREEN_W/2, 96, -1);
-	readkey();
-	return D_O_K;
+        textout_centre(screen, datafile[FONTGAME_PCX].dat,
+          "Error calibrating joystick!", SCREEN_W/2, 96, -1);
+        readkey();
+        return D_O_K;
       }
     }
   }
@@ -253,38 +254,58 @@ static int reconfig_control(void)
   int i, new_control;
 
   switch (code) {
-    case 1: control = &player_s->control.left;		break;
-    case 2: control = &player_s->control.right;		break;
-    case 3: control = &player_s->control.down;		break;
-    case 4: control = &player_s->control.rot_left;	break;
-    case 5: control = &player_s->control.rot_right;	break;
+    case 1: control = &player_s->control.left;          break;
+    case 2: control = &player_s->control.right;         break;
+    case 3: control = &player_s->control.down;          break;
+    case 4: control = &player_s->control.rot_left;      break;
+    case 5: control = &player_s->control.rot_right;     break;
 
-    /* RESET */
+    /* RESTORE */
     case 6:
       if (player_s == &player1)
-	get_player_control(&player1, "player1",
-	  KEY_4_PAD, KEY_6_PAD, KEY_2_PAD, KEY_DEL, KEY_END);
+        get_player_control(&player1, "player1", KEY_LEFT, KEY_RIGHT, KEY_DOWN, KEY_DEL, KEY_END);
       else
-	get_player_control(&player2, "player2",
-	  KEY_A, KEY_D, KEY_S, KEY_1, KEY_2);
+        get_player_control(&player1, "player2", KEY_A, KEY_D, KEY_S, KEY_1, KEY_2);
       break;
-      
+
+    /* DEFAULT */
+    case 7:
+      if (player_s == &player1) {
+        player1.control.left      = KEY_LEFT;
+        player1.control.right     = KEY_RIGHT;
+        player1.control.down      = KEY_DOWN;
+        player1.control.rot_left  = KEY_DEL;
+        player1.control.rot_right = KEY_END;
+      }
+      else {
+        player2.control.left      = KEY_A;
+        player2.control.right     = KEY_D;
+        player2.control.down      = KEY_S;
+        player2.control.rot_left  = KEY_1;
+        player2.control.rot_right = KEY_2;
+      }
+      break;
+
     default:
       return D_O_K;
   }
 
   if (control) {
     clear_keybuf();
+    for (i=0; i<KEY_MAX; i++) {
+      key[i] = 0;
+      _key[i] = 0;
+    }
 
     new_control = -1;
     while (new_control < 0) {
       poll_keyboard();
       poll_joystick();
       for (i=CONTROL_FIRST; i<=CONTROL_LAST; i++) {
-	if (get_control_state(i)) {
-	  new_control = i;
-	  break;
-	}
+        if (get_control_state(i)) {
+          new_control = i;
+          break;
+        }
       }
     }
     *control = new_control;
@@ -309,18 +330,18 @@ static int test_sound_proc(void)
       break;
       
     case 2:
-      play(MENUSEL_WAV, SCREEN_W/2, 255);
+      play(MENUSEL_WAV, GAME_SCREEN_W/2, 255);
       break;
       
     case 3:
-      play(MENUSEL_WAV, SCREEN_W-1, 255);
+      play(MENUSEL_WAV, GAME_SCREEN_W-1, 255);
       break;
       
     case 4:
       if (!_sound_flip_pan)
-	_sound_flip_pan = TRUE;
+        _sound_flip_pan = TRUE;
       else
-	_sound_flip_pan = FALSE;
+        _sound_flip_pan = FALSE;
       break;
   }
 
@@ -354,7 +375,7 @@ static int play_proc(void)
     player2.flags = PLAYER_PLAYING;
     
     player1.px = BLOCK_SIZE*2;
-    player2.px = SCREEN_W-BLOCK_SIZE*PANEL_WIDTH-BLOCK_SIZE*2;
+    player2.px = GAME_SCREEN_W-BLOCK_SIZE*PANEL_WIDTH-BLOCK_SIZE*2;
   }
   /* RESET HIGH SCORES */
   else {
@@ -381,7 +402,7 @@ static int move(void *null)
   /* si la m£sica para, comenzar nuevamente */
   if (midi_pos < 0) {
     push_clock();
-    play_music(MUSIC20_MID, FALSE);
+    play_music(MUSIC_MENU, FALSE);
     pop_clock();
   }
 
@@ -400,11 +421,11 @@ static int move(void *null)
       max--;
       
       if (selected>0)
-	selected--;
+        selected--;
       else
-	selected = max;
+        selected = max;
 
-      play(MENUSET_WAV, SCREEN_W/2, 255);
+      play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
     }
     /* DOWN: bajar la selecci¢n del men£ */
     else if ((scan == KEY_DOWN) || (scan == KEY_2_PAD)) {
@@ -412,11 +433,11 @@ static int move(void *null)
       max--;
 
       if (selected<max)
-	selected++;
+        selected++;
       else
-	selected = 0;
+        selected = 0;
 
-      play(MENUSET_WAV, SCREEN_W/2, 255);
+      play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
     }
     /* ENTER: seleccionar una opci¢n */
     else if ((scan == KEY_ENTER) || (scan == KEY_ENTER_PAD) || (scan == KEY_SPACE)) {
@@ -425,91 +446,91 @@ static int move(void *null)
       active_menu = &menu[selected];
 
       if ((menu[selected].proc != test_sound_proc) || (((int)active_menu->dp) == 4))
-	play(MENUSEL_WAV, SCREEN_W/2, 255);
+        play(MENUSEL_WAV, GAME_SCREEN_W/2, 255);
 
       if (menu[selected].proc) {
-	/* para la m£sica MIDI */
-	if (menu[selected].flags & D_INTERNAL)
-	  stop_midi();
+        /* para la m£sica MIDI */
+        if (menu[selected].flags & D_INTERNAL)
+          stop_midi();
 
-	/* llamar el proceso */
-	ret |= menu[selected].proc();
-	clear_keybuf();
+        /* llamar el proceso */
+        ret |= menu[selected].proc();
+        clear_keybuf();
 
-	/* restaurar la paleta de colores y la m£sica */
-	if (menu[selected].flags & D_INTERNAL) {
-	  push_clock();
-	  sel_palette(NULL);
-	  pop_clock();
-	}
+        /* restaurar la paleta de colores y la m£sica */
+        if (menu[selected].flags & D_INTERNAL) {
+          push_clock();
+          sel_palette(NULL);
+          pop_clock();
+        }
 
-	/* si el proceso es back_proc, significa que se quiere
+        /* si el proceso es back_proc, significa que se quiere
            volver al men£ anterior */
-	if (menu[selected].proc == back_proc) {
-	  for (max=0; menu[max].text; max++);
-	  max--;
-	  selected = (int)menu[max].dp;
-	  menu = old_menu[--menu_counter];
-	  return 0;
-	}
+        if (menu[selected].proc == back_proc) {
+          for (max=0; menu[max].text; max++);
+          max--;
+          selected = (int)menu[max].dp;
+          menu = old_menu[--menu_counter];
+          return 0;
+        }
       }
 
       if (menu[selected].child) {
-	/* seleccionar el men£ hijo */
-	old_menu[menu_counter++] = menu;
-	menu = menu[selected].child;
+        /* seleccionar el men£ hijo */
+        old_menu[menu_counter++] = menu;
+        menu = menu[selected].child;
 
-	for (max=0; menu[max].text; max++);
-	max--;
-	menu[max].dp = (void *)selected;
-	selected = 0;
+        for (max=0; menu[max].text; max++);
+        max--;
+        menu[max].dp = (void *)selected;
+        selected = 0;
       }
 
       if (ret & D_CLOSE)
-	fadeout_start = game_clock;
+        fadeout_start = game_clock;
     }
     /* LEFT & RIGHT: cambiar el volumen */
     else if ((scan == KEY_LEFT)  || (scan == KEY_RIGHT) ||
-	     (scan == KEY_4_PAD) || (scan == KEY_6_PAD)) {
+             (scan == KEY_4_PAD) || (scan == KEY_6_PAD)) {
       if ((menu[selected].text == sound_str) ||
-	  (menu[selected].text == music_str)) {
-	int value = 0;
+          (menu[selected].text == music_str)) {
+        int value = 0;
 
-	if ((scan == KEY_LEFT)	|| (scan == KEY_4_PAD)) value--;
-	if ((scan == KEY_RIGHT) || (scan == KEY_6_PAD)) value++;
+        if ((scan == KEY_LEFT)  || (scan == KEY_4_PAD)) value--;
+        if ((scan == KEY_RIGHT) || (scan == KEY_6_PAD)) value++;
 
-	/* el volumen fu‚ cambiado? */
-	if (value) {
-	  /* actualizar la barra de volumen */
-	  char *s = strchr(menu[selected].text, ' ')+1;
-	  int i, l = strlen(s);
+        /* el volumen fu‚ cambiado? */
+        if (value) {
+          /* actualizar la barra de volumen */
+          char *s = strchr(menu[selected].text, ' ')+1;
+          int i, l = strlen(s);
 
-	  if (*s == 'O') /* OFF */
-	    l = 0;
+          if (*s == 'O') /* OFF */
+            l = 0;
 
-	  l = MID(0, l+value, 20);
+          l = MID(0, l+value, 20);
 
-	  if (l) {
-	    for (i=0; i<l; i++)
-	      s[i] = 'l';
-	      
-	    s[i] = 0;
-	  }
-	  else {
-	    strcpy(s, "OFF");
-	  }
+          if (l) {
+            for (i=0; i<l; i++)
+              s[i] = 'l';
+              
+            s[i] = 0;
+          }
+          else {
+            strcpy(s, "OFF");
+          }
 
-	  /* actualizar el volumen */
-	  /* DIGI */
-	  if (selected == 0)
-	    digi_volume = MAX_VOLUME*l/20;
-	    
-	  /* MIDI */
-	  if (selected == 1)
-	    midi_volume = MAX_VOLUME*l/20;
+          /* actualizar el volumen */
+          /* DIGI */
+          if (selected == 0)
+            digi_volume = MAX_VOLUME*l/20;
+            
+          /* MIDI */
+          if (selected == 1)
+            midi_volume = MAX_VOLUME*l/20;
 
-	  update_volume();
-	}
+          update_volume();
+        }
       }
     }
     /* ESC: cancelar */
@@ -519,13 +540,13 @@ static int move(void *null)
 
       /* salir */
       if (menu == main_menu) {
-	selected = max;
-	fadeout_start = game_clock;
+        selected = max;
+        fadeout_start = game_clock;
       }
       /* volver */
       else {
-	selected = (int)menu[max].dp;
-	menu = old_menu[--menu_counter];
+        selected = (int)menu[max].dp;
+        menu = old_menu[--menu_counter];
       }
     }
   }
@@ -585,7 +606,7 @@ static void draw(void *null)
   /* background */
   drawing_mode(DRAW_MODE_COPY_PATTERN, datafile[TETRISBG_BMP].dat,
     background_pos/4, background_pos/6);
-  rectfill(virtual, 0, 0, SCREEN_W, SCREEN_H, -1);
+  rectfill(virtual, 0, 0, GAME_SCREEN_W, GAME_SCREEN_H, -1);
   solid_mode();
 
   /* tetris logo */
@@ -597,14 +618,14 @@ static void draw(void *null)
   color_map = shadow_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
   draw_trans_sprite(virtual, datafile[TETRIS_BMP].dat,
-    SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2 + 6,
-    SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 - v + 12);
+    GAME_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2 + 6,
+    GAME_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 - v + 12);
   solid_mode();
 
   /* solid */
   draw_sprite(virtual, datafile[TETRIS_BMP].dat,
-    SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2,
-    SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 - v);
+    GAME_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2,
+    GAME_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 - v);
 
   /* queen logo */
   v = 128;
@@ -617,23 +638,23 @@ static void draw(void *null)
   color_map = shadow_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
   draw_trans_sprite(virtual, datafile[QUEENMNI_BMP].dat,
-    SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2+6, 48-v+12);
+    GAME_SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2+6, 48-v+12);
   solid_mode();
   
   /* solid */
   draw_sprite(virtual, datafile[QUEENMNI_BMP].dat,
-    SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2, 48-v);
+    GAME_SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2, 48-v);
 
   /* men£ */
-  v = SCREEN_W;
+  v = GAME_SCREEN_W;
   if (!TIMEOUT(ani_time, TICKS_PER_SEC*2))
     v = v * (game_clock - ani_time) / (TICKS_PER_SEC*2);
 
-  v = SCREEN_W - v;
+  v = GAME_SCREEN_W - v;
 
   for (i=0; menu[i].text; i++) {
     menu_textout(virtual, menu[i].text, (menu != controls_config_menu),
-      SCREEN_W/2 + ((i&1)? -v:+v), SCREEN_H/2-28+i*20, (!v && (selected == i)));
+      GAME_SCREEN_W/2 + ((i&1)? -v:+v), GAME_SCREEN_H/2-28+i*20, (!v && (selected == i)));
   }
 }
 

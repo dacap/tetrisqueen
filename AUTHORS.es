@@ -12,5 +12,9 @@ Preparará el paquete para Debian e hizo alguna que otra buena recomendación.
 Grzegorz Adam Hankiewicz <gradha@terra.es>
 Traductor de la documentación al inglés.
 
+Marco Chiesi <chiesi@libero.it>
+Hizo una derivación de TETRIS Queen: un nuevo `Tetris Radiohead'. Además,
+algunas recomendaciones como la opción `--merge' vinieron de su parte.
+
 Norberto Alfredo Bensa <ceo@nbensacomputers.com>
 Reportó un error con el directorio obj/ y una mejora para el makefile.

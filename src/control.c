@@ -62,12 +62,12 @@ int get_control_state(int control)
     int state;
 
     switch (control) {
-      case CONTROL_JOY_LEFT:   state = joy[0].stick[0].axis[0].d1; break;
-      case CONTROL_JOY_RIGHT:  state = joy[0].stick[0].axis[0].d2; break;
-      case CONTROL_JOY_UP:     state = joy[0].stick[0].axis[1].d1; break;
-      case CONTROL_JOY_DOWN:   state = joy[0].stick[0].axis[1].d2; break;
-      case CONTROL_JOY_B1:     state = joy[0].button[0].b;         break;
-      case CONTROL_JOY_B2:     state = joy[0].button[1].b;         break;
+      case CONTROL_JOY1_LEFT:  state = joy[0].stick[0].axis[0].d1; break;
+      case CONTROL_JOY1_RIGHT: state = joy[0].stick[0].axis[0].d2; break;
+      case CONTROL_JOY1_UP:    state = joy[0].stick[0].axis[1].d1; break;
+      case CONTROL_JOY1_DOWN:  state = joy[0].stick[0].axis[1].d2; break;
+      case CONTROL_JOY1_B1:    state = joy[0].button[0].b;         break;
+      case CONTROL_JOY1_B2:    state = joy[0].button[1].b;         break;
       case CONTROL_JOY2_LEFT:  state = joy[1].stick[0].axis[0].d1; break;
       case CONTROL_JOY2_RIGHT: state = joy[1].stick[0].axis[0].d2; break;
       case CONTROL_JOY2_UP:    state = joy[1].stick[0].axis[1].d1; break;
@@ -182,15 +182,15 @@ static char *key_name[] =
   "KEY ENTER PAD",
   "KEY PRTSCR",
   "KEY PAUSE",
-  "KEY KEY_ABNT_C1",
+  "KEY ABNT_C1",
   "KEY YEN",
-  "KEY_KANA",
-  "KEY_CONVERT",
-  "KEY_NOCONVERT",
-  "KEY_AT",
-  "KEY_CIRCUMFLEX",
-  "KEY_COLON2",
-  "KEY_KANJI",
+  "KEY KANA",
+  "KEY CONVERT",
+  "KEY NOCONVERT",
+  "KEY AT",
+  "KEY CIRCUMFLEX",
+  "KEY COLON2",
+  "KEY KANJI",
 
 /*"KEY MODIFIERS",*/
 
@@ -216,12 +216,12 @@ static char *key_name[] =
     char *name;
 
     switch (control) {
-      case CONTROL_JOY_LEFT:   name = "JOY1 LEFT";    break;
-      case CONTROL_JOY_RIGHT:  name = "JOY1 RIGHT";   break;
-      case CONTROL_JOY_UP:     name = "JOY1 UP";      break;
-      case CONTROL_JOY_DOWN:   name = "JOY1 DOWN";    break;
-      case CONTROL_JOY_B1:     name = "JOY1 BUTTON1"; break;
-      case CONTROL_JOY_B2:     name = "JOY1 BUTTON2"; break;
+      case CONTROL_JOY1_LEFT:  name = "JOY1 LEFT";    break;
+      case CONTROL_JOY1_RIGHT: name = "JOY1 RIGHT";   break;
+      case CONTROL_JOY1_UP:    name = "JOY1 UP";      break;
+      case CONTROL_JOY1_DOWN:  name = "JOY1 DOWN";    break;
+      case CONTROL_JOY1_B1:    name = "JOY1 BUTTON1"; break;
+      case CONTROL_JOY1_B2:    name = "JOY1 BUTTON2"; break;
       case CONTROL_JOY2_LEFT:  name = "JOY2 LEFT";    break;
       case CONTROL_JOY2_RIGHT: name = "JOY2 RIGHT";   break;
       case CONTROL_JOY2_UP:    name = "JOY2 UP";      break;

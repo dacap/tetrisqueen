@@ -2,4 +2,3 @@
 - to improve the control of objects of the game (to try to eliminate
   GAMEOBJ and `handle.c' making all more direct one).
 - to eliminate most of global variables that are been able to.
-- support for any resolution.

@@ -3,7 +3,6 @@
 include makefile.lst
 include $(MAKEFILE_INC)
 
-
 .PHONY: default all msg clean distclean depend
 
 default: msg $(TARGET_NAME)
@@ -21,9 +20,8 @@ distclean: clean
 	-rm -fv $(DISTCLEAN_FILES)
 
 depend:
-	gcc -MM -MG -DSCAN_DEPEND $(TARGET_SRC_FILES) > _depend.tmp
+	gcc -MM -MG $(TARGET_SRC_FILES) > _depend.tmp
 	sed -e "s/^\([a-zA-Z0-9_]*\.o:\)/obj\/\1/" _depend.tmp > makefile.dep
 	rm _depend.tmp
 
 -include makefile.dep
-

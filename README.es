@@ -1,4 +1,4 @@
-TETRIS Queen - Versión 1.3.1
+TETRIS Queen - Versión 1.4
 Copyright (C) 1999, 2000, 2001 por David A. Capello 
 ---------------------------------------------------
 
@@ -62,7 +62,7 @@ Estos son los requerimientos mínimos que necesita TETRIS Queen:
   - 486 DX (podría que funcione en una 386);
   - 4 MB de RAM (mejor serían 8 megas, y con 16 estás hecho);
   - Tarjeta VGA;
-  - MS-DOS (ó UNIX);
+  - DOS (ó UNIX);
   - Teclado;
 
 Aquí tiene los requerimientos recomendados:
@@ -89,10 +89,13 @@ línea de comandos, donde podrá iniciar el juego con diferentes opciones:
 
 Las opciones disponibles son:
 
-  -i, --nointro   no muestra la introducción
-  -s, --nosound   no instala los sonidos
-  -j, --nojoy     no instala el joystick
-  -?, --help      muestra la ayuda del programa (en inglés)
+  -r, --resolution ANCHO ALTO     usar una resolución especial (en 8 bpp)
+  -i, --nointro                   no mostrar la introducción
+  -s, --nosound                   no instalar el sonido
+  -j, --nojoy                     no instalar el joystick
+  -m, --merge ARCHIVO_HOF         adjuntar otro "salón de la fama" al actual
+  -h, --help                      visualizar la ayuda del programa (en inglés)
+      --version                   mostrar información sobre la versión
 
 Por ejemplo, si desea iniciar sin instalar el sonido (ya que está
 escuchando sus MP3s favoritos con otro programa), puede iniciar el juego
@@ -141,7 +144,7 @@ a la computadora:
   - luego, presione la palanca (stick direccional) del joystick 1 hacia
     abajo;
   - y listo, ahora, si quiere volver a los valores anteriores de todas las
-    teclas, solamente debe seleccionar la opción "RESET" que se encuentra
+    teclas, solamente debe seleccionar la opción "RESTORE" que se encuentra
     en este mismo menú;
 
 NOTA IMPORTANTE AL INGRESAR UN NUEVO RECORD: cuando hay que ingresar una
@@ -283,10 +286,10 @@ versiones ni fueron probadas (la de Watcom por ej.).
 
 Por otro lado, si es la primera vez que compila el juego (o modifica los
 datos fuentes), deberá reconstruir el archivo de datos ejecutando
-`makedata.bat' (en plataformas basadas en MS-DOS) o el archivo `makedata.sh'
+`makedata.bat' (en plataformas basadas en DOS) o el archivo `makedata.sh'
 (en plataformas basadas en Unix).
 
-Aquí tiene un ejemplo de cómo sería compilar el juego en MS-DOS con DJGPP:
+Aquí tiene un ejemplo de cómo sería compilar el juego en DOS con DJGPP:
 
   >fixdjgpp
   >makedata
@@ -304,12 +307,13 @@ Allegro antes que las dinámicas (como ficheros .DLL o .os).
 
 P: ¿Qué hay de nuevo en esta versión?
 R: Un poco más de documentación y varias mejoras internas para poder
-   reconstruir el programa en otras plataformas (MS-DOS, Windows, Unix,
-   GNU/Linux, QNX).
+   reconstruir el programa en otras plataformas (DOS, Windows, Unix,
+   GNU/Linux, QNX). Y la nueva opción `-r' para poder ejecutar el juego
+   en diferentes resoluciones (o tamaños de ventanas), y también `-m'
+   para mezclar records de tus amigos con los tuyos.
 
 P: ¿Habrá nuevas versiones?
-R: Por ahora no, pero en el futuro nadie sabe, tenía algunos planes para
-   TETRIS Queen II, pero...
+R: Estoy viendo la posibilidad de un `qtetriz', pero no prometo nada.
 
 P: ¿Estuviste 3 años para un simple TETRIS?
 R: En realidad habrá sido 1 y sin ganas :-) La razón principal era que
@@ -382,4 +386,3 @@ R: Puede enviarme un email a mi dirección personal:
 Mire `AUTHORS.es' para ver quien participó directamente en el proyecto y
 `THANKS.es' para ver los agradecimientos a las personas que sin su ayuda
 sería imposible la existencia de TETRIS Queen hoy en día.
-

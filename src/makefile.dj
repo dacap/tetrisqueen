@@ -6,29 +6,20 @@ OBJ = .o
 TARGET_NAME = ../qtetris$(EXE)
 TARGET_OBJS = $(addprefix obj/, $(addsuffix $(OBJ), $(basename $(notdir $(TARGET_SRC_FILES)))))
 
-
 ifdef DEBUGMODE
-
-CFLAGS = -W -Wall -Werror -m486 -g -DDEBUGMODE=1
-LFLAGS = -g -lalld
-
+  CFLAGS = -W -Wall -Werror -m486 -g -DDEBUGMODE=1
+  LFLAGS = -g -lalld
 else
-
-CFLAGS = -Wall -m486 -O3 -ffast-math
-LFLAGS = -s -lalleg
-
+  CFLAGS = -Wall -m486 -O3 -ffast-math
+  LFLAGS = -s -lalleg
 endif
-
 
 .PHONY: _default
 
 _default: default
-
 
 $(TARGET_NAME): $(TARGET_OBJS)
 	gcc -o $@ $^ $(LFLAGS)
 
 obj/%.o: %.c
 	gcc $(CFLAGS) -o $@ -c $<
-
-

@@ -18,7 +18,7 @@
 #include <allegro.h>
 
 #include "intro.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "graphics.h"
 #include "data.h"
 
@@ -47,6 +47,9 @@ void play_intro(void)
   int n, n2;
   int min, max;
 
+  /* play the introduction theme */
+  play_music(MUSIC_INTRO, FALSE);
+
   n = 0;
   NORMAL();
 
@@ -56,7 +59,7 @@ void play_intro(void)
 
   /* DAC *********************************/
   clear(virtual);
-  blit(bg, virtual, 0, 0, SCREEN_W/2-bg->w/2, SCREEN_H/2-bg->h/2, bg->w, bg->h);
+  blit(bg, virtual, 0, 0, GAME_SCREEN_W/2-bg->w/2, GAME_SCREEN_H/2-bg->h/2, bg->w, bg->h);
   flip_to_screen();
   FADE(1);
 
@@ -78,8 +81,8 @@ void play_intro(void)
     NORMAL();
     for (n2=1; n2<=28; n2+=2) {
       COL(n2+1, 63-(-63*(n-45)/(45-32+4)),
-		63-(-63*(n-45)/(45-32+4)),
-		63-(-63*(n-45)/(45-32+4)));
+                63-(-63*(n-45)/(45-32+4)),
+                63-(-63*(n-45)/(45-32+4)));
       COL(n2, -63*(n-45)/(45-32+4), 0, 0);
     }
 
@@ -88,7 +91,7 @@ void play_intro(void)
     COL(n+4, 63, 63, 63);
     COL(n+2, 63,  0,  0);
     COL(n,   63, 63,  0);
-	      
+              
     FADE(64);
   }
 
@@ -107,8 +110,8 @@ void play_intro(void)
 
   clear(virtual);
   blit(datafile[QUEENLOG_BMP].dat, virtual, 0, 0,
-    SCREEN_W/2-((BITMAP *)datafile[QUEENLOG_BMP].dat)->w/2,
-    SCREEN_H/2-((BITMAP *)datafile[QUEENLOG_BMP].dat)->h/2,
+    GAME_SCREEN_W/2-((BITMAP *)datafile[QUEENLOG_BMP].dat)->w/2,
+    GAME_SCREEN_H/2-((BITMAP *)datafile[QUEENLOG_BMP].dat)->h/2,
     ((BITMAP *)datafile[QUEENLOG_BMP].dat)->w,
     ((BITMAP *)datafile[QUEENLOG_BMP].dat)->h);
   flip_to_screen();
@@ -134,18 +137,18 @@ void play_intro(void)
   /* mainscreen */
   clear(virtual);
   drawing_mode(DRAW_MODE_COPY_PATTERN, datafile[TETRISBG_BMP].dat, 0, 0);
-  rectfill(virtual, 0, 0, SCREEN_W, SCREEN_H, -1);
+  rectfill(virtual, 0, 0, GAME_SCREEN_W, GAME_SCREEN_H, -1);
   
   color_map = shadow_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
   draw_trans_sprite(virtual, datafile[TETRIS_BMP].dat,
-    SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2 + 6,
-    SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 + 12);
+    GAME_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2 + 6,
+    GAME_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 + 12);
   solid_mode();
 
   draw_sprite(virtual, datafile[TETRIS_BMP].dat,
-    SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2,
-    SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2);
+    GAME_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2,
+    GAME_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2);
   flip_to_screen();
 
   for (n=15; n<112; n++) {

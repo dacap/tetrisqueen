@@ -8,7 +8,7 @@ echo "include makefile.all" >> makefile
 
 find .. -type f "(" \
    -name "*.bat" -o -name "*.c" -o -name "*.h" -o -name "makefile.*" -o \
-   -name "*.arg" -o -name "*.cfg" -o -name "*.en" -o -name "*.es" \
+   -name "*.arg" -o -name "*.cfg" -o -name "*.en" -o -name "*.es" -o -name "*.txt" \
    ")" \
    -exec sh -c "echo {};
 		mv {} _tmpfile;

@@ -1,4 +1,4 @@
-TETRIS Queen - Version 1.3.1
+TETRIS Queen - Version 1.4
 Copyright (C) 1999, 2000, 2001 by David A. Capello
 --------------------------------------------------
 
@@ -61,7 +61,7 @@ These are the minimum requirements you need to play TETRIS Queen:
   - 486 DX (you may get to run it on a 386);
   - 4 MB of RAM (8 MB would be better, 16 MB are really nice);
   - VGA card;
-  - MS-DOS (or UNIX);
+  - DOS (or UNIX);
   - Keyboard;
 
 Here you have the recommended requirements:
@@ -89,10 +89,13 @@ where you can start the game with different options:
 
 Available options are:
 
-  -i, --nointro   doesn't display the introduction
-  -s, --nosound   doesn't install sounds
-  -j, --nojoy     doesn't install joystick
-  -?, --help      shows the program's help
+  -r, --resolution WIDTH HEIGHT   use a special resolution (in 8 bpp)
+  -i, --nointro                   do not display the introduction
+  -s, --nosound                   do not install sounds
+  -j, --nojoy                     do not install joystick
+  -m, --merge HOF_FILE            add the hall of fame and exit
+  -h, --help                      display this help and exit
+      --version                   output version information and exit
 
 For example, if you want to play without sound (because you are already
 hearing to your favourite MP3 files with another program), you can start the
@@ -138,8 +141,8 @@ player's one block down:
   - go to "OPTIONS/CONTROLS/PLAYER 1";
   - select option "DOWN: ...", and press ENTER;
   - now, press joystick's 1 first button;
-  - done, now, if you want to recover the default values for all keys, you
-    only have to choose the "RESET" option found on the same menu;
+  - done, now, if you want to recover the old values for all keys, you only
+    have to choose the "RESTORE" option found on the same menu;
 
 IMPORTANT NOTE WHEN ENTERING A NEW RECORD: when you have to enter a new
 record, you will see three letters, using the keys to move the block to
@@ -273,10 +276,10 @@ to warn me, since I didn't test some versions (ie: the Watcom port).
 
 On the other hand, if it is the first time that you compile the game (or you
 modify the data sources), you will reconstruct the data file executing
-`makedata.bat' (in platforms based on MS-DOS) or the file `makedata.sh'
+`makedata.bat' (in platforms based on DOS) or the file `makedata.sh'
 (in platforms based on Unix).
 
-Here you have an example of how it would be to compile the game in MS-DOS
+Here you have an example of how it would be to compile the game in DOS
 with DJGPP:
 
   >fixdjgpp
@@ -295,11 +298,13 @@ libraries (like .DLLs or .so files).
 
 Q: What's new in this version?
 A: A little bit more documentation and different internal improvements to
-   allow building the game under other platforms (MS-DOS, Windows, Unix,
-   GNU/Linux, QNX).
+   allow building the game under other platforms (DOS, Windows, Unix,
+   GNU/Linux, QNX). And the new '-r' option for execute the game in
+   different resolutions (or window sizes), and also `-m' for mix
+   your records with your friends.
 
 Q: Will you release more versions?
-A: Not now, but who knows, I had some plans for TETRIS Queen II, but...
+A: I am viewing the possibility of a `qtetriz', but I don't promise anything.
 
 Q: Did you take 3 years to write a simple TETRIS?
 A: The truth is that it was one and without motivation :-) The main
@@ -370,4 +375,3 @@ A: You can send me an email to my own address:
 You look at `AUTHORS.es' to see who participated directly in the project and
 `THANKS.es' to see the gratefulness to people that it would be impossible
 without its help the existence of TETRIS Queen today in day.
-

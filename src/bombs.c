@@ -19,7 +19,7 @@
 
 #include "bombs.h"
 #include "player.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "handle.h"
 #include "objects.h"
 #include "data.h"
@@ -36,13 +36,13 @@ void make_megabombs(PLAYER *player)
   for (y=0; y<PANEL_HEIGHT-1; y++) {
     for (x=0; x<PANEL_WIDTH-1; x++) {
       if (((player->panel[y  ][x  ] & 0xf0)  == BLOCK_SPECIAL) &&
-	  ((player->panel[y+1][x  ] & 0xf0)  == BLOCK_SPECIAL) &&
-	  ((player->panel[y+1][x+1] & 0xf0)  == BLOCK_SPECIAL) &&
-	  ((player->panel[y  ][x+1] & 0xf0)  == BLOCK_SPECIAL)) {
-	player->panel[y  ][x  ] = BLOCK_SPECIAL_LT | (player->panel[y  ][x  ] & 0xff0f);
-	player->panel[y+1][x  ] = BLOCK_SPECIAL_LB | (player->panel[y+1][x  ] & 0xff0f);
-	player->panel[y+1][x+1] = BLOCK_SPECIAL_RB | (player->panel[y+1][x+1] & 0xff0f);
-	player->panel[y  ][x+1] = BLOCK_SPECIAL_RT | (player->panel[y  ][x+1] & 0xff0f);
+          ((player->panel[y+1][x  ] & 0xf0)  == BLOCK_SPECIAL) &&
+          ((player->panel[y+1][x+1] & 0xf0)  == BLOCK_SPECIAL) &&
+          ((player->panel[y  ][x+1] & 0xf0)  == BLOCK_SPECIAL)) {
+        player->panel[y  ][x  ] = BLOCK_SPECIAL_LT | (player->panel[y  ][x  ] & 0xff0f);
+        player->panel[y+1][x  ] = BLOCK_SPECIAL_LB | (player->panel[y+1][x  ] & 0xff0f);
+        player->panel[y+1][x+1] = BLOCK_SPECIAL_RB | (player->panel[y+1][x+1] & 0xff0f);
+        player->panel[y  ][x+1] = BLOCK_SPECIAL_RT | (player->panel[y  ][x+1] & 0xff0f);
       }
     }
   }
@@ -65,9 +65,9 @@ static void destroy_block(PLAYER *player, int x, int y, int mega)
     }
     else {
       add_gameobj(55+(rand()%5), create_flyblock(
-	player->px + (x+1)*BLOCK_SIZE,
-	player->py + y*BLOCK_SIZE,
-	player->panel[y][x], mega));
+        player->px + (x+1)*BLOCK_SIZE,
+        player->py + y*BLOCK_SIZE,
+        player->panel[y][x], mega));
 
       player->panel[y][x] = 0;
     }
@@ -107,7 +107,7 @@ static void create_bomb_explo(PLAYER *player, int x, int y)
 
     for (yy=-1; yy<=1; yy++)
       for (xx=-1; xx<=1; xx++)
-	destroy_block(player, x+xx, y+yy, FALSE);
+        destroy_block(player, x+xx, y+yy, FALSE);
   }
   else {
     cx = cy = -1;
@@ -139,14 +139,14 @@ static void create_bomb_explo(PLAYER *player, int x, int y)
 
     if (cx >= 0) {
       add_gameobj(70+(rand()%10), create_explosion(
-	player->px + (x+cx)*BLOCK_SIZE,
-	player->py + (y+cy)*BLOCK_SIZE, TRUE));
+        player->px + (x+cx)*BLOCK_SIZE,
+        player->py + (y+cy)*BLOCK_SIZE, TRUE));
 
       add_score(player, y, SCORE_MEGABOMB);
 
       for (yy=-3; yy<=4; yy++)
-	for (xx=-3; xx<=4; xx++)
-	  destroy_block(player, x+cx+xx, y+cy+yy, TRUE);
+        for (xx=-3; xx<=4; xx++)
+          destroy_block(player, x+cx+xx, y+cy+yy, TRUE);
     }
   }
 }
@@ -162,7 +162,7 @@ void create_bombs_explosion(PLAYER *player)
 
     for (x=0; x<PANEL_WIDTH; x++) {
       if (player->panel[y][x] & 0xf0)
-	create_bomb_explo(player, x, y);
+        create_bomb_explo(player, x, y);
     }
   }
 

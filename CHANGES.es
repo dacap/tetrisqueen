@@ -1,3 +1,32 @@
+2001-09-13  David A. Capello
+
+	* Nueva release 1.4: luego de tanto tiempo, se arregló un error fatal
+	  en la distribución anterior: me había olvidado de `makedata.sh' :o)
+
+2001-09-12  David A. Capello
+
+	* Lista la traducción de los documentos (aunque fue muy poco).
+
+2001-09-11  David A. Capello
+
+	* Listo `merge_records()' en `hallfame.c'.
+	* Se eliminaron todos los tabuladores (que gran cambio! :-)
+	* Agregadas algunas macros MUSIC_*: como MUSIC_FIRST y MUSIC_LAST,
+	  todo para facilitar tanto la lectura como la modificación del
+	  código (por Marco Chiesi).
+
+2001-09-10  David A. Capello
+
+	* Nuevas opciones en la línea de comandos: --merge para mezclar
+	  ficheros .hof, y la más importante: --resolution para poder utilizar
+	  el juego en *cualquier* resolución de 8 bpp (se eliminó la entrada
+	  en el TODO).
+	* Una nueva opción en el menú `OPTIONS/CONTROLS/PLAYER*'.
+	* Se arregló un error (reportado por Marco Chiesi) con las nuevas
+	  versiones de Allegro: en el menú de configuración de control, como
+	  el nuevo clear_keybuf() no borra los arreglos key[] y _key[], se
+	  deben "limpiar" manualmente.
+
 2001-06-27  David A. Capello
 
 	* Nueva release 1.3.1: los paquetes src y dat.
@@ -59,4 +88,3 @@
 
 	* Agregados los ficheros makefile.qnx y fixqnx.sh por Angelo Mottola:
 	  ahora el juego compila también en QNX.
-

@@ -1,3 +1,31 @@
+2001-09-13  David A. Capello
+
+	* New release 1.4: then a long time, fixed a fatal error in the
+	  previous distribution: I was forget `makedata.sh' :o)
+
+2001-09-12  David A. Capello
+
+	* Done the documents translation (few ones).
+
+2001-09-11  David A. Capello
+
+	* Done `merge_records()' in `hallfame.c'.
+	* Removed all tabulators (which big change! :-)
+	* Added some MUSIC_* macros: like MUSIC_FIRST and MUSIC_LAST,
+	  all for facility the code reading and the modify of the code
+	  (by Marco Chiesi).
+
+2001-09-10  David A. Capello
+
+	* New options in the command line: --merge for mix `.hof' files,
+	  and the more important: --resolution for can use the game in
+	  *any* resolution of 8 bpp (removed this entry in the TODO list).
+	* A new option in the menu `OPTIONS/CONTROLS/PLAYER*'.
+	* Fixed a error (reported by Marco Chiesi) with the new Allegro
+	  versions: in the control configuration menu, because the new	
+	  clear_keybuf() doesn't delete the key[] and _key[] arrays, so
+	  they should be "cleaned" manually.
+
 2001-06-27  David A. Capello
 
 	* New release 1.3.1: the packages src and dat.

@@ -14,7 +14,7 @@ Y de más gente que contribuyó con RHIDE.
 http://www.lanet.lv/~pavenis/rhide.html
 
 Charles W Sandmann <sandmann@clio.rice.edu>
-por el servidor DPMI para MS-DOS.
+por el servidor DPMI para DOS.
 
 Tony Baker <tbak@cwcom.net>
 Por crear el sitio Queen Trivia Quiz que es de donde fueron bajadas todas las
@@ -27,4 +27,3 @@ Por hacer uno de los juegos más adictivos de la historia.
 
 Y por supuesto, a Freddie Mercury, Roger Taylor, John Deacon, y Brian May,
 por hacer la mejor música de todos los tiempos.
-

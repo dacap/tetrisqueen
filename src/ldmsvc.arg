@@ -12,3 +12,4 @@ obj/objects.obj
 obj/piece.obj
 obj/player.obj
 obj/playgame.obj
+obj/qtetris.obj

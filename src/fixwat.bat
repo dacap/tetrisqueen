@@ -9,7 +9,7 @@ echo include makefile.all >> makefile
 cd ..
 
 utod .../*.bat .../*.c .../*.h .../makefile.*
-utod .../*.arg .../*.cfg .../*.en .../*.es
+utod .../*.arg .../*.cfg .../*.en .../*.es .../*.txt
 
 cd src
 

@@ -20,7 +20,7 @@
 #include <allegro.h>
 
 #include "piece.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "player.h"
 
 
@@ -159,7 +159,7 @@ void next_piece(PLAYER *player)
       player->piece.shape = pieces_list[++player->piece.index];
     else {
       for (c=0; c<PIECE_BUFFER_SIZE-1; c++)
-	pieces_list[c] = pieces_list[c+1];
+        pieces_list[c] = pieces_list[c+1];
 
       pieces_list[PIECE_BUFFER_SIZE-1] = get_new_piece();
 
@@ -197,11 +197,11 @@ void get_piece_blocks(PLAYER *player)
       
     if (game_mode == GAME_MODE_DESTROYER) {
       if ((num == c) || (num == 4))
-	player->piece.block[c] |= BLOCK_SPECIAL; // | (player->piece.shape & 0xf00);
+        player->piece.block[c] |= BLOCK_SPECIAL; // | (player->piece.shape & 0xf00);
     }
 
     player->piece.bx[c] = player->piece.x + piece[c*2  ]*BLOCK_SIZE;
-    player->piece.by[c] =	  piece_y + piece[c*2+1]*BLOCK_SIZE;
+    player->piece.by[c] =         piece_y + piece[c*2+1]*BLOCK_SIZE;
   }
 }
 
@@ -216,18 +216,18 @@ void get_piece_metrics(struct PLAYER *player, int *x, int *y, int *w, int *h)
   
   /* encontrar los bloques que esten en los extremos */
   xmax = player->piece.x;
-  ymax =	 piece_y;
+  ymax =         piece_y;
   xmin = player->piece.x+PANEL_WIDTH *BLOCK_SIZE;
-  ymin =	 piece_y+PANEL_HEIGHT*BLOCK_SIZE;
+  ymin =         piece_y+PANEL_HEIGHT*BLOCK_SIZE;
   for (c=0; c<4; c++) {
     if (xmax < player->piece.bx[c])
-	xmax = player->piece.bx[c];
+        xmax = player->piece.bx[c];
     if (xmin > player->piece.bx[c])
-	xmin = player->piece.bx[c];
+        xmin = player->piece.bx[c];
     if (ymax < player->piece.by[c])
-	ymax = player->piece.by[c];
+        ymax = player->piece.by[c];
     if (ymin > player->piece.by[c])
-	ymin = player->piece.by[c];
+        ymin = player->piece.by[c];
   }
 
   /* posici¢n de la pieza (relativa a player->px, player->py) */
@@ -261,7 +261,7 @@ BITMAP *create_piece_bitmap(PLAYER *player, int *xout, int *yout)
   /* dibujar cada bloque de la pieza en el bitmap */
   for (c=0; c<4; c++)
     draw_block(bmp, player->piece.bx[c]-x,
-		    player->piece.by[c]-y, player->piece.block[c], FALSE);
+                    player->piece.by[c]-y, player->piece.block[c], FALSE);
 
   /* posiciones absolutas de la pieza;
      si se usa draw_sprite() con estas posiciones, el bitmap se

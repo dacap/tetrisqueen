@@ -13,6 +13,10 @@ recommendation.
 Grzegorz Adam Hankiewicz <gradha@terra.es>
 Translator of the documentation to english.
 
+Marco Chiesi <chiesi@libero.it>
+Made a derivation of TETRIS Queen: a new `Tetris Radiohead'. Besides,
+some suggestions like the `--merge' option come from he.
+
 Norberto Alfredo Bensa <ceo@nbensacomputers.com>
 He reported an error with the directory obj/ and an improvement for the
 makefile.

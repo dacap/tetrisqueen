@@ -23,44 +23,44 @@
 
 
 
-#define PANEL_WIDTH		10
-#define PANEL_HEIGHT		24
+#define PANEL_WIDTH             10
+#define PANEL_HEIGHT            24
 
-#define PLAYER_PLAYING		0x0001
-#define PLAYER_OVER		0x0002
-#define PLAYER_MENU		00004
-#define PLAYER_NORMAL		0x0008
-#define PLAYER_LEFT		0x0010
-#define PLAYER_RIGHT		0x0020
-#define PLAYER_ROTATION_LEFT	0x0040
-#define PLAYER_ROTATION_RIGHT	0x0080
-#define PLAYER_PREPUTPIECE	0x0100
-#define PLAYER_PUTPIECE		0x0200
-#define PLAYER_PANELDOWN	0x0400
-#define PLAYER_FINISH		0x0800
-#define PLAYER_RECORD		0x1000
-#define PLAYER_WAITING		0x2000
+#define PLAYER_PLAYING          0x0001
+#define PLAYER_OVER             0x0002
+#define PLAYER_MENU             00004
+#define PLAYER_NORMAL           0x0008
+#define PLAYER_LEFT             0x0010
+#define PLAYER_RIGHT            0x0020
+#define PLAYER_ROTATION_LEFT    0x0040
+#define PLAYER_ROTATION_RIGHT   0x0080
+#define PLAYER_PREPUTPIECE      0x0100
+#define PLAYER_PUTPIECE         0x0200
+#define PLAYER_PANELDOWN        0x0400
+#define PLAYER_FINISH           0x0800
+#define PLAYER_RECORD           0x1000
+#define PLAYER_WAITING          0x2000
 
-#define SCORE_SINGLE		10
-#define SCORE_DOUBLE		50
-#define SCORE_TRIPLE		200
-#define SCORE_TETRIS		500
-#define SCORE_BOMB		10
-#define SCORE_MEGABOMB		50
+#define SCORE_SINGLE            10
+#define SCORE_DOUBLE            50
+#define SCORE_TRIPLE            200
+#define SCORE_TETRIS            500
+#define SCORE_BOMB              10
+#define SCORE_MEGABOMB          50
 
 
 
 typedef struct PLAYER
 {
-  char name[3];			/* iniciales del jugador */
-  int name_pos;			/* usado en PLAYER_RECORD */
+  char name[3];                 /* iniciales del jugador */
+  int name_pos;                 /* usado en PLAYER_RECORD */
   BLOCK panel[PANEL_HEIGHT][PANEL_WIDTH];
-  int flags;			/* propiedades */
-  int score, lines, level;	/* puntaje */
+  int flags;                    /* propiedades */
+  int score, lines, level;      /* puntaje */
   int level_lines;
-  int px, py;			/* posici¢n del panel */
-  int block_type;		/* tipo de bloque */
-  int winner;			/* indica si jugador gan¢ o perdi¢ */
+  int px, py;                   /* posici¢n del panel */
+  int block_type;               /* tipo de bloque */
+  int winner;                   /* indica si jugador gan¢ o perdi¢ */
 
   struct {
     int left, right, down;
@@ -73,16 +73,16 @@ typedef struct PLAYER
   } state;
 
   struct {
-    int index;			/* ¡ndice de la pieza en la lista */
-    int shape;			/* tipo de pieza (ver: <piece.c> "pieces[]" ) */
-    int x, dx;			/* posici¢n */
+    int index;                  /* ¡ndice de la pieza en la lista */
+    int shape;                  /* tipo de pieza (ver: <piece.c> "pieces[]" ) */
+    int x, dx;                  /* posici¢n */
     float y;
-    int rot;			/* rotaci¢n */
-    BLOCK block[4];		/* color y forma de los bloques */
-    int bx[4], by[4];		/* posici¢n de cada bloque */
-    BITMAP *bmp;		/* bitmap temporario para hacer... */
-    int bmp_x, bmp_y;		/* ...diferentes animaciones */
-  } piece;			/* pieza actual */
+    int rot;                    /* rotaci¢n */
+    BLOCK block[4];             /* color y forma de los bloques */
+    int bx[4], by[4];           /* posici¢n de cada bloque */
+    BITMAP *bmp;                /* bitmap temporario para hacer... */
+    int bmp_x, bmp_y;           /* ...diferentes animaciones */
+  } piece;                      /* pieza actual */
 
   unsigned char killines[4], kill;
 

@@ -24,14 +24,14 @@ struct PLAYER;
 
 
 
-#define MAX_PIECES		7
+#define MAX_PIECES              7
 
-#define PIECE_BUFFER_SIZE	0x8000
+#define PIECE_BUFFER_SIZE       0x8000
 
-#define ROT_0			0
-#define ROT_90			1
-#define ROT_180			2
-#define ROT_270			3
+#define ROT_0                   0
+#define ROT_90                  1
+#define ROT_180                 2
+#define ROT_270                 3
 
 
 

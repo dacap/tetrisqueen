@@ -6,8 +6,6 @@ OBJ = .obj
 TARGET_NAME = ../qtetris$(EXE)
 TARGET_OBJS = $(addprefix obj/, $(addsuffix $(OBJ), $(basename $(notdir $(TARGET_SRC_FILES)))))
 
-
-
 .PHONY: badwin badmsvc badspaces
 
 ifeq ($(OS),Windows_NT)
@@ -49,40 +47,30 @@ badspaces:
 	@echo version, or move your compiler to a different directory.
 endif
 
-
-
 ifdef DEBUGMODE
-
-ifdef STATICLINK
-CFLAGS = -I$(INCLUDE_DIR) -DDEBUGMODE=$(DEBUGMODE) -W1 -Gd -Zi -MTd -DALLEGRO_STATICLINK
-LFLAGS = alld_s.lib
+  ifdef STATICLINK
+    CFLAGS = -I$(INCLUDE_DIR) -DDEBUGMODE=$(DEBUGMODE) -W1 -Gd -Zi -MTd -DALLEGRO_STATICLINK
+    LFLAGS = alld_s.lib
+  else
+    CFLAGS = -I$(INCLUDE_DIR) -DDEBUGMODE=$(DEBUGMODE) -W1 -Gd -Zi -MTd
+    LFLAGS = alld.lib
+  endif
 else
-CFLAGS = -I$(INCLUDE_DIR) -DDEBUGMODE=$(DEBUGMODE) -W1 -Gd -Zi -MTd
-LFLAGS = alld.lib
+  ifdef STATICLINK
+    CFLAGS = -I$(INCLUDE_DIR) /W3 /GX /O2 /YX /FD -DALLEGRO_STATICLINK
+    LFLAGS = alleg_s.lib
+  else
+    CFLAGS = -I$(INCLUDE_DIR) /W3 /GX /O2 /YX /FD
+    LFLAGS = alleg.lib
+  endif
 endif
-
-else
-
-ifdef STATICLINK
-CFLAGS = -I$(INCLUDE_DIR) /W3 /GX /O2 /YX /FD -DALLEGRO_STATICLINK
-LFLAGS = alleg_s.lib
-else
-CFLAGS = -I$(INCLUDE_DIR) /W3 /GX /O2 /YX /FD
-LFLAGS = alleg.lib
-endif
-
-endif
-
 
 .PHONY: _default
 
 _default: default
-
 
 $(TARGET_NAME): $(TARGET_OBJS)
 	cl -nologo $(LFLAGS) -Fe$@ @ldmsvc.arg
 
 obj/%.obj: %.c
 	cl -nologo $(CFLAGS) -c $< -Fo$@
-
-

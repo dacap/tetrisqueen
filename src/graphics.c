@@ -20,7 +20,7 @@
 #include <allegro.h>
 
 #include "graphics.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "data.h"
 
 
@@ -61,24 +61,24 @@ static void create_shadow_table(COLOR_MAP *table, PALETTE pal, int r, int g, int
       q = tmp;
 
       if (rgb_map) {
-	 for (y=0; y<256; y++) {
-	    c.r = i + *(q++);
-	    c.g = j + *(q++);
-	    c.b = k + *(q++);
-	    p[y] = rgb_map->data[c.r>>1][c.g>>1][c.b>>1];
-	 }
+         for (y=0; y<256; y++) {
+            c.r = i + *(q++);
+            c.g = j + *(q++);
+            c.b = k + *(q++);
+            p[y] = rgb_map->data[c.r>>1][c.g>>1][c.b>>1];
+         }
       }
       else {
-	 for (y=0; y<256; y++) {
-	    c.r = i + *(q++); 
-	    c.g = j + *(q++); 
-	    c.b = k + *(q++);
-	    p[y] = bestfit_color(pal, c.r, c.g, c.b);
-	 }
+         for (y=0; y<256; y++) {
+            c.r = i + *(q++); 
+            c.g = j + *(q++); 
+            c.b = k + *(q++);
+            p[y] = bestfit_color(pal, c.r, c.g, c.b);
+         }
       }
 
       if (callback)
-	 (*callback)(x);
+         (*callback)(x);
    }
 }
 
@@ -87,9 +87,9 @@ static void create_shadow_table(COLOR_MAP *table, PALETTE pal, int r, int g, int
 int create_color_maps(void)
 {
 #define PUT(gamma) \
-  for (i=0; i<16; i++)			      \
+  for (i=0; i<16; i++)                        \
     tint_map->data[gamma][i] = gamma*16+i;    \
-  for (i=0; i<16; i++)			      \
+  for (i=0; i<16; i++)                        \
     tint_dark_map->data[gamma][i] = gamma*16+i*75/100
 
   int i, x, y;
@@ -235,7 +235,6 @@ void capture_screen(void)
   char path[256];
   char buf[13];
   PALETTE pal;
-  BITMAP *bmp;
   int c;
 
   get_executable_name(path, 256);
@@ -250,10 +249,7 @@ void capture_screen(void)
 
   get_palette(pal);
 
-  bmp = create_sub_bitmap(screen, 0, 0, SCREEN_W, SCREEN_H);
-  save_bmp(filename, bmp, pal);
-
-  destroy_bitmap(bmp);
+  save_bmp(filename, virtual, pal);
 }
 
 

@@ -20,7 +20,7 @@
 #include <allegro.h>
 
 #include "objects.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "handle.h"
 #include "graphics.h"
 #include "block.h"
@@ -28,10 +28,10 @@
 
 
 
-#define MPI		3.14159265358979323846
+#define MPI         3.14159265358979323846
 
 
-#define MAX_STARS    1024
+#define MAX_STARS   1024
 
 
 
@@ -50,7 +50,7 @@ static int move_stars(STAR_OBJECT *data)
   for (c=0; c<MAX_STARS; c++) {
     if (data[c].z <= itofix(1)) {
       x = itofix(rand()&0xff);
-      y = itofix(((rand()&3)+1)*SCREEN_W);
+      y = itofix(((rand()&3)+1)*GAME_SCREEN_W);
 
       data[c].x = fmul(fcos(x), y);
       data[c].y = fmul(fsin(x), y);
@@ -60,10 +60,10 @@ static int move_stars(STAR_OBJECT *data)
     x = fdiv(data[c].x, data[c].z);
     y = fdiv(data[c].y, data[c].z);
 
-    ix = (int)(x>>16) + SCREEN_W/2;
-    iy = (int)(y>>16) + SCREEN_H/2;
+    ix = (int)(x>>16) + GAME_SCREEN_W/2;
+    iy = (int)(y>>16) + GAME_SCREEN_H/2;
 
-    if ((ix >= 0) && (ix < SCREEN_W) && (iy >= 0) && (iy <= SCREEN_H)) {
+    if ((ix >= 0) && (ix < GAME_SCREEN_W) && (iy >= 0) && (iy <= GAME_SCREEN_H)) {
       data[c].ox = ix;
       data[c].oy = iy;
       data[c].z -= 4096;
@@ -153,8 +153,8 @@ GAMEOBJ *create_explosion(int x, int y, int mega)
   data->h = (!mega)? (rand()%64)+32: 192;
   data->explo_id = rand()%4;
   data->explo_id = (data->explo_id == 0)? EXPLO1_DAT:
-		   (data->explo_id == 1)? EXPLO2_DAT:
-		   (data->explo_id == 2)? EXPLO3_DAT: EXPLO4_DAT;
+                   (data->explo_id == 1)? EXPLO2_DAT:
+                   (data->explo_id == 2)? EXPLO3_DAT: EXPLO4_DAT;
 
   data->time = (!mega)?
     (rand()%(TICKS_PER_SEC/4)) + (TICKS_PER_SEC/4): (TICKS_PER_SEC*3/4);
@@ -188,8 +188,8 @@ static void draw_linetype(LINETYPE_OBJECT *data)
 {
   int c, x, y, w, h;
   BITMAP *sprite = (data->lines == 2)? datafile[LDOUBLE_BMP].dat:
-		   (data->lines == 3)? datafile[LTRIPLE_BMP].dat:
-		   (data->lines == 4)? datafile[LTETRIS_BMP].dat: NULL;
+                   (data->lines == 3)? datafile[LTRIPLE_BMP].dat:
+                   (data->lines == 4)? datafile[LTETRIS_BMP].dat: NULL;
 
   /* dibujar el sprite */
   if (sprite) {
@@ -214,29 +214,29 @@ static void draw_linetype(LINETYPE_OBJECT *data)
     else {
       c -= TICKS_PER_SEC/8;
       if (c <= (TICKS_PER_SEC/8)) {
-	scale = 2.0 - 1.0 * c / (TICKS_PER_SEC/8);
+        scale = 2.0 - 1.0 * c / (TICKS_PER_SEC/8);
 
-	w = scale * sprite->w;
-	h = scale * sprite->h;
-	stretch_sprite(virtual, sprite, x - w/2, y - h/2, w, h);
+        w = scale * sprite->w;
+        h = scale * sprite->h;
+        stretch_sprite(virtual, sprite, x - w/2, y - h/2, w, h);
       }
       /* dibujar el sprite quieto un rato */
       else {
-	c -= TICKS_PER_SEC/8;
-	if (c <= (TICKS_PER_SEC/3)) {
-	  draw_sprite(virtual, sprite, x - sprite->w/2, y - sprite->h/2);
-	}
-	/* dibujar el sprite aplast ndose */
-	else {
-	  c -= TICKS_PER_SEC/3;
-	  if (c <= (TICKS_PER_SEC/4)) {
-	    scale = 1.0 * c / (TICKS_PER_SEC/4);
+        c -= TICKS_PER_SEC/8;
+        if (c <= (TICKS_PER_SEC/3)) {
+          draw_sprite(virtual, sprite, x - sprite->w/2, y - sprite->h/2);
+        }
+        /* dibujar el sprite aplast ndose */
+        else {
+          c -= TICKS_PER_SEC/3;
+          if (c <= (TICKS_PER_SEC/4)) {
+            scale = 1.0 * c / (TICKS_PER_SEC/4);
 
-	    w = (1.0 + scale) * sprite->w;
-	    h = (1.0 - scale) * sprite->h;
-	    stretch_sprite(virtual, sprite, x - w/2, y - h/2, w, h);
-	  }
-	}
+            w = (1.0 + scale) * sprite->w;
+            h = (1.0 - scale) * sprite->h;
+            stretch_sprite(virtual, sprite, x - w/2, y - h/2, w, h);
+          }
+        }
       }
     }
   }
@@ -274,8 +274,8 @@ typedef struct FLYBLOCK_OBJECT
 } FLYBLOCK_OBJECT;
 
 
-#define WIND	((float)0.0)
-#define WEIGHT	((float)60.0)
+#define WIND    ((float)0.0)
+#define WEIGHT  ((float)60.0)
 
 
 static int calculate_flyblock_pos(FLYBLOCK_OBJECT *data)
@@ -289,7 +289,7 @@ static int calculate_flyblock_pos(FLYBLOCK_OBJECT *data)
   data->x = ((int) (x)+data->startx);
   data->y = ((int)-(y)+data->starty);
 
-  if ((data->x < -BLOCK_SIZE) || (data->x >= SCREEN_W) || (data->y >= SCREEN_H))
+  if ((data->x < -BLOCK_SIZE) || (data->x >= GAME_SCREEN_W) || (data->y >= GAME_SCREEN_H))
     return -1;
 
   return 0;
@@ -302,7 +302,7 @@ static int move_flyblock(FLYBLOCK_OBJECT *data)
   if (calculate_flyblock_pos(data) != 0)
     del_gameobj(active_gameobj);
 
-  data->draw_angle += SGN(data->x - SCREEN_W/2) * ((data->speed) / (float)(10.0));
+  data->draw_angle += SGN(data->x - GAME_SCREEN_W/2) * ((data->speed) / (float)(10.0));
     
   return 0;
 }
@@ -316,7 +316,7 @@ static void draw_flyblock(FLYBLOCK_OBJECT *data)
   
   draw_block(block_bmp, 0, 0, data->block, TRUE);
 
-  scale -= ftofix(0.25) * ABS(data->x - SCREEN_W/2) / (SCREEN_W/2);
+  scale -= ftofix(0.25) * ABS(data->x - GAME_SCREEN_W/2) / (GAME_SCREEN_W/2);
   scale += ftofix(data->scale);
 
   rotate_scaled_sprite(virtual, block_bmp, data->x, data->y,
@@ -339,7 +339,7 @@ GAMEOBJ *create_flyblock(int x, int y, BLOCK block, int super_speed)
   
   data->speed  = (super_speed)? (float)(100.0):
     ((float)(rand()%200) / (float)(10.0)) +
-			   (float)(40.0) + ABS(data->angle - (float)(90.0));
+                           (float)(40.0) + ABS(data->angle - (float)(90.0));
   data->draw_angle = (float)0.0;
   data->scale  = ((float)(rand()%200) / (float)(1000.0)) - (float)(0.1);
   data->ani_time = game_clock;

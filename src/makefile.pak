@@ -1,6 +1,6 @@
 # Copyright (C) 1999, 2000, 2001 by David A. Capello
 
-VERSION = 1.3.1
+VERSION = 1.4
 
 default: all
 
@@ -62,58 +62,57 @@ BIN_QNX_FILES = \
 	$(BIN_FILES) \
 	qtetris/qtetris
 
+pre:
+	rm -f ../qtetris.hof ../qtetris.dat makefile makefile.dep data.h
+	cat ../qtetris.cfg | sed -e "s/^\([^\#].*\=\).*/\1/g" > _tmpfile
+	mv _tmpfile ../qtetris.cfg
+
 src:
 	@echo Making source distribution...
-	cd ../..
-	zip -9 qtetris-$(VERSION).src.zip $(SRC_FILES)
-	cd qtetris/src
+	cd ../.. ; zip -9 qtetris/qtetris-$(VERSION).src.zip $(SRC_FILES) ; cd qtetris/src
 	@echo Done!
 
 dat:
-	@echo Making DATA distribution...
-	cd ../..
-	zip -9 qtetris-$(VERSION).dat.zip $(DAT_FILES)
-	cd qtetris/src
+	@echo Making data distribution...
+	cd ../.. ; zip -9 qtetris/qtetris-$(VERSION).dat.zip $(DAT_FILES) ; cd qtetris/src
 	@echo Done!
 
 dos:
-	@echo Making MS-DOS packages...
+	@echo Making DOS packages...
 	-./fixdjgpp.bat
 	-make depend
+	./makedata.bat
 	make DEBUGMODE=
-	cd ../..
-	zip -9 qtetris-$(VERSION).bin-dos.zip $(BIN_DOS_FILES)
-	cd qtetris/src
+	cd ../.. ; zip -9 qtetris/qtetris-$(VERSION).bin-dos.zip $(BIN_DOS_FILES) ; cd qtetris/src
 	@echo Done!
 
 win:
 	@echo Making Windows packages...
 	-./fixmsvc.bat
 	-make depend
+	./makedata.bat
 	make DEBUGMODE=
-	cd ../..
-	zip -9 qtetris-$(VERSION).bin-win.zip $(BIN_WIN_FILES)
-	cd qtetris/src
+	cd ../.. ; zip -9 qtetris/qtetris-$(VERSION).bin-win.zip $(BIN_WIN_FILES) ; cd qtetris/src
 	@echo Done!
 
 uni:
 	@echo Making UNIX packages...
 	-./fixunix.sh
 	-make depend
+	./makedata.sh
 	make STATICLINK=1 DEBUGMODE=
-	cd ../.. ; tar -czf qtetris-$(VERSION).bin-uni.tar.gz $(BIN_UNI_FILES)
+	cd ../.. ; tar -czf qtetris/qtetris-$(VERSION).bin-uni.tar.gz $(BIN_UNI_FILES)
 	@echo Done!
 
 qnx:
 	@echo Making QNX packages...
 	-./fixqnx.sh
 	-make depend
+	./makedata.sh
 	make STATICLINK=1 DEBUGMODE=
-	cd ../.. ; zip -9 qtetris-$(VERSION).bin-qnx.zip $(BIN_QNX_FILES)
+	cd ../.. ; zip -9 qtetris/qtetris-$(VERSION).bin-qnx.zip $(BIN_QNX_FILES)
 	@echo Done!
 
 all:
 	@echo "Rules:"
-	@echo "  src, dat, dos, win, uni, qnx"
-
-
+	@echo "  First \`pre', and then: src, dat, dos, win, uni, or qnx"

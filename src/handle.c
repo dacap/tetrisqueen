@@ -20,7 +20,7 @@
 #include <allegro/aintern.h>
 
 #include "handle.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "graphics.h"
 #include "data.h"
 
@@ -151,65 +151,65 @@ void handle_game(void)
 
       /* abortar el juego */
       if (key[KEY_Q] && (key_shifts & KB_CTRL_FLAG)) {
-	exit(1);
+        exit(1);
       }
 
       /* pausa */
       if (key[KEY_F11]) {
-	static char pause[] = "- PAUSE -";
-	FONT *f = (FONT *)datafile[FONTBIG_PCX].dat;
-	int x = SCREEN_W/2;
-	int y = SCREEN_H/2-text_height(f)/2;
+        static char pause[] = "- PAUSE -";
+        FONT *f = (FONT *)datafile[FONTBIG_PCX].dat;
+        int x = SCREEN_W/2;
+        int y = SCREEN_H/2-text_height(f)/2;
 
-	push_clock();
+        push_clock();
 
-	clear_keybuf();
+        clear_keybuf();
 
-	drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
-	color_map = trans_dark_map;
-	rectfill(screen, 0, 0, SCREEN_W-1, SCREEN_H-1, makecol(0, 0, 0));
-	solid_mode();
+        drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
+        color_map = trans_dark_map;
+        rectfill(screen, 0, 0, SCREEN_W-1, SCREEN_H-1, makecol(0, 0, 0));
+        solid_mode();
 
-	text_mode(-1);
-	textout_centre(screen, f, pause, x-1, y, 0);
-	textout_centre(screen, f, pause, x+1, y, 0);
-	textout_centre(screen, f, pause, x, y-1, 0);
-	textout_centre(screen, f, pause, x, y+1, 0);
-	textout_centre(screen, f, pause, x, y, -1);
+        text_mode(-1);
+        textout_centre(screen, f, pause, x-1, y, 0);
+        textout_centre(screen, f, pause, x+1, y, 0);
+        textout_centre(screen, f, pause, x, y-1, 0);
+        textout_centre(screen, f, pause, x, y+1, 0);
+        textout_centre(screen, f, pause, x, y, -1);
 
-	do {
-	  poll_keyboard();
-	} while (!keypressed());
+        do {
+          poll_keyboard();
+        } while (!keypressed());
 
-	clear_keybuf();
-	
-	pop_clock();
+        clear_keybuf();
+        
+        pop_clock();
       }
 
       /* capturar la pantalla */
       if (key[KEY_F12]) {
-	push_clock();
+        push_clock();
       
-	capture_screen();
-	
-	do {
-	  poll_keyboard();
-	} while (key[KEY_F12]);
+        capture_screen();
+        
+        do {
+          poll_keyboard();
+        } while (key[KEY_F12]);
 
-	pop_clock();
+        pop_clock();
       }
 
       /* realizar un fundido de la pantalla */
       if (fadeout_start)
-	game_over = fadeout_a_frame();
+        game_over = fadeout_a_frame();
 
       /* mover los objetos */
       pos = gameobj_list;
       while ((pos) && !(game_over)) {
-	next = pos->next;
-	active_gameobj = pos;
-	game_over = pos->move(pos->data);
-	pos = next;
+        next = pos->next;
+        active_gameobj = pos;
+        game_over = pos->move(pos->data);
+        pos = next;
       }
 
       speed_counter--;
@@ -278,12 +278,12 @@ void del_gameobj(GAMEOBJ *obj)
   while (pos) {
     if (pos == obj) {
       if (!prev)
-	gameobj_list = pos->next;
+        gameobj_list = pos->next;
       else
-	prev->next = pos->next;
+        prev->next = pos->next;
 
       if (pos == active_gameobj)
-	active_gameobj = NULL;
+        active_gameobj = NULL;
 
       free(pos->data);
       free(pos);

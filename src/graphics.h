@@ -20,14 +20,14 @@
 
 
 
-#define PAL_GRAY	0
-#define PAL_RED		1
-#define PAL_GREEN	2
-#define PAL_BLUE	3
-#define PAL_YELLOW	4
-#define PAL_MAGENTA	5
-#define PAL_ORANGE	6
-#define PAL_LIGHTBLUE	7
+#define PAL_GRAY        0
+#define PAL_RED         1
+#define PAL_GREEN       2
+#define PAL_BLUE        3
+#define PAL_YELLOW      4
+#define PAL_MAGENTA     5
+#define PAL_ORANGE      6
+#define PAL_LIGHTBLUE   7
 
 
 

@@ -19,7 +19,7 @@
 
 #include "block.h"
 #include "graphics.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "data.h"
 
 
@@ -38,7 +38,7 @@ void draw_block(BITMAP *bmp, int x, int y, BLOCK block, int dark)
       blit(datafile[BLOCK_BMP].dat, block_bmp, 0, 0, 0, 0, BLOCK_SIZE, BLOCK_SIZE);
     else {
       blit(datafile[BLOCK_BMP].dat, block_bmp,
-	((block & 0xf0) >> 4) * BLOCK_SIZE, 0, 0, 0, BLOCK_SIZE, BLOCK_SIZE);
+        ((block & 0xf0) >> 4) * BLOCK_SIZE, 0, 0, 0, BLOCK_SIZE, BLOCK_SIZE);
 
       block = PAL_GRAY;
       dark = FALSE;

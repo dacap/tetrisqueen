@@ -21,7 +21,7 @@
 #include "credits.h"
 #include "graphics.h"
 #include "handle.h"
-#include "tetris.h"
+#include "qtetris.h"
 #include "data.h"
 
 
@@ -104,7 +104,7 @@ static int move(void *null)
       y += credits_line[i].next * text_height(font);
 
     /* el m¡nimo ser  desde el cuarto de pantalla para arriba */
-    min_y = itofix(SCREEN_H/4 - y);
+    min_y = itofix(GAME_SCREEN_H/4 - y);
   }
 
   /* subir el texto 0.25 puntos */
@@ -145,15 +145,16 @@ static void draw(void *null)
   (void)null;
 
   if (!final_credits) {
-    for (y=0; y<SCREEN_H; y+=10)
-      for (x=0; x<SCREEN_W; x+=10)
-	blit(ALBUM_BMP(23), virtual, 0, 0, x, y, 10, 10);
+    for (y=0; y<GAME_SCREEN_H; y+=10)
+      for (x=0; x<GAME_SCREEN_W; x+=10)
+        blit(ALBUM_BMP(23), virtual, 0, 0, x, y, 10, 10);
 
     blit(ALBUM_BMP(23), virtual, 0, 0,
-      SCREEN_W/2-ALBUM_W/2, SCREEN_H-ALBUM_H+1, ALBUM_W, ALBUM_H);
+      GAME_SCREEN_W/2-ALBUM_W/2,
+      GAME_SCREEN_H-ALBUM_H+1, ALBUM_W, ALBUM_H);
   }
   else {
-    blit(datafile[FINAL_BMP].dat, virtual, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
+    blit(datafile[FINAL_BMP].dat, virtual, 0, 0, 0, 0, GAME_SCREEN_W, GAME_SCREEN_H);
   }
 
   text_mode(-1);
@@ -162,7 +163,7 @@ static void draw(void *null)
   for (i=0; i<credits_size; i++) {
     f = datafile[(credits_line[i].type == TYPE_TITLE)? FONTBIG_PCX: FONTGAME_PCX].dat;
 
-    textout_centre_lit(virtual, f, credits_line[i].text, SCREEN_W/2, y,
+    textout_centre_lit(virtual, f, credits_line[i].text, GAME_SCREEN_W/2, y,
       (credits_line[i].type == TYPE_LINK)? PAL_BLUE: -1);
 
     y += credits_line[i].next * text_height(font);
@@ -180,10 +181,10 @@ int play_credits(void)
   gameobj_list = NULL;
 
   push_clock();
-  play_music((!final_credits)? MUSIC19_MID: MUSIC02_MID, TRUE);
+  play_music((!final_credits)? MUSIC_CREDITS: MUSIC_FINAL, TRUE);
   pop_clock();
 
-  text_y = itofix(SCREEN_H+16);
+  text_y = itofix(GAME_SCREEN_H+16);
 
   fadeout_start = 0;
   fadein = 0;

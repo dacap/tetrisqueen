@@ -20,14 +20,14 @@
 
 
 
-#define BLOCK_SIZE		8
+#define BLOCK_SIZE              8
 
-#define BLOCK_SPECIAL		0x10
-#define BLOCK_SPECIAL_LT	0x20
-#define BLOCK_SPECIAL_RT	0x30
-#define BLOCK_SPECIAL_LB	0x40
-#define BLOCK_SPECIAL_RB	0x50
-#define BLOCK_GRAY		0xf0
+#define BLOCK_SPECIAL           0x10
+#define BLOCK_SPECIAL_LT        0x20
+#define BLOCK_SPECIAL_RT        0x30
+#define BLOCK_SPECIAL_LB        0x40
+#define BLOCK_SPECIAL_RB        0x50
+#define BLOCK_GRAY              0xf0
 
 
 

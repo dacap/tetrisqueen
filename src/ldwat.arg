@@ -1,5 +1,5 @@
 option quiet
-name ..\tetris.exe
+name ..\qtetris.exe
 option stack=128k
 system dos4g
 library alleg.lib
@@ -17,3 +17,4 @@ file obj/objects.obj
 file obj/piece.obj
 file obj/player.obj
 file obj/playgame.obj
+file obj/qtetris.obj
