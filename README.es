@@ -263,35 +263,35 @@ Los diferentes modos de juego de TETRIS Queen son:
 8. PROGRAMANDO
 --------------
 
-Si realmente está interesado en programar TETRIS Queen, con mucha libertad
-le dejo entrar en el código fuente y hacer las modificaciones que se le
-plasca (si puede entender algo :-).
+Para conseguir el código fuente de TETRIS Queen y comenzar a modificar cosas,
+puede hacerlo bajándose el paquete "qtetris*-src.zip" o directamente desde el
+repositorio CVS (mire la sección FAQ para más información sobre este tema),
+cualquier sea el modo que utilice, junto a esto necesitará el paquete
+"qtetris*-dat.zip" que contiene los fuentes de los datos (.BMP, .PCX, .WAV,
+.MID, etc.) para poder crear el fichero de datos y su archivo de cabecera
+correspondiente.
 
-Antes que nada, hay dos formas de obtener el código fuente, mediante el
-paquete "qtetris*-src.tar.gz" o directamente desde el repositorio CVS.
-De todos modos, si desea compilar el código, necesitará SI O SI los
-fuentes de los datos, es decir, el paquete "qtetris*-dat.tar.gz", esto se
-debe principalmente a que al recompilar el juego, el fichero "qtetris.dat"
-se genera automáticamente en este proceso.
+Para compilar satisfactoriamente el juego, deberá tener la librería Allegro,
+y si tiene Allegro, se supone que tiene una mínima idea sobre cómo
+compilarlo. Ahora, el proceso para TETRIS Queen es exactamente el mismo (o
+bastante parecido). Vaya al directorio `qtetris/src', y ejecute uno de los
+archivos fixdjgpp, fixmingw, fixmsvc, fixunix o fixwat (dependiendo del
+compilador y plataforma). Luego, ejecute `make depend' y finalmente `make'
+desde la línea de comandos. Si todo sale bien, tendrá el juego hecho y listo
+para ejecutar, y si no, me deberá avisar que algo anda mal, ya que algunas
+versiones ni fueron probadas (la de Watcom por ej.).
 
-Para compilar satisfactoriamente el juego, deberá antes que nada tener la
-librería Allegro, y si tiene Allegro, se supone que tiene una mínima idea
-sobre cómo compilarlo. Ahora, el proceso para TETRIS Queen es exactamente
-el mismo (o bastante parecido). Vaya al directorio `qtetris/src', y
-ejecute uno de los archivos fixdjgpp, fixmingw, fixmsvc, fixunix o fixwat
-(dependiendo del compilador y plataforma). Luego, ejecute `make depend' y
-finalmente `make' desde la línea de comandos. Si todo sale bien, tendrá el
-juego hecho y listo para ejecutar, y si no, me deberá avisar que algo anda
-mal, ya que algunas versiones ni fueron probadas (la de Watcom por ej.).
+Por otro lado, si es la primera vez que compila el juego (o modifica los
+datos fuentes), deberá reconstruir el archivo de datos ejecutando
+`makedata.bat' (en plataformas basadas en MS-DOS) o el archivo `makedata.sh'
+(en plataformas basadas en Unix).
 
-Por otro lado, algunas versiones tienen problemas al crear el archivo de
-datos a partir de data.h, por lo que una buena opción y forma de compilar
-todo sería:
+Aquí tiene un ejemplo de cómo sería compilar el juego en MS-DOS con DJGPP:
 
-  fix*****
-  make depend
-  make data.h
-  make
+  >fixdjgpp
+  >makedata
+  >make depend
+  >make
 
 También puede utilizar opciones como `make DEBUGMODE=1' para poder depurar
 el código de TETRIS Queen, o como `make STATICLINK=1' para que en algunas
@@ -305,7 +305,7 @@ Allegro antes que las dinámicas (como ficheros .DLL o .os).
 P: ¿Qué hay de nuevo en esta versión?
 R: Un poco más de documentación y varias mejoras internas para poder
    reconstruir el programa en otras plataformas (MS-DOS, Windows, Unix,
-   GNU/Linux).
+   GNU/Linux, QNX).
 
 P: ¿Habrá nuevas versiones?
 R: Por ahora no, pero en el futuro nadie sabe, tenía algunos planes para
@@ -319,7 +319,7 @@ R: En realidad habrá sido 1 y sin ganas :-) La razón principal era que
    sólo hago versiones de mantenimiento (si Allegro cambia, TETRIS también),
    y por eso se van agregando años (2001 por ejemplo). De todos modos, no se
    por qué le interesa tanto cuánto demoré, al fin y al cabo, el juego ya
-   está listo.
+   está hecho.
 
 P: Las músicas se escuchan con muy baja calidad ¿Cómo puedo mejorar esto?
 R: La única forma, por ahora, es bajarse unos WAVETABLES para que los
@@ -328,16 +328,6 @@ R: La única forma, por ahora, es bajarse unos WAVETABLES para que los
    desde la misma página de Allegro:
 
      http://www.talula.demon.co.uk/allegro/digmid.html
-
-P: ¿Cómo descomprimo los archivos *.tar.gz?
-R: Utilizando los programas gzip y tar, los puede encontrar en la siguiente
-   dirección FTP con los nombres gzp*b.zip y tar*.zip:
-
-     ftp://ftp.demon.co.uk/pub/mirrors/simtelnet/gnu/djgpp/v2gnu/
-
-   Una vez que los consiga, debe ejecutar:
-
-     tar -xzvf ase*.tar.gz
 
 P: ¿Dónde consigo la utilidad CVS?
 R: La versión para Windows de CVS (Concurrent Versions System) se encuentra
@@ -369,6 +359,13 @@ R: Una vez que tenga la utilidad cvs, debe seguir estos pasos:
    IMPORTATE: cuando obtenga la versión CVS, no borre los directorios CVS ni
    el contenido dentro de ellos, es para uso interno de este programa.
 
+P: Cuando quiero compilar el juego aparece algo como esto:
+   make.exe: *** No rule to make target `data.h', needed by `obj/block.o'.  Stop.
+   ¿Qué hago?
+R: Esto se debe a que todavía no ha reconstruido el archivo de datos, para
+   hacerlo, ejecute makedata.bat o makedata.sh, espere un rato e inténtelo
+   nuevamente.
+
 P: Tengo problemas y no hay mucha documentación :-(
    ¿Dónde encuentro más ayuda?
 R: Puede enviarme un email a mi dirección personal:
@@ -382,53 +379,7 @@ R: Puede enviarme un email a mi dirección personal:
 10. CRÉDITOS
 ------------
 
-Programador, gráficos, sonidos, documentación, testeador, y otras cosas:
-
-  David A. Capello (davidcapello@yahoo.com)
-  http://www.davidcapello.com.ar/
-
-Traducción de la documentación al inglés:
-
-  Grzegorz Adam Hankiewicz (gradha@terra.es), realmente gracias a su
-  colaboración desinteresada (por ahora :-) de traducir la documentación y
-  perder su preciado tiempo en este horrible trabajo. Realmente gracias.
-  http://gradha.infierno.org
-
-Músicas MIDI e imágenes de los álbumes:
-
-  Todas las músicas de Queen en el juego, y las tapas de cada álbum, fueron
-  bajadas desde el sitio:
-
-    http://www.queentrivia.mcmail.com/ 
-
-  Aquí encontrará un link hacia músicas MIDIs, donde también podrá ver los
-  autores de cada una.
-
-Contribuciones:
-
-  Si desea ver la lista de gente que participó en mejorar TETRIS Queen,
-  puede dirigirse al archivos `AUTHORS.es'.
-
-
-GRACIAS ESPECIALMENTE A:
-------------------------
-
-Shawn Hargreaves (shawn@talula.demon.co.uk) y a las cientos de personas de
-todo el mundo que ayudaron a crear la librería Allegro.
-http://www.talula.demon.co.uk/allegro/
-
-DJ Delorie y toda la gente que ayudó a crear el compilador DJGPP.
-http://www.delorie.com/djgpp/
-
-Robert Höhne (robert.hoehne@gmx.net), Salvador Eduardo Tropea (SET)
-(salvador@inti.gov.ar), Andris Pavenis (pavenis@lanet.lv), y de más gente
-que contribuyó con RHIDE.
-http://www.lanet.lv/~pavenis/rhide.html
-
-Charles W Sandmann (sandmann@clio.rice.edu) por el servidor DPMI para DOS.
-
-Alexey Pajitnov por hacer uno de los juegos más adictivos de la historia.
-
-Y por supuesto, a Freddie Mercury, Roger Taylor, John Deacon, y Brian May,
-por hacer la mejor música de todos los tiempos.
+Mire `AUTHORS.es' para ver quien participó directamente en el proyecto y
+`THANKS.es' para ver los agradecimientos a las personas que sin su ayuda
+sería imposible la existencia de TETRIS Queen hoy en día.
 

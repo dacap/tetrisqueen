@@ -255,34 +255,34 @@ TETRIS Queen's different game modes are:
 8. PROGRAMMING
 --------------
 
-If you are really interested in programming TETRIS Queen, you are allowed
-to freeely read, modify and extend the source code in any way you like
-(that is, if you anderstand anything :-).
+To get the source code of TETRIS Queen and to begin to modify things,
+you can make it download the package "qtetris*-src.zip" or directly from the
+CVS repository (you look at the section FAQ for more information on this
+topic), anyway, next to this you will need the package "qtetris*-dat.zip"
+that contains the sources of the data (.BMP, .PCX, .WAV, .MID, etc.) to be
+able to create the data file and their corresponding header file.
 
-First, there are two ways of getting the source code, one through the
-"qtetris*-src.tar.gz" package, or directly from the CVS repository.
-Anyway, if you want to compile the game, you will always need the data
-source, that is, the "qtetris*-dat.tar.gz" package, and this is because
-when you build the game, the "qtetris.dat" file has to be generated
-automatically by the process.
+To compile successfully the game, you should have Allegro, and if you have
+Allegro you are suposed to know how to compile it. Now, the process to build
+TETRIS Queen is exactly the same (or practically the same). Go to the
+directory `qtetris/src', and run one of the files fixdjgpp, fixmingw,
+fixmsvc, fixunix or fixwat (depending on your compiler and platform). Then
+run `make depend' and finally `make' from the commandline. If everything
+goes well, you will have the game ready to play, and if not, you will have
+to warn me, since I didn't test some versions (ie: the Watcom port).
 
-To compile successfully the game, before anything else, you should have
-Allegro, and if you have Allegro you are suposed to know how to compile
-it. Now, the process to build TETRIS Queen is exactly the same (or
-practically the same). Go to the directory `qtetris/src', and run one of
-the files fixdjgpp, fixmingw, fixmsvc, fixunix or fixwat (depending on
-your compiler and platform). Then run `make depend' and finally `make'
-from the commandline. If everything goes well, you will have the game
-ready to play, and if not, you will have to warn me, since I didn't test
-some versions (ie: the Watcom port).
+On the other hand, if it is the first time that you compile the game (or you
+modify the data sources), you will reconstruct the data file executing
+`makedata.bat' (in platforms based on MS-DOS) or the file `makedata.sh'
+(in platforms based on Unix).
 
-On the other hand, some versions have problems to create the datafile
-from data.h, so a good way and option is to build everything like this:
+Here you have an example of how it would be to compile the game in MS-DOS
+with DJGPP:
 
-  fix*****
-  make depend
-  make data.h
-  make
+  >fixdjgpp
+  >makedata
+  >make depend
+  >make
 
 You can also use options like `make DEBUGMODE=1' to generate code suitable
 for debugging TETRIS Queen, or `make STATICLINK=1' to link against static
@@ -293,16 +293,16 @@ libraries (like .DLLs or .so files).
 9. FAQ
 ------
 
-P: What's new in this version?
-R: A little bit more documentation and different internal improvements to
+Q: What's new in this version?
+A: A little bit more documentation and different internal improvements to
    allow building the game under other platforms (MS-DOS, Windows, Unix,
-   GNU/Linux).
+   GNU/Linux, QNX).
 
-P: Will you release more versions?
-R: Not now, but who knows, I had some plans for TETRIS Queen II, but...
+Q: Will you release more versions?
+A: Not now, but who knows, I had some plans for TETRIS Queen II, but...
 
-P: Did you take 3 years to write a simple TETRIS?
-R: The truth is that it was one and without motivation :-) The main
+Q: Did you take 3 years to write a simple TETRIS?
+A: The truth is that it was one and without motivation :-) The main
    culprit was that I changed my mind every day (something which shouldn't
    be done if you make a good previous design :-), and I didn't want to
    program something without much future (nobody get's suprised by a
@@ -311,26 +311,16 @@ R: The truth is that it was one and without motivation :-) The main
    Anyway, I don't understand why are you so interested in my delay, when
    after all the game is done.
 
-P: The music has low quality ¿How can I improve them?
-R: The only way, for the moment, is to download some WAVETABLES to
+Q: The music has low quality. How can I improve them?
+A: The only way, for the moment, is to download some WAVETABLES to
    substitute the "poor" MIDI sounds with "powerfull" high quality samples
    included in these wavetable files. You can find some links to them from
    the Allegro web page itself:
 
      http://www.talula.demon.co.uk/allegro/digmid.html
 
-P: ¿How do I uncompress *.tar.gz files?
-R: Using the gzip and tar programs, which you can find in the following
-   FTP with the names gzp*b.zip y tar*.zip:
-
-     ftp://ftp.demon.co.uk/pub/mirrors/simtelnet/gnu/djgpp/v2gnu/
-
-   Once you have them, you can run:
-
-     tar -xzvf ase*.tar.gz
-
-P: ¿Where do I get the CVS tool?
-R: The Windows CVS (Concurrent Versions Systems) version is at:
+Q: Where do I get the CVS tool?
+A: The Windows CVS (Concurrent Versions Systems) version is at:
 
      ftp://ftp.cvshome.org/pub/cvs-1.11/windows/cvs1-11.zip
 
@@ -338,8 +328,8 @@ R: The Windows CVS (Concurrent Versions Systems) version is at:
 
      http://www.cvshome.org
 
-P: How do I get the source code from the CVS repository?
-R: Once you have the cvs tool, follow these steps:
+Q: How do I get the source code from the CVS repository?
+A: Once you have the cvs tool, follow these steps:
 
    1) You have to login anonymously to the repository with:
 
@@ -357,9 +347,16 @@ R: Once you have the cvs tool, follow these steps:
    IMPORTANT: when you get the CVS version, don't delete the CVS
    directories or their contents, they are used internally by the program.
 
-P: I've got problems and there's not much documentation :-(
+Q: When I want to compile the game, something appears as this:
+   make.exe: *** No rule to make target `data.h', needed by `obj/block.o'.  Stop.
+   What I do?
+A: This is due to that you have not still reconstructed the data file, to
+   make it, execute makedata.bat or makedata.sh, wait a while and attempt
+   it again.
+
+Q: I've got problems and there's not much documentation :-(
    Where can I get more help?
-R: You can send me an email to my own address:
+A: You can send me an email to my own address:
 
      davidcapello@yahoo.com
 
@@ -370,53 +367,7 @@ R: You can send me an email to my own address:
 10. CREDITS
 -----------
 
-Programmer, graphics, sounds, documentation, tester, and other things:
-
-  David A. Capello (davidcapello@yahoo.com)
-  http://www.davidcapello.com.ar/
-
-Translation of the documentation to english:
-
-  Grzegorz Adam Hankiewicz (gradha@terra.es), really thank you for the
-  uninterested colaboration (for the moment :-) of translating the
-  documentation and loosing time with such a horrible task. Really thanks.
-  http://gradha.infierno.org
-
-MIDI songs and album images:
-
-  All the Queen songs in the game, and all album covers where downloaded
-  from:
-
-    http://www.queentrivia.mcmail.com/
-
-  Here you will find a link to MIDI songs, where you will see the authors
-  of each song.
-
-Contributions:
-
-  If you want to see people's list that participated in improving TETRIS
-  Queen, you can go to the `AUTHORS.en' file.
-
-
-SPECIAL THANKS TO:
-------------------
-
-Shawn Hargreaves (shawn@talula.demon.co.uk) and the hundreds of people of
-the whole world who helped him writting the Allegro library.
-http://www.talula.demon.co.uk/allegro/
-
-DJ Delorie and all the people who created the DJGPP compiler.
-http://www.delorie.com/djgpp/
-
-Robert Höhne (robert.hoehne@gmx.net), Salvador Eduardo Tropea (SET)
-(salvador@inti.gov.ar), Andris Pavenis (pavenis@lanet.lv), and more people
-who contributed to RHIDE.
-http://www.lanet.lv/~pavenis/rhide.html
-
-Charles W Sandmann (sandmann@clio.rice.edu) for the DOS' DPMI server.
-
-Alexey Pajitnov for making one of the most addictive games of the history.
-
-And of course, thanks to Freddie Mercury,  Roger Taylor, John Deacon, and
-Brian May, for making the best music of all times.
+You look at `AUTHORS.es' to see who participated directly in the project and
+`THANKS.es' to see the gratefulness to people that it would be impossible
+without its help the existence of TETRIS Queen today in day.
 

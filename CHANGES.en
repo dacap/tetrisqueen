@@ -1,0 +1,57 @@
+2001-06-17  David A. Capello
+
+	* Finished the translation: TODO.en and CHANGES.en.
+
+2001-06-16  David A. Capello
+
+	* Modified the form of creating the data file: now it is necessary
+	  to use makedata.bat and makedata.sh, with this some problems are
+	  eliminated that had the makefiles with the dependences of the
+	  data.h.
+	* Modified the documentation: ready the translation of AUTHORS.es
+	  and THANKS.es, fixed the README a little.
+	* Eduard Bloch apparently will be the one in charge of packing the
+	  game for the Debian distributions.
+
+2001-06-15  David A. Capello
+
+	* Eliminated the readkey() at the end of the game: in some platforms
+	  it was the black screen without anything (and it became confused)
+	  (recommended by Eduard Bloch).
+
+2001-06-07  David A. Capello
+
+	* All the packages to ZIP format (to look at makefile.pak): the help
+	  of how to decompress files .tar.gz was eliminated.
+
+2001-06-03  David A. Capello
+
+	* Modified in `main.c' the usage() and some things when recognizing
+	  the arguments.
+	* Eliminated a static variable `game_over' in `credits.c': was not
+	  it used for absolutely ANYTHING (it's strange, not?).
+	* Optimized `credits.c': the form of managing the list of lines that
+	  they should go appearing in the screen.
+	* I cleaned the code a little: eliminated some TABs.
+	* Eliminated of all the files of source code the version of the game:
+	  this would make but rather in each new version all the files should
+	  modify.
+	* The src, dos and win packages are in ZIP format: now that I got the
+	  utility InfoZIP for MSDOS (it was hour :-)
+	* Modified some variables in makefile.pak and the names of the rules:
+	  now they are `src', `dos', etc, without the `pack'.
+
+2001-06-02  David A. Capello
+
+	* Modified: leame.txt and readme.txt to README.es,en, and license.txt
+	  to COPYING.
+	* Attaches: the files CHANGES.es and AUTHORS.es.
+	* An error reported by Norberto Alfredo Bensa: the file
+	  obj/tmpfile.txt was not added in the packages, and also thanks to
+	  him, now in the makefiles normal bars are used (/) to indicate the
+	  route of access of the utility DAT of Allegro.
+
+2001-05-31  David A. Capello
+
+	* Attaches the files makefile.qnx and fixqnx.sh by Angelo Mottola:
+	  now the game also compiles in QNX.

@@ -1,0 +1,18 @@
+Angelo Mottola <a.mottola@libero.it>
+Made the makefile and fix* necessary to compile the game in the QNX operating
+system.
+
+David A. Capello <davidcapello@yahoo.com>
+Programmer, graphics, sounds, spanish documentation and administrator of the
+project.
+
+Eduard Bloch <edi@gmx.de>
+He will prepare the package for Debian and made some that another good
+recommendation.
+
+Grzegorz Adam Hankiewicz <gradha@terra.es>
+Translator of the documentation to english.
+
+Norberto Alfredo Bensa <ceo@nbensacomputers.com>
+He reported an error with the directory obj/ and an improvement for the
+makefile.
