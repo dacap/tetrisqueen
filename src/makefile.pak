@@ -20,6 +20,9 @@ SRC_PACK_FILES = \
 	qtetris/src/data/tmpfile.txt
 
 DAT_PACK_FILES = \
+	qtetris/leame.txt \
+	qtetris/license.txt \
+	qtetris/readme.txt \
 	qtetris/src/data/*.dat \
 	qtetris/src/data/*.pcx \
 	qtetris/src/data/info.txt \

@@ -32,7 +32,7 @@ $(TARGET_NAME): $(TARGET_OBJS)
 obj/%.o: %.c
 	gcc $(CFLAGS) -o $@ -c $<
 
-obj/icon.a: ../qtetris.ico
+obj/%.a: ../qtetris.ico
 	echo MYICON ICON $^ | windres -o $@
 
 

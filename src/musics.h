@@ -1,5 +1,5 @@
 /*
- * TETRIS Queen - Version 1.2
+ * TETRIS Queen - Version 1.3
  * Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify

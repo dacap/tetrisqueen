@@ -135,7 +135,7 @@ static void usage(void)
   get_executable_name(buf, 256);
 
   allegro_message(
-    "\n" GAME_NAME " (ver. " GAME_VER "), Copyright (C) " GAME_DATE ", by David A. Capello\n"
+    "\n" GAME_NAME " v" GAME_VERSION ", Copyright (C) " GAME_DATE ", by David A. Capello\n"
     "\n"
     "Use: %s [OPTIONS]\n"
     "\n"
@@ -144,7 +144,7 @@ static void usage(void)
     "  -s, --nosound   doesn't install sounds\n"
     "  -j, --nojoy     doesn't install joystick\n"
     "  -?, --help      shows the program's help\n"
-    "\nReport bugs to <" AUTHOR_EMAIL ">.\n", buf);
+    "\nReport bugs to " AUTHOR_EMAIL ".\n", buf);
 }
 
 
@@ -291,11 +291,11 @@ int main(int argc, char *argv[])
   #ifndef DEBUGMODE
 
     allegro_message(
-      "\n" GAME_NAME " - Version " GAME_VER "\n"
-      "Copyright (C) " GAME_DATE ", by David A. Capello <" AUTHOR_EMAIL ">\n\n"
+      "\n" GAME_NAME " - Version " GAME_VERSION "\n"
+      "Copyright (C) " GAME_DATE ", by David A. Capello (" AUTHOR_EMAIL ")\n\n"
       "This game is FREEWARE (totaly free), and you can update from:\n"
       "Este juego es FREEWARE (totalmente gratuito), y lo puede actualizar desde:\n\n"
-      AUTHOR_WEB "\n\n");
+      GAME_URL "\n\n");
 
     #ifdef ALLEGRO_CONSOLE_OK
 

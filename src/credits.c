@@ -86,7 +86,7 @@ static void draw(void *null)
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "(version " GAME_VER ")" },
+	{ TYPE_TEXT, "Version " GAME_VERSION },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, NULL },
@@ -100,7 +100,7 @@ static void draw(void *null)
 	{ TYPE_TEXT, "Translation of the docs." },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, "Grzegorz Adam Hankiewicz" },
-	{ TYPE_LINK, "http://welcome.to/gogosoftware/" },
+	{ TYPE_LINK, "http://gradha.infierno.org" },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, "Musics:" },
@@ -133,7 +133,7 @@ static void draw(void *null)
 	{ TYPE_TEXT, "David Alfredo Capello" },
 	{ TYPE_TEXT, "Copyright (C) " GAME_DATE },
 	{ TYPE_TEXT, NULL },
-	{ TYPE_LINK, AUTHOR_WEB },
+	{ TYPE_LINK, GAME_URL },
 	{ TYPE_END, NULL }
   };
 

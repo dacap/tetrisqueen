@@ -5,8 +5,6 @@ DAT = $(ALLEGRO)\tools\dat.exe
 include makefile.lst
 include $(MAKEFILE_INC)
 
--include makefile.dep
-
 
 .PHONY: default all msg clean distclean depend data.h
 
@@ -43,7 +41,10 @@ depend:
 	$(DAT) -t PAL  -a data/bgpal.dat data/bg*.pcx
 	$(DAT) -t FILE -a ../qtetris.dat data/bgpal.dat
 	-rm -fv data/bgpal.dat
-	$(DAT) -t FILE -a -c2 -h ./data.h ../qtetris.dat data/*.dat
-	-touch data.h ../qtetris.dat data/*.*
+	$(DAT) -t FILE -a -c2 ../qtetris.dat data/*.dat
 
 data.h: ../qtetris.dat
+	$(DAT) -h $@ $<
+
+-include makefile.dep
+
