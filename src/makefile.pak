@@ -2,16 +2,25 @@
 
 VERSION = 1.3.1
 
+ZIP = zip -9
+EXT = .zip
+
 default: all
 
 
 
 DOC_FILES = \
+	qtetris/AUTHORS.en \
 	qtetris/AUTHORS.es \
+	qtetris/CHANGES.en \
 	qtetris/CHANGES.es \
 	qtetris/COPYING \
 	qtetris/README.en \
-	qtetris/README.es
+	qtetris/README.es \
+	qtetris/THANKS.en \
+	qtetris/THANKS.es \
+	qtetris/TODO.en \
+	qtetris/TODO.es
 
 SRC_FILES = \
 	$(DOC_FILES) \
@@ -29,7 +38,6 @@ DAT_FILES = \
 	$(DOC_FILES) \
 	qtetris/src/data/*.dat \
 	qtetris/src/data/*.pcx \
-	qtetris/src/data/info.txt \
 	qtetris/src/data/*.bmp \
 	qtetris/src/data/*.wav \
 	qtetris/src/data/*.mid
@@ -64,8 +72,7 @@ BIN_QNX_FILES = \
 src:
 	@echo Making source distribution...
 	cd ../..
-	tar -czf qtetris-$(VERSION).src.tar.gz $(SRC_FILES)
-	zip -9 qtetris-$(VERSION).src.zip $(SRC_FILES)
+	$(ZIP) qtetris-$(VERSION).src$(EXT) $(SRC_FILES)
 	cd qtetris/src
 	@echo Done!
 
@@ -74,8 +81,7 @@ src:
 dat:
 	@echo Making DATA distribution...
 	cd ../..
-	tar -czf qtetris-$(VERSION).dat.tar.gz $(DAT_FILES)
-	zip -9 qtetris-$(VERSION).dat.zip $(SRC_FILES)
+	$(ZIP) qtetris-$(VERSION).dat$(EXT) $(DAT_FILES)
 	cd qtetris/src
 	@echo Done!
 
@@ -87,7 +93,7 @@ dos:
 	-make depend
 	make DEBUGMODE=
 	cd ../..
-	zip -9 qtetris-$(VERSION).bin-dos.zip $(BIN_DOS_FILES)
+	$(ZIP) qtetris-$(VERSION).bin-dos$(EXT) $(BIN_DOS_FILES)
 	cd qtetris/src
 	@echo Done!
 
@@ -99,7 +105,7 @@ win:
 	-make depend
 	make DEBUGMODE=
 	cd ../..
-	zip -9 qtetris-$(VERSION).bin-win.zip $(BIN_WIN_FILES)
+	$(ZIP) qtetris-$(VERSION).bin-win$(EXT) $(BIN_WIN_FILES)
 	cd qtetris/src
 	@echo Done!
 
@@ -110,7 +116,7 @@ uni:
 	-./fixunix.sh
 	-make depend
 	make STATICLINK=1 DEBUGMODE=
-	cd ../.. ; tar -czf qtetris-$(VERSION).bin-uni.tar.gz $(BIN_UNI_FILES)
+	cd ../.. ; $(ZIP) qtetris-$(VERSION).bin-uni$(EXT) $(BIN_UNI_FILES)
 	@echo Done!
 
 
@@ -120,7 +126,7 @@ qnx:
 	-./fixqnx.sh
 	-make depend
 	make STATICLINK=1 DEBUGMODE=
-	cd ../.. ; tar -czf qtetris-$(VERSION).bin-qnx.tar.gz $(BIN_QNX_FILES)
+	cd ../.. ; $(ZIP) qtetris-$(VERSION).bin-qnx$(EXT) $(BIN_QNX_FILES)
 	@echo Done!
 
 
