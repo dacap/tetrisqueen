@@ -3,7 +3,7 @@
 EXE = .exe
 OBJ = .obj
 
-TARGET_NAME = ../tetris$(EXE)
+TARGET_NAME = ../qtetris$(EXE)
 TARGET_OBJS = $(addprefix obj/, $(addsuffix $(OBJ), $(basename $(notdir $(TARGET_SRC_FILES)))))
 
 

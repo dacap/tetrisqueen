@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
   }
 
   get_executable_name(path, 256);
-  set_config_file(replace_filename(buf, path, "tetris.cfg", 256));
+  set_config_file(replace_filename(buf, path, "qtetris.cfg", 256));
 
   /* cambiar el modo de video */
   set_color_depth(8);
@@ -227,16 +227,16 @@ int main(int argc, char *argv[])
 
   /* cargar las puntuaciones del juego */
   get_executable_name(path, 256);
-  replace_filename(hof_file, path, "tetris.hof", 256);
+  replace_filename(hof_file, path, "qtetris.hof", 256);
   
   load_records();
 
   /* cargar los datos del juego */
   get_executable_name(path, 256);
-  datafile = load_datafile(replace_filename(buf, path, "tetris.dat", 256));
+  datafile = load_datafile(replace_filename(buf, path, "qtetris.dat", 256));
   if (!datafile) {
     allegro_exit();
-    allegro_message("Error loading data file `tetris.dat'...\n");
+    allegro_message("Error loading data file `qtetris.dat'...\n");
     return 1;
   }
 

@@ -17,10 +17,10 @@ TARGET_SRC_FILES = \
 	playgame.c
 
 CLEAN_FILES = \
-	tetris.dsw \
-	tetris.ncb \
-	tetris.opt \
-	tetris.plg \
+	qtetris.dsw \
+	qtetris.ncb \
+	qtetris.opt \
+	qtetris.plg \
 	*.pch \
 	*.idb \
 	*.pdb \
@@ -35,14 +35,14 @@ CLEAN_FILES = \
 	core
 
 DISTCLEAN_FILES = \
-	../tetris \
-	../tetris.exe \
-	../tetris.ilk \
-	../tetris.pdb \
-	../tetris.exp \
-	../tetris.lib \
-	../tetris.dat \
-	../tetris.bak \
+	../qtetris \
+	../qtetris.exe \
+	../qtetris.ilk \
+	../qtetris.pdb \
+	../qtetris.exp \
+	../qtetris.lib \
+	../qtetris.dat \
+	../qtetris.bak \
 	data.h \
 	makefile.dep \
 	makefile

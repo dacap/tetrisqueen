@@ -3,7 +3,7 @@
 EXE = .exe
 OBJ = .obj
 
-TARGET_NAME = ../tetris$(EXE)
+TARGET_NAME = ../qtetris$(EXE)
 TARGET_OBJS = $(addprefix obj/, $(addsuffix $(OBJ), $(basename $(notdir $(TARGET_SRC_FILES)))))
 
 
@@ -53,13 +53,23 @@ endif
 
 ifdef DEBUGMODE
 
+ifdef STATICLINK
+CFLAGS = -I$(INCLUDE_DIR) -DDEBUGMODE=$(DEBUGMODE) -W1 -Gd -Zi -MTd -DALLEGRO_STATICLINK
+LFLAGS = alld_s.lib
+else
 CFLAGS = -I$(INCLUDE_DIR) -DDEBUGMODE=$(DEBUGMODE) -W1 -Gd -Zi -MTd
-LFLAGS = -debug -debugtype:cv
+LFLAGS = alld.lib
+endif
 
 else
 
+ifdef STATICLINK
+CFLAGS = -I$(INCLUDE_DIR) /W3 /GX /O2 /YX /FD -DALLEGRO_STATICLINK
+LFLAGS = alleg_s.lib
+else
 CFLAGS = -I$(INCLUDE_DIR) /W3 /GX /O2 /YX /FD
-LFLAGS = -release
+LFLAGS = alleg.lib
+endif
 
 endif
 
@@ -70,7 +80,7 @@ _default: default
 
 
 $(TARGET_NAME): $(TARGET_OBJS)
-	cl.exe -nologo -Fe$@ $(MSVCDIR_D)\lib\alleg.lib @ldmsvc.arg
+	cl -nologo $(LFLAGS) -Fe$@ @ldmsvc.arg
 
 obj/%.obj: %.c
 	cl -nologo $(CFLAGS) -c $< -Fo$@

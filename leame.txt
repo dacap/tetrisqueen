@@ -82,7 +82,7 @@
   III. CONFIGURACION
   -------------------------------------------------------------------------
 
-  Toda la configuración del juego se encuentra en el archivo tetris.cfg,
+  Toda la configuración del juego se encuentra en el archivo qtetris.cfg,
   usualmente no debería tocar nada aquí más que la sección [tetris]
   donde se encuentra la configuración específica del juego y no la
   del sistema.
@@ -93,7 +93,7 @@
 
   En la línea de comandos, puedes iniciar el juego con diferentes opciones:
 
-    tetris [OPCIONES]
+    qtetris [OPCIONES]
 
   Opciones:
     -i, --nointro   no muestra la introducción
@@ -104,7 +104,7 @@
   Ejemplo:
   Para iniciar sin instalar el sonido
 
-    tetris --nosound
+    qtetris --nosound
 
 
   V. CONTROLES
@@ -295,7 +295,7 @@
   R: Antes que nada, debería de tener Allegro, y si tiene Allegro se
      supone que tiene una mínima idea sobre cómo compilarlo.
      Ahora, el proceso para TETRIS Queen es exactamente el mismo.
-     Vaya al directorio `tetris/src', y ejecute uno de los archivos
+     Vaya al directorio `qtetris/src', y ejecute uno de los archivos
      fixdjgpp, fixmingw, fixmsvc, fixunix o fixwat (dependiendo del
      compilador y plataforma).
      Luego ejecute `make depend' y finalmente `make' desde la línea
@@ -305,7 +305,7 @@
 
   P: ¿Cómo puedo obtener una versión del TETRIS para depurar?
   R: En vez de ejecutar el `make' solo sin parámetros, puede
-     utilizar `make release' o `make debug'.
+     utilizar `make DEBUGMODE=1'.
 
   P: Tengo problemas y no hay mucha documentación :-(
      ¿Dónde encuentro más ayuda?

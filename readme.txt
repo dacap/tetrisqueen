@@ -80,7 +80,7 @@
   III. CONFIGURATION
   -------------------------------------------------------------------------
 
-  All the game's configuration can be tuned by the tetris.cfg file, you
+  All the game's configuration can be tuned by the qtetris.cfg file, you
   shouldn't touch anything outside of the [tetris] section, where you
   can find the specific configuration of the game and not the
   configuration of the system.
@@ -91,7 +91,7 @@
 
   From the commandline, you can start the game with different options:
 
-     tetris [OPTIONS]
+     qtetris [OPTIONS]
 
   Opciones:
     -i, --nointro   doesn't display the introduction
@@ -102,7 +102,7 @@
   Example:
   To start without sounds
 
-    tetris --nosound
+    qtetris --nosound
 
 
   V. CONTROLS
@@ -275,7 +275,7 @@
   R: Before anything else, you should have Allegro, and if you have
      Allegro you are suposed to know how to compile it. Now, the
      process to build TETRIS Queen is exactly the same. Go to the
-     directory `tetris/src', and run one of the files fixdjgpp,
+     directory `qtetris/src', and run one of the files fixdjgpp,
      fixmingw, fixmsvc, fixunix or fixwat (depending on your compiler
      and platform).
      Then run `make depend' and finally `make' from the commandline.
@@ -285,7 +285,7 @@
 
   P: How can I obtain a debug version of the game?
   R: Instead of running `make' without switches, you can use
-     `make release' or `make debug'.
+     `make DEBUGMODE=1'.
 
   P: I've got problems and there's not much documentation :-(
      Where can I get more help?

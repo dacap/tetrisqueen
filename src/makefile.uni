@@ -5,19 +5,27 @@ DAT = dat
 EXE =
 OBJ = .o
 
-TARGET_NAME = ../tetris$(EXE)
+TARGET_NAME = ../qtetris$(EXE)
 TARGET_OBJS = $(addprefix obj/, $(addsuffix $(OBJ), $(basename $(notdir $(TARGET_SRC_FILES)))))
 
 
 ifdef DEBUGMODE
 
 CFLAGS = -W -Wall -Werror -m486 -g -DDEBUGMODE=1
-LFLAGS = -g `allegro-config --libs`
+ifdef STATICLINK
+LFLAGS = -g `allegro-config --libs debug --static`
+else
+LFLAGS = -g `allegro-config --libs debug --shared`
+endif
 
 else
 
 CFLAGS = -Wall -m486 -O3 -ffast-math
-LFLAGS = -s `allegro-config --libs`
+ifdef STATICLINK
+LFLAGS = -s `allegro-config --libs release --static`
+else
+LFLAGS = -s `allegro-config --libs release --shared`
+endif
 
 endif
 
@@ -32,6 +40,4 @@ $(TARGET_NAME): $(TARGET_OBJS)
 
 obj/%.o: %.c
 	gcc $(CFLAGS) -o $@ -c $<
-
-
 

@@ -7,6 +7,6 @@ echo MAKEFILE_INC = makefile.vc >> makefile
 echo include makefile.all >> makefile
 
 utod *.bat .../*.c .../*.h makefile.*
-utod *.arg ../*.cfg ../*.txt
+utod *.arg ../*.cfg .../*.txt ../*.txt
 
 echo Done!

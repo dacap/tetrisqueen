@@ -27,7 +27,7 @@
 #define GAME_DATE		"1999 - 2001"
 
 #define AUTHOR_EMAIL		"davidcapello@yahoo.com"
-#define AUTHOR_WEB		"http://come.to/davidcapello/"
+#define AUTHOR_WEB		"http://qtetris.sourceforge.net"
 
 #define GAME_MODE_CLASSIC	0
 #define GAME_MODE_DESTROYER	1

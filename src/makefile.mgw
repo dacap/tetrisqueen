@@ -3,7 +3,7 @@
 EXE = .exe
 OBJ = .o
 
-TARGET_NAME = ../tetris$(EXE)
+TARGET_NAME = ../qtetris$(EXE)
 TARGET_OBJS = $(addprefix obj/, $(addsuffix $(OBJ), $(basename $(notdir $(TARGET_SRC_FILES)))))
 TARGET_OBJS += obj/icon.a
 
@@ -32,7 +32,7 @@ $(TARGET_NAME): $(TARGET_OBJS)
 obj/%.o: %.c
 	gcc $(CFLAGS) -o $@ -c $<
 
-obj/icon.a: ../tetris.ico
+obj/icon.a: ../qtetris.ico
 	echo MYICON ICON $^ | windres -o $@
 
 
