@@ -1,6 +1,4 @@
-/*
- * TETRIS Queen
- * Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -300,13 +298,6 @@ int main(int argc, char *argv[])
       "This game is FREEWARE (totaly free), and you can update from:\n"
       "Este juego es FREEWARE (totalmente gratuito), y lo puede actualizar desde:\n\n"
       GAME_URL "\n\n");
-
-    #ifdef ALLEGRO_CONSOLE_OK
-
-      clear_keybuf();
-      readkey();
-
-    #endif
 
   #endif
   return 0;

@@ -1,6 +1,4 @@
-/*
- * TETRIS Queen
- * Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
