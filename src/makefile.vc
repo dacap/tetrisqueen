@@ -1,0 +1,78 @@
+# Copyright (C) 1999, 2000, 2001 by David A. Capello
+
+EXE = .exe
+OBJ = .obj
+
+TARGET_NAME = ../tetris$(EXE)
+TARGET_OBJS = $(addprefix obj/, $(addsuffix $(OBJ), $(basename $(notdir $(TARGET_SRC_FILES)))))
+
+
+
+.PHONY: badwin badmsvc badspaces
+
+ifeq ($(OS),Windows_NT)
+WINSYSDIR = $(SYSTEMROOT)
+WINSUBDIR = system32
+else
+WINSYSDIR = $(windir)
+WINSUBDIR = system
+endif
+
+ifneq ($(WINSYSDIR),)
+WINDIR_U = $(subst \,/,$(WINSYSDIR)/$(WINSUBDIR))
+WINDIR_D = $(subst /,\,$(WINSYSDIR)/$(WINSUBDIR))
+else
+badwin:
+	@echo Your SYSTEMROOT or windir environment variable is not set!
+endif
+
+ifdef MSVCDIR
+MSVCDIR_U = $(subst \,/,$(MSVCDIR))
+MSVCDIR_D = $(subst /,\,$(MSVCDIR))
+else
+ifdef MSDEVDIR
+MSVCDIR_U = $(subst \,/,$(MSDEVDIR))
+MSVCDIR_D = $(subst /,\,$(MSDEVDIR))
+else
+badmsvc:
+	@echo Your MSVCDIR or MSDEVDIR environment variable is not set!
+endif
+endif
+
+NULLSTRING :=
+SPACE := $(NULLSTRING) # special magic to get an isolated space character
+
+ifneq ($(findstring $(SPACE),$(MSVCDIR)$(MSDEVDIR)),)
+badspaces:
+	@echo There are spaces in your MSVCDIR or MSDEVDIR environment
+	@echo variables: please change these to the 8.3 short filename
+	@echo version, or move your compiler to a different directory.
+endif
+
+
+
+ifdef DEBUGMODE
+
+CFLAGS = -I$(INCLUDE_DIR) -DDEBUGMODE=$(DEBUGMODE) -W1 -Gd -Zi -MTd
+LFLAGS = -debug -debugtype:cv
+
+else
+
+CFLAGS = -I$(INCLUDE_DIR) /W3 /GX /O2 /YX /FD
+LFLAGS = -release
+
+endif
+
+
+.PHONY: _default
+
+_default: default
+
+
+$(TARGET_NAME): $(TARGET_OBJS)
+	cl.exe -nologo -Fe$@ $(MSVCDIR_D)\lib\alleg.lib @ldmsvc.arg
+
+obj/%.obj: %.c
+	cl -nologo $(CFLAGS) -c $< -Fo$@
+
+

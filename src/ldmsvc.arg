@@ -1,0 +1,14 @@
+obj/block.obj
+obj/bombs.obj
+obj/control.obj
+obj/credits.obj
+obj/graphics.obj
+obj/hallfame.obj
+obj/handle.obj
+obj/intro.obj
+obj/main.obj
+obj/menu.obj
+obj/objects.obj
+obj/piece.obj
+obj/player.obj
+obj/playgame.obj

@@ -1,0 +1,377 @@
+
+  TETRIS Queen - Versión 1.3
+  Copyright (C) 1999, 2000, 2001 por David A. Capello
+
+  -------------------------------------------------------------------------
+
+  Este programa es software libre; usted puede redistribuirlo y/o
+  modificarlo bajo los términos de la Licencia Pública General GNU
+  (o GNU General Public License) publicada por la Fundación de Software
+  Libre (Free Software Foundation); cualquier versión 2 de la Licencia,
+  o (a su elección) alguna versión más antigua.
+
+  Este programa es distribuido con la esperanza de que sea útil,
+  pero SIN GARANTIA ALGUNA; sin incluso la garantía implícita
+  de COMERCIALIZACION o IDONEIDAD PARA UN PROPOSITO PARTICULAR.
+  Vea la GNU General Public License para más detalles.
+
+  Usted debe de haber recibido una copia de la GNU General Public
+  License junto con este programa; si no, escriba a la Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+  INDICE
+  -------------------------------------------------------------------------
+
+     I. Introducción
+    II. Requerimientos
+   III. Configuración
+    IV. Argumentos
+     V. Controles
+    VI. Menús
+   VII. Jugar
+  VIII. Faq
+    IX. Créditos
+
+
+  I. INTRODUCCION
+  -------------------------------------------------------------------------
+
+  Soy David A. Capello y le presento uno de los tantos clones del
+  TETRIS original de Arcade creado por el TEAM TETRIS en el año 1988.
+  El juego no es una réplica idéntica del viejo TETRIS pero sí tiene
+  el mismo concepto creado por Alexey Pajitnov. Y también incluye un
+  modo de juego extra inventado por mí. A todo esto le agregué la
+  excelente banda de música QUEEN, CON MAS DE 30 MUSICAS.
+
+  ESTE JUEGO ES FREEWARE, lo que quiere decir que ES TOTALMENTE GRATUITO
+  y se lo puede copiar a cualquier amigo, o mejor dicho, se LO DEBE COPIAR
+  a sus amigos.
+
+  Pero claro, no todo es felicidad en la vida, por lo que el juego es
+  gratuito pero NO TIENE NINGUN TIPO DE GARANTIA, es decir, si su
+  computadora o cabeza explota cuando lo está usando, no podrá
+  reclamarme nada.
+  Debe usar todo bajo su propio riesgo.
+
+  También, si quiere el código fuente del juego (en C, con Allegro,
+  y el compilador DJGPP) lo puede bajar desde mi página WEB (ver
+  Créditos).
+
+
+  II. REQUERIMIENTOS
+  -------------------------------------------------------------------------
+
+  Estos son los requerimientos mínimos que necesita TETRIS Queen:
+  - 486 DX (podría que funcione en una 386...);
+  - 4 MB de RAM (realmente no se si funcionará,
+                 mejor serían 8 megas... pero... con 16 estás hecho);
+  - Tarjeta VGA;
+  - DOS;
+  - Teclado;
+
+  Aquí tiene los requerimientos recomendados:
+  - Pentium a 166 Mhz o superior;
+ - 32 MB de RAM;
+  - Tarjeta VGA;
+  - Sound Blaster;
+  - Windows 95/98;
+  - Teclado y 2 joysticks;
+
+
+  III. CONFIGURACION
+  -------------------------------------------------------------------------
+
+  Toda la configuración del juego se encuentra en el archivo tetris.cfg,
+  usualmente no debería tocar nada aquí más que la sección [tetris]
+  donde se encuentra la configuración específica del juego y no la
+  del sistema.
+
+
+  IV. ARGUMENTOS
+  -------------------------------------------------------------------------
+
+  En la línea de comandos, puedes iniciar el juego con diferentes opciones:
+
+    tetris [OPCIONES]
+
+  Opciones:
+    -i, --nointro   no muestra la introducción
+    -s, --nosound   no instala los sonidos
+    -j, --nojoy     no instala el joystick
+    -?, --help      muestra la ayuda del programa (en inglés)
+
+  Ejemplo:
+  Para iniciar sin instalar el sonido
+
+    tetris --nosound
+
+
+  V. CONTROLES
+  -------------------------------------------------------------------------
+
+  Las teclas generales en el juego son:
+
+    ESC       sale del juego, vuelve en los menús, y realiza cualquier
+              cosa para cancelar algo;
+    CTRL+Q    aborta el juego y vuelve al sistema operativo (SO);
+    F11       pone pausa;
+    F12       captura la pantalla guardándola como un archivo BMP;
+
+  Las teclas para algunas funciones extras cuando se está jugando:
+
+    F1        baja el volumen del sonido;
+    F2        sube el volumen del sonido;
+    F3        baja el volumen de la música;
+    F4        sube el volumen de la música;
+    F5        salta a la música anterior;
+    F6        salta a la próxima música;
+    F7        cambia la música por una al azar;
+
+  Las teclas POR DEFECTO de cada jugador son:
+
+    PLAYER1:       PLAYER2:
+    Izquierda      A            mueve la pieza hacia la izquierda;
+    Derecha        D            mueve la pieza hacia la derecha;
+    Abajo          S            baja la pieza rápidamente;
+    Supr/Delete    1            rota la pieza hacia la izquierda;
+    Fin/End        2            rota la pieza hacia la derecha;
+
+  Las teclas de cada jugador, pueden ser cambiadas en el menú
+  OPTIONS/CONTROLS/[PLAYER 1 o PLAYER 2].
+  En este menú, al presionar ENTER, podrá reconfigurar una tecla.
+  Por ejemplo, si para mover la pieza hacia abajo del jugador 1,
+  desea utilizar el botón número 1 del joystick 1:
+
+    - entre en OPTIONS/CONTROLS/PLAYER 1;
+    - seleccione la opción "DOWN: ...", y presione ENTER;
+    - luego, presione la palanca (stick direccional) del
+      joystick 1 hacia abajo;
+    - y listo, ahora, si quiere volver a los valores
+      anteriores de todas las teclas, solamente debe
+      seleccionar la opción "RESET" que se encuentra
+      en este mismo menú;
+
+  NOTA IMPORTANTE AL INGRESAR UN NUEVO RECORD:
+  Cuando hay que ingresar una nueva puntuación, le aparecerán
+  tres letras, usando las teclas para mover la pieza hacia los
+  costados, puede ir cambiando entre la 1era, 2da y 3er letra,
+  utilizando los botones para rotar, puede cambiar la letra
+  actual, y pulsando hacia abajo acepta. Tenga mucho cuidado
+  al hacer esta operación, ya que podría colocar iniciales
+  no deseadas.
+
+
+  VI. MENUS
+  -------------------------------------------------------------------------
+
+  MAIN (principal):
+    1 PLAYER             comienza un juego con 1 jugador (antes
+                         deberá elegir el modo de juego);
+    2 PLAYERS            comienza un juego con 2 jugadores;
+    HALL OF FAME         muestra las mejores puntuaciones;
+    OPTIONS              va al menú de opciones para configurar el juego;
+    CREDITS              muestra los créditos del juegos;
+    EXIT                 sale del juego y vuelve al SO;
+
+  OPTIONS (opciones):
+    SOUND: |||||||||     modifica el volumen del sonido;
+    MUSIC: ||||||        modifica el volumen de la música;
+    SOUND TEST           va a la prueba de sonido;
+    CONTROLS             muestra la pantalla para configurar los controles
+                         y calibrar el joystick;
+    RESET HIGH SCORES    borra las puntuaciones, restaurándolas
+                         por los valores por defecto (antes deberá elegir
+                         la tabla de records específica del modo de juego
+                         que quiera borrar);
+
+  SOUND TEST (prueba de sonido):
+    LEFT                 reproduce un sonido que se escucha desde la izquierda;
+    CENTRE               reproduce un sonido que se escucha desde el centro;
+    RIGHT                reproduce un sonido que se escucha desde la derecha;
+    FLIP PAN             invierte la orientación del sonido (si los sonidos
+                         no salen correctamente por los lados que se indican,
+                         utilice esta opción y vuelva a probar);
+
+  CONTROLS (controles):
+    PLAYER 1             muestra la configuración de los botones del
+                         jugador número 1;
+    PLAYER 2             muestra la configuración de los botones del
+                         jugador número 2;
+    CALIBRATE JOYSTICK   muestra una pantalla donde se pueden calibrar
+                         los dos joysticks;
+
+
+  VII. JUGAR
+  -------------------------------------------------------------------------
+
+  Aquí le explicaré como jugar a los diferentes modos de juego:
+
+  1 PLAYER (un jugador):
+
+    CLASSIC (clásico):
+      El clásico modo de juego de todo TETRIS.
+      El principal objetivo es ir haciendo líneas con las
+      piezas que se le van dando, si se hacen dos, tres o
+      hasta cuatro líneas al mismo tiempo nos dará más
+      puntaje. Aquí tiene la lista de puntajes:
+        Líneas     Nombre     Puntaje
+        ------     ------     -------
+          1        SINGLE       10
+          2        DOUBLE       50
+          3        TRIPLE       200
+          4        TETRIS       500
+
+    DESTROYER (destructor):
+      Igual que el clásico, solamente que las piezas ahora
+      tendrán una bomba, ninguna, o estarán llenas de bombas.
+      Al hacer una línea, se activarán todas las bombas
+      que se encuentren en la misma, explotando y tirando,
+      fuera del panel, los bloques que estén pegados a la
+      misma. Si la onda expansiva llega a tocar otra bomba,
+      esta también explotará, pudiendo así generar "reacciones
+      en cadena".
+      Pero eso no es todo, si llegamos a juntar 4 bombas,
+      podemos generar una Mega-Bomba, la cual tendrá una
+      onda expansiva mucho más grande.
+      Romper bombas, también nos dará puntaje, siempre y
+      cuando la bomba se encuentre en la línea que rompimos,
+      en ningún caso se le adicionará puntaje por las
+      bombas que exploten por ondas expansivas.
+      Los puntajes son:
+      Nombre         Puntaje
+      ------         -------
+      BOMB           10
+      MEGA-BOMB      50
+
+      Y por último, para hacer más emocionante el juego,
+      cada 10 segundos, se le agregará una línea "mala",
+      por lo que se deberá apurar en hacer las cosas...
+
+
+  2 PLAYERS (dos jugadores):
+
+    CLASSIC (clásico):
+    DESTROYER (destructor):
+      Igual que el clásico de un jugador, solamente que
+      las líneas que hacemos se van acumulando, y cada
+      10 segundos, por cada línea que hicimos, se le
+      pasará una línea "mala" al otro jugador.
+      Igualmente, si el otro jugador va haciendo líneas,
+      va contrarrestando el efecto, hasta tal punto que
+      puede hacer más líneas que nosotros en el período
+      de 10 segundos, lo que nos daría como resultado
+      que a nosotros nos aumenten las líneas "malas".
+
+
+  VIII. FAQ
+  -------------------------------------------------------------------------
+
+  P: Veo mal este archivo...
+  R: Bueno, la razón podría ser que esté utilizando un editor de texto
+     para MS-DOS, o alguno para Linux (como Rhide) que utilice la
+     misma tabla de caracteres de DOS, de todas formas, en Windows,
+     puede utilizar el Bloc de Notas, y en Unix, deberá buscar un
+     poco (el editor del Midnight Commander anda muy bien: mcedit).
+
+  P: ¿Qué hay de nuevo en esta versión?
+  R: Un poco más de documentación y varias mejoras internas para
+     poder reconstruir el programa en otras plataformas (MS-DOS,
+     Windows, Unix, Linux).
+
+  P: ¿Habrá nuevas versiones?
+  R: Por ahora no, pero en el futuro nadie sabe, tenía algunos planes
+     para TETRIS Queen II, pero...
+
+  P: ¿Estuviste 3 años para un simple TETRIS?
+  R: En realidad habrá sido 1 y sin ganas :-)
+     La razón principal era que cambiaba de idea cada día, y no me
+     daba ganas de programar algo con no tanto futuro (con un simple
+     TETRIS nadie se sorprende), pero en fin, ahora solamente hago
+     versiones de mantenimiento (si Allegro cambia, TETRIS también)
+     y por eso se van agregando años (2001 por ej.).
+
+  P: Tengo el código fuente, quiero compilar el TETRIS, pero no hay forma.
+  R: Antes que nada, debería de tener Allegro, y si tiene Allegro se
+     supone que tiene una mínima idea sobre cómo compilarlo.
+     Ahora, el proceso para TETRIS Queen es exactamente el mismo.
+     Vaya al directorio `tetris/src', y ejecute uno de los archivos
+     fixdjgpp, fixmingw, fixmsvc, fixunix o fixwat (dependiendo del
+     compilador y plataforma).
+     Luego ejecute `make depend' y finalmente `make' desde la línea
+     de comandos. Si todo sale bien, tendrá el juego hecho y listo
+     para ejecutar, y si no, me deberá avisar que algo anda mal, ya
+     que algunas versiones ni fueron compiladas (la de Watcom por ej.).
+
+  P: ¿Cómo puedo obtener una versión del TETRIS para depurar?
+  R: En vez de ejecutar el `make' solo sin parámetros, puede
+     utilizar `make release' o `make debug'.
+
+  P: Tengo problemas y no hay mucha documentación :-(
+     ¿Dónde encuentro más ayuda?
+  R: Puede enviarme un email a mi dirección personal:
+
+       davidcapello@yahoo.com
+ 
+     Si encuentra un bug, error de documentación o algo extraño o
+     confuso, no dude preguntarme y avisarme al respecto.
+
+
+  IX. CREDITOS
+  -------------------------------------------------------------------------
+
+  Programador, gráficos, sonidos,
+  documentación, testeador, y otras cosas:
+
+    David Alfredo Capello <davidcapello@yahoo.com>
+    http://come.to/davidcapello/
+
+  Traducción de la documentación a inglés:
+
+    Grzegorz Adam Hankiewicz <gradha@iname.com>
+    http://welcome.to/gogosoftware/
+
+  Músicas MIDI e imágenes de los álbumes:
+
+    Todas las músicas de Queen en el juego, y las tapas
+    de cada álbum, fueron bajadas desde el sitio:
+
+      http://www.queentrivia.mcmail.com/
+
+    Aquí encontrará un link hacia músicas MIDIs, donde podrá
+    ver los autores de cada una.
+
+
+  GRACIAS ESPECIALMENTE A:
+  -------------------------------------------------------------------------
+
+    Shawn Hargreaves <shawn@talula.demon.co.uk>
+    y a las cientos de personas de todo el mundo que
+    ayudaron a crear la librería Allegro
+      http://www.talula.demon.co.uk/allegro/
+
+    DJ Delorie y toda la gente que ayudó a crear el
+    mejor compilador C/C++: DJGPP
+      http://www.delorie.com/djgpp/
+
+    Robert Höhne <robert.hoehne@gmx.net>,
+    Salvador Eduardo Tropea (SET) <salvador@inti.gov.ar>,
+    Andris Pavenis <pavenis@lanet.lv>,
+    y de más gente que contribuyó con RHIDE
+      http://www.lanet.lv/~pavenis/rhide.html
+
+    Charles W Sandmann <sandmann@clio.rice.edu>
+    por el servidor DPMI para DOS
+
+    Alexey Pajitnov
+    por hacer uno de los juegos más adictivos
+    de la historia.
+
+    Y por supuesto, a Freddie Mercury, Roger Taylor,
+    John Deacon, y Brian May, por hacer la mejor
+    música de todos los tiempos.
+
+
+  -------------------------------------------------------------------------
+                        Copyright (C) 1999, 2000, 2001 por David A. Capello
+

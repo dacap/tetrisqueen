@@ -1,0 +1,49 @@
+# Copyright (C) 1999, 2000, 2001 by David A. Capello
+
+TARGET_SRC_FILES = \
+	block.c \
+	bombs.c \
+	control.c \
+	credits.c \
+	graphics.c \
+	hallfame.c \
+	handle.c \
+	intro.c \
+	main.c \
+	menu.c \
+	objects.c \
+	piece.c \
+	player.c \
+	playgame.c
+
+CLEAN_FILES = \
+	tetris.dsw \
+	tetris.ncb \
+	tetris.opt \
+	tetris.plg \
+	*.pch \
+	*.idb \
+	*.pdb \
+	*.err \
+	obj/*.pch \
+	obj/*.idb \
+	obj/*.pdb \
+	obj/*.obj \
+	obj/*.o \
+	obj/*.a \
+	allegro.log \
+	core
+
+DISTCLEAN_FILES = \
+	../tetris \
+	../tetris.exe \
+	../tetris.ilk \
+	../tetris.pdb \
+	../tetris.exp \
+	../tetris.lib \
+	../tetris.dat \
+	../tetris.bak \
+	data.h \
+	makefile.dep \
+	makefile
+

@@ -1,0 +1,39 @@
+# Copyright (C) 1999, 2000, 2001 by David A. Capello
+
+EXE = .exe
+OBJ = .o
+
+TARGET_NAME = ../tetris$(EXE)
+TARGET_OBJS = $(addprefix obj/, $(addsuffix $(OBJ), $(basename $(notdir $(TARGET_SRC_FILES)))))
+TARGET_OBJS += obj/icon.a
+
+
+ifdef DEBUGMODE
+
+CFLAGS = -Wall -Werror -m486 -g -DDEBUGMODE=1
+LFLAGS = -mwindows -g -lalld
+
+else
+
+CFLAGS = -Wall -m486 -O3 -ffast-math
+LFLAGS = -mwindows -s -lalleg
+
+endif
+
+
+.PHONY: _default
+
+_default: default
+
+
+$(TARGET_NAME): $(TARGET_OBJS)
+	gcc -o $@ $^ $(LFLAGS)
+
+obj/%.o: %.c
+	gcc $(CFLAGS) -o $@ -c $<
+
+obj/icon.a: ../tetris.ico
+	echo MYICON ICON $^ | windres -o $@
+
+
+
