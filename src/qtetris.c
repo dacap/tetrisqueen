@@ -16,11 +16,11 @@
  */
 
 #include <stdio.h>
-
 #include <time.h>
 #include <string.h>
 #include <stdlib.h>
 #include <allegro.h>
+#include <allegro/aintern.h>
 
 #include "qtetris.h"
 #include "hallfame.h"
@@ -74,7 +74,7 @@ END_OF_STATIC_FUNCTION(increment_speed_counter);
 
 
 
-void push_clock()
+void qtetris_push_clock()
 {
   game_clock_stack = game_clock;
   speed_counter_stack = speed_counter;
@@ -82,7 +82,7 @@ void push_clock()
 
 
 
-void pop_clock()
+void qtetris_pop_clock()
 {
   game_clock = game_clock_stack;
   speed_counter = speed_counter_stack;
@@ -90,7 +90,7 @@ void pop_clock()
 
 
 
-void update_volume(void)
+void qtetris_update_volume(void)
 {
   if (!midi_volume)
     stop_midi();
@@ -99,46 +99,65 @@ void update_volume(void)
 }
 
 
-  
-void play(int id, int pan_x, int vol)
+
+/* plays a sound */
+void qtetris_sound(int id, int pan_x, int vol)
 {
   if (digi_driver->id != DIGI_NONE) {
     if (digi_volume > 0)
       play_sample(datafile[id].dat,
         vol * digi_volume / MAX_VOLUME,
-        255 * pan_x / (GAME_SCREEN_W-1),
+        255 * pan_x / (QTETRIS_SCREEN_W-1),
         1000, FALSE);
   }
 }
 
 
 
-void play_music(int id, int loop)
+/* plays a music */
+void qtetris_music(int id, int loop)
 {
-  last_music = id;
-
-  if (midi_volume > 0)
-    play_midi((MIDI *)datafile[id].dat, loop);
-  else
+  if (id < 0) {
     stop_midi();
+  }
+  else {
+    last_music = id;
+
+    if (midi_volume > 0)
+      play_midi((MIDI *)datafile[id].dat, loop);
+    else
+      stop_midi();
+  }
 }
 
 
 
-void flip_to_screen(void)
+/* copies a bitmap to the screen */
+void qtetris_blit(BITMAP *bmp)
 {
-  /* blit the virtual bitmap to the screen */
-  if ((GAME_SCREEN_W == SCREEN_W) && (GAME_SCREEN_H == SCREEN_H))
-    blit(virtual, screen, 0, 0, 0, 0, GAME_SCREEN_W, GAME_SCREEN_H);
+  if ((bmp->w == SCREEN_W) && (bmp->h == SCREEN_H))
+    blit(bmp, screen, 0, 0, 0, 0, bmp->w, bmp->h);
   else
-    stretch_blit(virtual, screen,
-      0, 0, GAME_SCREEN_W, GAME_SCREEN_H,
-      0, 0, SCREEN_W, SCREEN_H);
+    stretch_blit(bmp, screen, 0, 0, bmp->w, bmp->h, 0, 0, SCREEN_W, SCREEN_H);
 }
 
 
 
-static void usage(char *name, int status)
+void qtetris_clear_keybuf(void)
+{
+  int c;
+
+  clear_keybuf();
+
+  for (c=0; c<KEY_MAX; c++) {
+    key[c] = 0;
+    _key[c] = 0;
+  }
+}
+
+
+
+static void qtetris_usage(char *name, int status)
 {
   if (!status) {
     fprintf(stdout, "\
@@ -149,15 +168,15 @@ Usage:\n\
 \n\
 Options:\n\
   -r, --resolution WIDTH HEIGHT   use a special resolution (in 8 bpp)\n\
-  -i, --nointro                   doesn't display the introduction\n\
-  -s, --nosound                   doesn't install sounds\n\
-  -j, --nojoy                     doesn't install joystick\n\
+  -i, --nointro                   do not display the introduction\n\
+  -s, --nosound                   do not install sounds\n\
+  -j, --nojoy                     do not install joystick\n\
   -m, --merge HOF_FILE            add the hall of fame and exit\n\
   -h, --help                      display this help and exit\n\
       --version                   output version information and exit\n\
 \n\
 Report bugs to <%s>.\n\
-", GAME_NAME, GAME_DATE, AUTHOR_NAME, name, AUTHOR_EMAIL);
+", QTETRIS_NAME, QTETRIS_DATE, QTETRIS_AUTHOR_NAME, name, QTETRIS_AUTHOR_ADDRESS);
   }
   else {
     fprintf(stderr, "Try `%s --help' for more information.\n", name);
@@ -170,75 +189,138 @@ Report bugs to <%s>.\n\
 
 void qtetris_init(int argc, char *argv[])
 {
+  char *merge_file = NULL;
   int sound = TRUE;
   int joystick = TRUE;
   char buf[256], path[256];
-  int i, w, h;
+  int i, j, w, h;
 
   w = 320;
   h = 240;
 
   for (i=1; i<argc; i++) {
-    if ((stricmp(argv[i], "-r") == 0) || (stricmp(argv[i], "--resolution") == 0)) {
-      if (i+2 >= argc) {
-        fprintf(stderr, "%s: `%s' need two extra parameters\n", argv[0], argv[i]);
-        usage(argv[0], 1);
-      }
-      else {
-        w = strtol(argv[++i], (char **)NULL, 10);
-        h = strtol(argv[++i], (char **)NULL, 10);
-      }
-    }
-    else if ((stricmp(argv[i], "-i") == 0) || (stricmp(argv[i], "--nointro") == 0))
-      see_intro = FALSE;
-    else if ((stricmp(argv[i], "-s") == 0) || (stricmp(argv[i], "--nosound") == 0))
-      sound = FALSE;
-    else if ((stricmp(argv[i], "-j") == 0) || (stricmp(argv[i], "--nojoy") == 0))
-      joystick = FALSE;
-    else if ((stricmp(argv[i], "-m") == 0) || (stricmp(argv[i], "--merge") == 0)) {
-      if (i+1 >= argc) {
-        fprintf(stderr, "%s: `%s' need one extra parameter\n", argv[0], argv[i]);
-        usage(argv[0], 1);
-      }
-      else {
-        char *filename = argv[++i];
-        fprintf(stdout, "Merging `%s'...\n", filename);
-
-        allegro_init();
-        get_executable_name(path, sizeof(path));
-        replace_filename(hof_file, path, "qtetris.hof", sizeof(hof_file));
-        load_records();
-
-        if (merge_records(filename) != 0) {
-          fprintf(stdout, "Error!\n");
-          exit(1);
+    if (argv[i][0] == '-') {
+      if (argv[i][1] == '-') {
+        if (stricmp(argv[i], "--resolution") == 0) {
+          if (i+2 >= argc) {
+            fprintf(stderr, "%s: `%s' need two parameters\n", argv[0], argv[i]);
+            qtetris_usage(argv[0], 1);
+          }
+          else {
+            w = strtol(argv[++i], (char **)NULL, 10);
+            h = strtol(argv[++i], (char **)NULL, 10);
+          }
         }
-        else {
-          save_records();
-          fprintf(stdout, "Done!\n");
+        else if (stricmp(argv[i], "--nointro") == 0) {
+          see_intro = FALSE;
+        }
+        else if (stricmp(argv[i], "--nosound") == 0) {
+          sound = FALSE;
+        }
+        else if (stricmp(argv[i], "--nojoy") == 0) {
+          joystick = FALSE;
+        }
+        else if (stricmp(argv[i], "--merge") == 0) {
+          if (i+1 >= argc) {
+            fprintf(stderr, "%s: `%s' need one parameter\n", argv[0], argv[i]);
+            qtetris_usage(argv[0], 1);
+          }
+          else {
+            merge_file = argv[++i];
+          }
+        }
+        else if (stricmp(argv[i], "--help") == 0) {
+          qtetris_usage(argv[0], 0);
+        }
+        else if (stricmp(argv[i], "--version") == 0) {
+          fprintf(stdout, "%s %s\n", QTETRIS_NAME, QTETRIS_VERSION);
           exit(0);
         }
+        else {
+          fprintf(stderr, "%s: unrecognized option `%s'\n", argv[0], argv[i]);
+          qtetris_usage(argv[0], 1);
+        }
+      }
+      else {
+        for (j=1; (j > 0) && (argv[i][j]); j++) {
+          switch (argv[i][j]) {
+            case 'r':
+              if (i+2 >= argc) {
+                fprintf(stderr, "%s: `%c' need two parameters\n", argv[0], argv[i][j]);
+                qtetris_usage(argv[0], 1);
+              }
+              else {
+                w = strtol(argv[++i], (char **)NULL, 10);
+                h = strtol(argv[++i], (char **)NULL, 10);
+                j = -1;
+              }
+              break;
+
+            case 'i':
+              see_intro = FALSE;
+              break;
+
+            case 's':
+              sound = FALSE;
+              break;
+
+            case 'j':
+              joystick = FALSE;
+              break;
+
+            case 'm':
+              if (i+1 >= argc) {
+                fprintf(stderr, "%s: `%c' need one parameter\n", argv[0], argv[i][j]);
+                qtetris_usage(argv[0], 1);
+              }
+              else {
+                merge_file = argv[++i];
+                j = -1;
+              }
+              break;
+
+            case 'h':
+            case '?':
+              qtetris_usage(argv[0], 0);
+              break;
+
+            default:
+              fprintf(stderr, "%s: invalid option -- %c\n", argv[0], argv[i][j]);
+              qtetris_usage(argv[0], 1);
+              break;
+          }
+        }
       }
     }
-    else if ((stricmp(argv[i], "-?") == 0) ||
-             (stricmp(argv[i], "-h") == 0) ||    
-             (stricmp(argv[i], "--help") == 0)) {
-      usage(argv[0], 0);
+    else {
+      fprintf(stderr, "%s: invalid argument `%s'\n", argv[0], argv[i]);
+      qtetris_usage(argv[0], 1);
     }
-    else if (stricmp(argv[i], "--version") == 0) {
-      fprintf(stdout, "%s %s\n", GAME_NAME, GAME_VERSION);
-      exit(0);
+  }
+
+  if (merge_file) {
+    fprintf(stdout, "Merging `%s'...\n", merge_file);
+
+    allegro_init();
+    get_executable_name(path, sizeof(path));
+    replace_filename(hof_file, path, "qtetris.hof", sizeof(hof_file));
+    load_records();
+
+    if (merge_records(merge_file) != 0) {
+      fprintf(stdout, "Error!\n");
+      exit(1);
     }
     else {
-      fprintf(stderr, "%s: unrecognized option `%s'\n", argv[0], argv[i]);
-      usage(argv[0], 1);
+      save_records();
+      fprintf(stdout, "Done!\n");
+      exit(0);
     }
   }
 
   srand(time(NULL));
 
   allegro_init();
-  set_window_title(GAME_NAME);
+  set_window_title(QTETRIS_NAME);
 
   get_executable_name(path, sizeof(path));
   set_config_file(replace_filename(buf, path, "qtetris.cfg", sizeof(buf)));
@@ -251,7 +333,7 @@ void qtetris_init(int argc, char *argv[])
   }
 
   text_mode(-1);
-  textout(screen, font, GAME_NAME ": loading...", 0, 0, makecol(255, 255, 255));
+  textout(screen, font, QTETRIS_NAME ": loading...", 0, 0, makecol(255, 255, 255));
 
   install_timer();
   install_keyboard();
@@ -276,7 +358,7 @@ void qtetris_init(int argc, char *argv[])
   digi_volume = MID(0, digi_volume, MAX_VOLUME);
   midi_volume = MID(0, midi_volume, MAX_VOLUME);
 
-  update_volume();
+  qtetris_update_volume();
 
   /* install some stuff of the game */
   LOCK_VARIABLE(game_clock);
@@ -284,8 +366,8 @@ void qtetris_init(int argc, char *argv[])
   LOCK_FUNCTION(increment_game_clock);
   LOCK_FUNCTION(increment_speed_counter);
 
-  install_int_ex(increment_game_clock, BPS_TO_TIMER(TICKS_PER_SEC));
-  install_int_ex(increment_speed_counter, BPS_TO_TIMER(60));
+  install_int_ex(increment_game_clock, BPS_TO_TIMER(TPS));
+  install_int_ex(increment_speed_counter, BPS_TO_TIMER(FPS));
 
   /* load the game records */
   get_executable_name(path, sizeof(path));
@@ -309,7 +391,7 @@ void qtetris_init(int argc, char *argv[])
   sel_palette(NULL);
 
   /* the main virtual screen (for double-buffered) */
-  virtual = create_bitmap(GAME_SCREEN_W, GAME_SCREEN_H);
+  virtual = create_bitmap(QTETRIS_SCREEN_W, QTETRIS_SCREEN_H);
 
   /* player names */
   strcpy(player1.name, "ABC");
@@ -361,11 +443,14 @@ void qtetris_exit(void)
 
   /* print a simple copyright message */
   allegro_message(
-    GAME_NAME " - Version " GAME_VERSION "\n"
-    "Copyright (C) " GAME_DATE " by David A. Capello <" AUTHOR_EMAIL ">\n\n"
+    "%s - Version %s\n"
+    "Copyright (C) %s by %s <%s>\n\n"
     "This game is FREEWARE (totaly free), and you can update from:\n"
     "Este juego es FREEWARE (totalmente gratuito), y lo puede actualizar desde:\n\n"
-    GAME_URL "\n\n");
+    "%s\n\n",
+    QTETRIS_NAME, QTETRIS_VERSION, QTETRIS_DATE,
+    QTETRIS_AUTHOR_NAME, QTETRIS_AUTHOR_ADDRESS,
+    QTETRIS_HOSTED);
 }
 
 

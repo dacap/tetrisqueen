@@ -30,7 +30,7 @@ void make_megabombs(PLAYER *player)
 {
   int x, y;
 
-  if (game_mode != GAME_MODE_DESTROYER)
+  if (game_mode != QTETRIS_MODE_DESTROYER)
     return;
 
   for (y=0; y<PANEL_HEIGHT-1; y++) {
@@ -95,7 +95,7 @@ static void create_bomb_explo(PLAYER *player, int x, int y)
   int cx, cy;
   int xx, yy;
 
-  play(EXPLO_WAV, player->px+PANEL_WIDTH*BLOCK_SIZE/2, 255);
+  qtetris_sound(EXPLO_WAV, player->px+PANEL_WIDTH*BLOCK_SIZE/2, 255);
 
   if ((player->panel[y][x] & 0xf0) == BLOCK_SPECIAL) {
     add_gameobj(60+(rand()%10), create_explosion(

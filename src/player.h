@@ -58,9 +58,9 @@ typedef struct PLAYER
   int flags;                    /* propiedades */
   int score, lines, level;      /* puntaje */
   int level_lines;
-  int px, py;                   /* posici¢n del panel */
+  int px, py;                   /* posición del panel */
   int block_type;               /* tipo de bloque */
-  int winner;                   /* indica si jugador gan¢ o perdi¢ */
+  int winner;                   /* indica si jugador ganó o perdió */
 
   struct {
     int left, right, down;
@@ -73,13 +73,13 @@ typedef struct PLAYER
   } state;
 
   struct {
-    int index;                  /* ¡ndice de la pieza en la lista */
+    int index;                  /* índice de la pieza en la lista */
     int shape;                  /* tipo de pieza (ver: <piece.c> "pieces[]" ) */
-    int x, dx;                  /* posici¢n */
+    int x, dx;                  /* posición */
     float y;
-    int rot;                    /* rotaci¢n */
+    int rot;                    /* rotación */
     BLOCK block[4];             /* color y forma de los bloques */
-    int bx[4], by[4];           /* posici¢n de cada bloque */
+    int bx[4], by[4];           /* posición de cada bloque */
     BITMAP *bmp;                /* bitmap temporario para hacer... */
     int bmp_x, bmp_y;           /* ...diferentes animaciones */
   } piece;                      /* pieza actual */

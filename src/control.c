@@ -22,7 +22,7 @@
 
 
 
-/* guarda la informaci¢n del control de un jugador */
+/* guarda la información del control de un jugador */
 void save_player_control(PLAYER *player, char *section)
 {
   set_config_int(section, "left",      player->control.left);
@@ -34,7 +34,7 @@ void save_player_control(PLAYER *player, char *section)
 
 
 
-/* obtiene la configuraci¢n de los controles de un jugador */
+/* obtiene la configuración de los controles de un jugador */
 void get_player_control(PLAYER *player, char *section,
   int left, int right, int down, int rot_left, int rot_right)
 {

@@ -8,8 +8,8 @@ echo include makefile.all >> makefile
 
 cd ..
 
-utod .../*.bat .../*.c .../*.h .../makefile.*
-utod .../*.arg .../*.cfg .../*.en .../*.es .../*.txt
+utod .../*.c .../*.h .../makefile.* .../*.bat
+utod .../*.cfg .../*.en .../*.es .../*.txt .../*.arg
 
 cd src
 

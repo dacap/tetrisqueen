@@ -120,7 +120,7 @@ static int get_new_piece(void)
   last2 = last;
   last  = n;
 
-  if (game_mode == GAME_MODE_DESTROYER)
+  if (game_mode == QTETRIS_MODE_DESTROYER)
     return n | ((rand()%6) << 4);
   else
     return n;
@@ -138,7 +138,7 @@ void reset_pieces_list(void)
 
 
 
-/* pasa a la pr¢xima pieza */
+/* pasa a la próxima pieza */
 void next_piece(PLAYER *player)
 {
   PLAYER *other = (player == &player1)? &player2: &player1;
@@ -173,7 +173,7 @@ void next_piece(PLAYER *player)
 
 
 
-/* obtiene la posici¢n de donde debe comenzar la pieza actual */
+/* obtiene la posición de donde debe comenzar la pieza actual */
 void get_start_piece_pos(PLAYER *player)
 {
   player->piece.x   = 0;
@@ -183,8 +183,8 @@ void get_start_piece_pos(PLAYER *player)
 
 
 
-/* obtiene la posici¢n y las caracter¡sticas de cada bloque de la pieza;
-   asign ndole cada valor a las variables "player->bx", "player->by" y
+/* obtiene la posición y las características de cada bloque de la pieza;
+   asignándole cada valor a las variables "player->bx", "player->by" y
    a "player->block" */
 void get_piece_blocks(PLAYER *player)
 {
@@ -195,7 +195,7 @@ void get_piece_blocks(PLAYER *player)
   for (c=0; c<4; c++) {
     player->piece.block[c] = ((player->piece.shape & 0x0f)+1);
       
-    if (game_mode == GAME_MODE_DESTROYER) {
+    if (game_mode == QTETRIS_MODE_DESTROYER) {
       if ((num == c) || (num == 4))
         player->piece.block[c] |= BLOCK_SPECIAL; // | (player->piece.shape & 0xf00);
     }
@@ -207,7 +207,7 @@ void get_piece_blocks(PLAYER *player)
 
 
 
-/* obtiene el tama¤o y la posici¢n de la pieza actual del jugador (en pixels) */
+/* obtiene el tamaño y la posición de la pieza actual del jugador (en pixels) */
 void get_piece_metrics(struct PLAYER *player, int *x, int *y, int *w, int *h)
 {
   int xmax, ymax;
@@ -230,11 +230,11 @@ void get_piece_metrics(struct PLAYER *player, int *x, int *y, int *w, int *h)
         ymin = player->piece.by[c];
   }
 
-  /* posici¢n de la pieza (relativa a player->px, player->py) */
+  /* posición de la pieza (relativa a player->px, player->py) */
   if (x) *x = xmin;
   if (y) *y = ymin;
 
-  /* calcular el tama¤o de la pieza */
+  /* calcular el tamaño de la pieza */
   if (w) *w = xmax - xmin + BLOCK_SIZE;
   if (h) *h = ymax - ymin + BLOCK_SIZE;
 }
@@ -255,7 +255,7 @@ BITMAP *create_piece_bitmap(PLAYER *player, int *xout, int *yout)
   if (!bmp)
     return NULL;
 
-  /* limpiar el bitmap con el color m scara actual */
+  /* limpiar el bitmap con el color máscara actual */
   clear_to_color(bmp, bitmap_mask_color(bmp));
 
   /* dibujar cada bloque de la pieza en el bitmap */
@@ -265,7 +265,7 @@ BITMAP *create_piece_bitmap(PLAYER *player, int *xout, int *yout)
 
   /* posiciones absolutas de la pieza;
      si se usa draw_sprite() con estas posiciones, el bitmap se
-     dibujar  en el mismo sitio donde est  la pieza actual */
+     dibujará en el mismo sitio donde está la pieza actual */
   if (xout) *xout = player->px+x;
   if (yout) *yout = player->py+y;
 

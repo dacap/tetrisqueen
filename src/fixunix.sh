@@ -7,8 +7,8 @@ echo "MAKEFILE_INC = makefile.uni" >> makefile
 echo "include makefile.all" >> makefile
 
 find .. -type f "(" \
-   -name "*.bat" -o -name "*.c" -o -name "*.h" -o -name "makefile.*" -o \
-   -name "*.arg" -o -name "*.cfg" -o -name "*.en" -o -name "*.es" -o -name "*.txt" \
+   -name "*.c" -o -name "*.h" -o -name "makefile.*" -o -name "COPYING" -o \
+   -name "*.cfg" -o -name "*.en" -o -name "*.es" -o -name "*.txt" \
    ")" \
    -exec sh -c "echo {};
 		mv {} _tmpfile;
@@ -17,4 +17,3 @@ find .. -type f "(" \
 		rm _tmpfile" \;
 
 echo "Done!"
-

@@ -41,14 +41,13 @@ void play_intro(void)
   min = 0;         \
   max = PAL_SIZE-1
   
-
   BITMAP *bg = (BITMAP *)datafile[MYLOGO_BMP].dat;
   PALETTE source, pal;
   int n, n2;
   int min, max;
 
   /* play the introduction theme */
-  play_music(MUSIC_INTRO, FALSE);
+  qtetris_music(MUSIC_INTRO, FALSE);
 
   n = 0;
   NORMAL();
@@ -59,8 +58,10 @@ void play_intro(void)
 
   /* DAC *********************************/
   clear(virtual);
-  blit(bg, virtual, 0, 0, GAME_SCREEN_W/2-bg->w/2, GAME_SCREEN_H/2-bg->h/2, bg->w, bg->h);
-  flip_to_screen();
+  blit(bg, virtual, 0, 0,
+    QTETRIS_SCREEN_W/2 - bg->w/2,
+    QTETRIS_SCREEN_H/2 - bg->h/2, bg->w, bg->h);
+  qtetris_blit(virtual);
   FADE(1);
 
   /* David A. Capello */
@@ -110,11 +111,11 @@ void play_intro(void)
 
   clear(virtual);
   blit(datafile[QUEENLOG_BMP].dat, virtual, 0, 0,
-    GAME_SCREEN_W/2-((BITMAP *)datafile[QUEENLOG_BMP].dat)->w/2,
-    GAME_SCREEN_H/2-((BITMAP *)datafile[QUEENLOG_BMP].dat)->h/2,
+    QTETRIS_SCREEN_W/2-((BITMAP *)datafile[QUEENLOG_BMP].dat)->w/2,
+    QTETRIS_SCREEN_H/2-((BITMAP *)datafile[QUEENLOG_BMP].dat)->h/2,
     ((BITMAP *)datafile[QUEENLOG_BMP].dat)->w,
     ((BITMAP *)datafile[QUEENLOG_BMP].dat)->h);
-  flip_to_screen();
+  qtetris_blit(virtual);
 
   fade_in(datafile[PALETTE_BMP].dat, 1);
   get_palette(pal);
@@ -137,19 +138,19 @@ void play_intro(void)
   /* mainscreen */
   clear(virtual);
   drawing_mode(DRAW_MODE_COPY_PATTERN, datafile[TETRISBG_BMP].dat, 0, 0);
-  rectfill(virtual, 0, 0, GAME_SCREEN_W, GAME_SCREEN_H, -1);
+  rectfill(virtual, 0, 0, QTETRIS_SCREEN_W, QTETRIS_SCREEN_H, -1);
   
   color_map = shadow_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
   draw_trans_sprite(virtual, datafile[TETRIS_BMP].dat,
-    GAME_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2 + 6,
-    GAME_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 + 12);
+    QTETRIS_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2 + 6,
+    QTETRIS_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 + 12);
   solid_mode();
 
   draw_sprite(virtual, datafile[TETRIS_BMP].dat,
-    GAME_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2,
-    GAME_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2);
-  flip_to_screen();
+    QTETRIS_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2,
+    QTETRIS_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2);
+  qtetris_blit(virtual);
 
   for (n=15; n<112; n++) {
     COL(n, 0, 0, 0);

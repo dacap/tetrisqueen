@@ -1,7 +1,8 @@
-2001-09-13  David A. Capello
+2001-10-09  David A. Capello
 
 	* New release 1.4: then a long time, fixed a fatal error in the
 	  previous distribution: I was forget `makedata.sh' :o)
+	* Optimized: the arguments recognition.
 
 2001-09-12  David A. Capello
 

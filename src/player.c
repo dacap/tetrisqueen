@@ -75,7 +75,7 @@ static void put_piece(PLAYER *player)
 
 
 
-/* obtiene si hay o no colisi¢n entre el panel y la pieza actual */
+/* obtiene si hay o no colisión entre el panel y la pieza actual */
 static int get_collision(PLAYER *player)
 {
   int c, x, y, bx, by, px, py;
@@ -108,13 +108,13 @@ static int get_collision(PLAYER *player)
     }
   }
 
-  /* no hay colisi¢n */
+  /* no hay colisión */
   return FALSE;
 }
 
 
 
-/* mira las l¡neas que hay que borrar */
+/* mira las líneas que hay que borrar */
 static void lines_to_kill(PLAYER *player)
 {
   int x, y, i = 0;
@@ -133,7 +133,7 @@ static void lines_to_kill(PLAYER *player)
 
 
 
-/* elimina las l¡neas que complet¢ el jugador */
+/* elimina las líneas que completó el jugador */
 static void kill_lines(PLAYER *player)
 {
   int x, y, i;
@@ -141,13 +141,13 @@ static void kill_lines(PLAYER *player)
   for (i=0; i<player->kill; i++) {
     y = player->killines[i];
 
-    /* mover todos los bloques de arriba una l¡nea m s abajo */
+    /* mover todos los bloques de arriba una línea más abajo */
     for (; y>0; y--) {
       for (x=0; x<PANEL_WIDTH; x++)
         player->panel[y][x] = player->panel[y-1][x];
     }
 
-    /* borrar la primer l¡nea */
+    /* borrar la primer línea */
     y = 0;
     for (x=0; x<PANEL_WIDTH; x++)
       player->panel[y][x] = 0;
@@ -166,7 +166,7 @@ int player_death(PLAYER *player)
 
   for (x=0; x<PANEL_WIDTH; x++) {
     if ((player->panel[0][x]) || (player->panel[1][x])) {
-      play(DEATH_WAV, player->px+PANEL_WIDTH*BLOCK_SIZE/2, 255);
+      qtetris_sound(DEATH_WAV, player->px+PANEL_WIDTH*BLOCK_SIZE/2, 255);
 
       player1.flags &= ~PLAYER_NORMAL;
       player2.flags &= ~PLAYER_NORMAL;
@@ -175,7 +175,7 @@ int player_death(PLAYER *player)
       player1.ani_time =
       player2.ani_time = game_clock;
 
-      /* qui‚n gan¢ y qui‚n perdi¢? */
+      /* quién ganó y quién perdió? */
       player->winner = FALSE;
 
       if (player == &player1) {
@@ -220,8 +220,8 @@ int move_player(PLAYER *player)
   if (!(player->flags & PLAYER_NORMAL)) {
     /* OVER */
     if (player->flags & PLAYER_OVER) {
-      if (!TIMEOUT(player->ani_time, TICKS_PER_SEC)) {
-        int c = PANEL_HEIGHT*(game_clock - player->ani_time)/(TICKS_PER_SEC*3/4);
+      if (!TIMEOUT(player->ani_time, TPS)) {
+        int c = PANEL_HEIGHT*(game_clock - player->ani_time)/(TPS*3/4);
         c = MID(0, c, PANEL_HEIGHT);
 
         for (y=0; y<c; y++) {
@@ -252,13 +252,13 @@ int move_player(PLAYER *player)
         else
           player2.name_pos = 0;
 
-        clear_keybuf();
+        qtetris_clear_keybuf();
       }
     }
 
     /* RECORD */
     if (player->flags & PLAYER_RECORD) {
-      if (TIMEOUT(player->key_time, TICKS_PER_SEC/10)) {
+      if (TIMEOUT(player->key_time, TPS/10)) {
         if (player->flags & PLAYER_WAITING) {
           if (((player1.flags & PLAYER_WAITING) &&  (player2.flags & PLAYER_WAITING)) ||
               ((player1.flags & PLAYER_WAITING) && !(player2.flags & PLAYER_PLAYING))) {
@@ -286,16 +286,16 @@ int move_player(PLAYER *player)
               return -1;
             }
 
-            clear_keybuf();
+            qtetris_clear_keybuf();
           }
         }
         else if (player->state.down) {
-          play(MENUSEL_WAV, GAME_SCREEN_W/2, 255);
+          qtetris_sound(MENUSEL_WAV, QTETRIS_SCREEN_W/2, 255);
           player->flags |= PLAYER_WAITING;
           player->name_pos = -1;
         }
         else if (player->state.left) {
-          play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+          qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
           player->key_time = game_clock;
           if (player->name_pos == 0)
             player->name_pos = 2;
@@ -303,7 +303,7 @@ int move_player(PLAYER *player)
             player->name_pos--;
         }
         else if (player->state.right) {
-          play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+          qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
           player->key_time = game_clock;
           if (player->name_pos == 2)
             player->name_pos = 0;
@@ -311,7 +311,7 @@ int move_player(PLAYER *player)
             player->name_pos++;
         }
         else if (player->state.rot_left) {
-          play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+          qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
           player->key_time = game_clock;
           if (player->name[player->name_pos] == 32)
             player->name[player->name_pos] = 127;
@@ -319,7 +319,7 @@ int move_player(PLAYER *player)
             player->name[player->name_pos]--;
         }
         else if (player->state.rot_right) {
-          play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+          qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
           player->key_time = game_clock;
           if (player->name[player->name_pos] == 127)
             player->name[player->name_pos] = 32;
@@ -336,7 +336,7 @@ int move_player(PLAYER *player)
 
         /* UP */
         if ((scan == KEY_UP) || (scan == KEY_8_PAD)) {
-          play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+          qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
           if (main_menu_option == 0)
             main_menu_option = 2;
           else
@@ -344,7 +344,7 @@ int move_player(PLAYER *player)
         }
         /* DOWN */
         else if ((scan == KEY_DOWN) || (scan == KEY_2_PAD)) {
-          play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+          qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
           if (main_menu_option == 2)
             main_menu_option = 0;
           else
@@ -352,7 +352,7 @@ int move_player(PLAYER *player)
         }
         /* ENTER */
         else if ((scan == KEY_ENTER) || (scan == KEY_ENTER_PAD) || (scan == KEY_SPACE)) {
-          play(MENUSEL_WAV, GAME_SCREEN_W/2, 255);
+          qtetris_sound(MENUSEL_WAV, QTETRIS_SCREEN_W/2, 255);
           /* CONTINUE */
           if (main_menu_option == 0) {
             player1.flags &= ~PLAYER_MENU;
@@ -395,7 +395,7 @@ int move_player(PLAYER *player)
     if (player->flags & PLAYER_PREPUTPIECE)
       player->piece.y++;
 
-    /* se choc¢ con algo? */
+    /* se chocó con algo? */
     if (get_collision(player)) {
       for (; get_collision(player); --player->piece.y);
 
@@ -403,7 +403,7 @@ int move_player(PLAYER *player)
         player->flags |= PLAYER_PREPUTPIECE;
         player->putpiece_time = game_clock;
 
-        play(PREPUT_WAV, player->px+player->piece.x, 255);
+        qtetris_sound(PREPUT_WAV, player->px+player->piece.x, 255);
       }
     }
     else if (player->flags & PLAYER_PREPUTPIECE) {
@@ -412,7 +412,7 @@ int move_player(PLAYER *player)
     }
 
     /* LEFT & RIGHT */
-    if (TIMEOUT(player->key_time, TICKS_PER_SEC/10) && !(player->state.down) &&
+    if (TIMEOUT(player->key_time, TPS/10) && !(player->state.down) &&
         !(player->flags & (PLAYER_ROTATION_LEFT | PLAYER_ROTATION_RIGHT))) {
       /* LEFT */
       if (player->state.left && !(player->flags & PLAYER_RIGHT)) {
@@ -466,7 +466,7 @@ int move_player(PLAYER *player)
     /* ROTATE */
     if (!(player->state.down) && !(player->flags & (PLAYER_LEFT | PLAYER_RIGHT)) &&
         (player->state.rot_left || player->state.rot_right)) {
-      if (!player->rot_time || TIMEOUT(player->rot_time, TICKS_PER_SEC/2)) {
+      if (!player->rot_time || TIMEOUT(player->rot_time, TPS/2)) {
         int old;
 
         x = player->piece.x;
@@ -488,16 +488,16 @@ int move_player(PLAYER *player)
         /* la pieza pudo rotar... */
         else {
           player->piece.x = x;
-          /* poner en ejecuci¢n la animaci¢n para rotar la pieza */
+          /* poner en ejecución la animación para rotar la pieza */
           player->flags |= (player->state.rot_left)? PLAYER_ROTATION_LEFT:
                                                      PLAYER_ROTATION_RIGHT;
           player->rot_ani_time = game_clock;
 
-          /* crear el bitmap necesario para la animaci¢n */
+          /* crear el bitmap necesario para la animación */
           player->piece.bmp = create_piece_bitmap(player,
             &player->piece.bmp_x, &player->piece.bmp_y);
             
-          play(ROTATE_WAV, player->px+player->piece.x, 255);
+          qtetris_sound(ROTATE_WAV, player->px+player->piece.x, 255);
         }
       }
     }
@@ -514,7 +514,7 @@ int move_player(PLAYER *player)
 
         player->piece.x--;
         if (get_collision(player))
-          play(PREPUT_WAV, player->px+player->piece.x, 255);
+          qtetris_sound(PREPUT_WAV, player->px+player->piece.x, 255);
         player->piece.x++;
       }
     }
@@ -527,21 +527,21 @@ int move_player(PLAYER *player)
 
         player->piece.x++;
         if (get_collision(player))
-          play(PREPUT_WAV, player->px+player->piece.x, 255);
+          qtetris_sound(PREPUT_WAV, player->px+player->piece.x, 255);
         player->piece.x--;
       }
     }
     /* ROTATE */
     if (player->flags & (PLAYER_ROTATION_LEFT | PLAYER_ROTATION_RIGHT)) {
-      if (TIMEOUT(player->rot_ani_time, TICKS_PER_SEC/16)) {
+      if (TIMEOUT(player->rot_ani_time, TPS/16)) {
         destroy_bitmap(player->piece.bmp);
         player->flags &= ~(PLAYER_ROTATION_LEFT | PLAYER_ROTATION_RIGHT);
       }
     }
     /* PREPUTPIECE */
     if (player->flags & PLAYER_PREPUTPIECE) {
-      if (TIMEOUT(player->putpiece_time, TICKS_PER_SEC) ||
-         (TIMEOUT(player->putpiece_time, TICKS_PER_SEC/8) && (player->state.down))) {
+      if (TIMEOUT(player->putpiece_time, TPS) ||
+         (TIMEOUT(player->putpiece_time, TPS/8) && (player->state.down))) {
         x = player->piece.x;
         if (player->flags & (PLAYER_LEFT | PLAYER_RIGHT))
           player->piece.x = player->piece.dx;
@@ -554,7 +554,7 @@ int move_player(PLAYER *player)
           /* ...colocarla en el panel */
           put_piece(player);
 
-          /* realizar la animaci¢n correspondiente */
+          /* realizar la animación correspondiente */
           player->flags &= ~PLAYER_PREPUTPIECE;
           player->flags |= PLAYER_PUTPIECE;
           player->ani_time = game_clock;
@@ -562,17 +562,17 @@ int move_player(PLAYER *player)
           /* contruir las mega-bombas */
           make_megabombs(player);
 
-          /* ver si hay l¡neas completas */
+          /* ver si hay líneas completas */
           lines_to_kill(player);
 
           /* crear las explosiones */
-          if (game_mode == GAME_MODE_DESTROYER) {
+          if (game_mode == QTETRIS_MODE_DESTROYER) {
             if (player->kill > 0)
               create_bombs_explosion(player);
           }
 
-          /* hay l¡neas por "matar"? entonces, realizar la animaci¢n
-             para mostrar el mensaje que indica que tipo de l¡nea hicimos */
+          /* hay líneas por "matar"? entonces, realizar la animación
+             para mostrar el mensaje que indica que tipo de línea hicimos */
           if (player->kill > 0) {
             int c;
 
@@ -588,7 +588,7 @@ int move_player(PLAYER *player)
             update_gameobj_list();
           }
             
-          play(PUTPIECE_WAV, player->px+player->piece.x, 255);
+          qtetris_sound(PUTPIECE_WAV, player->px+player->piece.x, 255);
         }
         else {
           player->piece.x = x;
@@ -600,7 +600,7 @@ int move_player(PLAYER *player)
   }
   /* PUTPIECE */
   else if (player->flags & PLAYER_PUTPIECE) {
-    if (TIMEOUT(player->ani_time, TICKS_PER_SEC/4)) {
+    if (TIMEOUT(player->ani_time, TPS/4)) {
       /* actualizar el puntaje */
       if (player->kill) {
         player->level_lines += player->kill;
@@ -620,16 +620,16 @@ int move_player(PLAYER *player)
       /* restaurar la velocidad de la bajada de la pieza */
       player->down_start = game_clock;
 
-      /* ir a la pr¢xima pieza */
+      /* ir a la próxima pieza */
       next_piece(player);
       get_start_piece_pos(player);
 
-      /* hay l¡neas que "matar" */
+      /* hay líneas que "matar" */
       if (player->kill) {
         player->flags |= PLAYER_PANELDOWN;
         player->ani_time = game_clock;
       }
-      /* y si no, fijarse si muri¢ el jugador */
+      /* y si no, fijarse si murió el jugador */
       else {
         player_death(player);
       }
@@ -641,18 +641,18 @@ int move_player(PLAYER *player)
   }
   /* PANELDOWN */
   else if (player->flags & PLAYER_PANELDOWN) {
-    if (TIMEOUT(player->ani_time, TICKS_PER_SEC/64*player->kill)) {
+    if (TIMEOUT(player->ani_time, TPS/64*player->kill)) {
       player->flags &= ~PLAYER_PANELDOWN;
 
-      play(PREPUT_WAV, player->px+PANEL_WIDTH*BLOCK_SIZE/2, 255);
+      qtetris_sound(PREPUT_WAV, player->px+PANEL_WIDTH*BLOCK_SIZE/2, 255);
 
-      /* borrar las l¡neas completas */
+      /* borrar las líneas completas */
       kill_lines(player);
 
       /* contruir las mega-bombas */
       make_megabombs(player);
 
-      /* muri¢ el jugador? */
+      /* murió el jugador? */
       player_death(player);
     }
   }
@@ -676,7 +676,7 @@ void draw_player(BITMAP *bmp, PLAYER *player)
   if (!(player->flags & PLAYER_PLAYING))
     return;
     
-  /* posici¢n del indicador de la pr¢xima pieza */
+  /* posición del indicador de la próxima pieza */
   next_y = player->py-8;
   if (player == &player1)
     next_x = player->px+BLOCK_SIZE*PANEL_WIDTH+8+1;
@@ -693,7 +693,7 @@ void draw_player(BITMAP *bmp, PLAYER *player)
     (player == &player1)? PAL_BLUE: PAL_RED);
 
   /* PANEL BLOCKs */
-  /* hay l¡neas a "matar"? */
+  /* hay líneas a "matar"? */
   if (player->kill <= 0) {
     /* no, entonces dibujar el panel normalmente */
     for (y=0; y<PANEL_HEIGHT; y++)
@@ -701,13 +701,13 @@ void draw_player(BITMAP *bmp, PLAYER *player)
         draw_block(bmp, player->px+x*BLOCK_SIZE,
                         player->py+y*BLOCK_SIZE, player->panel[y][x], TRUE);
   }
-  /* dibujar el panel con las l¡neas completas */
+  /* dibujar el panel con las líneas completas */
   else {
     yd = 0;
 
     /* dibujar el panel desde abajo hacia arriba */
     for (y=PANEL_HEIGHT-1; y>=0; y--) {
-      /* ver si esta l¡nea (y) es una de las que se completaron */
+      /* ver si esta línea (y) es una de las que se completaron */
       flag = FALSE;
       for (c=0; c<player->kill; c++) {
         if (y == player->killines[c]) {
@@ -716,22 +716,22 @@ void draw_player(BITMAP *bmp, PLAYER *player)
         }
       }
 
-      /* la l¡nea no es una de las que se completaron;
+      /* la línea no es una de las que se completaron;
          entonces dibujarla normalmente; */
       if (!flag) {
         for (x=0; x<PANEL_WIDTH; x++)
-          /* note que en la posici¢n "y" se est  utilizando la
-             variable yd, para que si el panel ten¡a l¡neas completas
+          /* note que en la posición "y" se está utilizando la
+             variable yd, para que si el panel tenía líneas completas
              debajo, los bloques de arriba vayan bajando */
           draw_block(bmp, player->px+x*BLOCK_SIZE,
                           player->py+y*BLOCK_SIZE+yd, player->panel[y][x], TRUE);
       }
-      /* la l¡nea es una de las que ya se completaron */
+      /* la línea es una de las que ya se completaron */
       else {
-        /* reci‚n se coloc¢ la pieza (PLAYER_PUTPIECE);
-           por lo tanto, realizar la animaci¢n donde la l¡nea desaparece */
+        /* recién se colocó la pieza (PLAYER_PUTPIECE);
+           por lo tanto, realizar la animación donde la línea desaparece */
         if (player->flags & PLAYER_PUTPIECE) {
-          c = 4 * (game_clock-player->ani_time) / (TICKS_PER_SEC/4);
+          c = 4 * (game_clock-player->ani_time) / (TPS/4);
           c = MID(0, c, 3);
 
           for (x=0; x<PANEL_WIDTH; x++) {
@@ -746,11 +746,11 @@ void draw_player(BITMAP *bmp, PLAYER *player)
             }
           }
         }
-        /* se est  esperando a que baje el panel (PLAYER_PANELDOWN);
+        /* se está esperando a que baje el panel (PLAYER_PANELDOWN);
            entonces sumar a yd un valor de acuerdo al tiempo
-           esperado para que se realiza una animaci¢n suave */
+           esperado para que se realiza una animación suave */
         else if (player->flags & PLAYER_PANELDOWN) {
-          c = BLOCK_SIZE * (game_clock-player->ani_time) / (TICKS_PER_SEC/64*player->kill);
+          c = BLOCK_SIZE * (game_clock-player->ani_time) / (TPS/64*player->kill);
           yd += MIN(BLOCK_SIZE, c);
         }
       }
@@ -763,7 +763,7 @@ void draw_player(BITMAP *bmp, PLAYER *player)
       player->px+BLOCK_SIZE*PANEL_WIDTH -1,
       player->py+BLOCK_SIZE*PANEL_HEIGHT-1);
 
-    /* sin rotaci¢n */
+    /* sin rotación */
     if (!(player->flags & (PLAYER_PUTPIECE | PLAYER_PANELDOWN))) {
       if (!(player->flags & (PLAYER_ROTATION_LEFT | PLAYER_ROTATION_RIGHT))) {
         get_piece_blocks(player);
@@ -773,10 +773,10 @@ void draw_player(BITMAP *bmp, PLAYER *player)
                           player->py+player->piece.by[c],
                           player->piece.block[c], FALSE);
       }
-      /* con rotaci¢n */
+      /* con rotación */
       else {
         fixed max = itofix(64);
-        fixed angle = max / (TICKS_PER_SEC/16) * (game_clock - player->rot_ani_time);
+        fixed angle = max / (TPS/16) * (game_clock - player->rot_ani_time);
         angle = MID(0, angle, max);
 
         rotate_sprite(bmp, player->piece.bmp,
@@ -825,7 +825,7 @@ void draw_player(BITMAP *bmp, PLAYER *player)
   textprintf(virtual, f, x, y+8*1, -1, "%6d", player->score);
   textprintf(virtual, f, x, y+8*3, -1, "%6d", player->lines);
   textprintf(virtual, f, x, y+8*5, -1, " %02d/%d",
-    MIN(player->level, GAME_LEVELS), GAME_LEVELS);
+    MIN(player->level, QTETRIS_LEVELS), QTETRIS_LEVELS);
 
   if (!(player->flags & PLAYER_NORMAL)) {
     /* OVER */
@@ -834,9 +834,9 @@ void draw_player(BITMAP *bmp, PLAYER *player)
       BITMAP *sprite = datafile[(player->winner)? OWINNER_BMP: OLOSER_BMP].dat;
       fixed angle, scale;
 
-      if (!TIMEOUT(player->ani_time, TICKS_PER_SEC)) {
-        angle = itofix(256 - 256 * (game_clock - player->ani_time) / TICKS_PER_SEC);
-        scale = itofix(1) * (game_clock - player->ani_time) / TICKS_PER_SEC;
+      if (!TIMEOUT(player->ani_time, TPS)) {
+        angle = itofix(256 - 256 * (game_clock - player->ani_time) / TPS);
+        scale = itofix(1) * (game_clock - player->ani_time) / TPS;
       }
       else {
         angle = 0;
@@ -853,29 +853,29 @@ void draw_player(BITMAP *bmp, PLAYER *player)
       text_mode(-1);
 
       textout_centre(bmp, datafile[FONTBIG_PCX].dat, "NEW RECORD",
-        player->px+PANEL_WIDTH*BLOCK_SIZE/2, GAME_SCREEN_H/3-20, -1);
+        player->px+PANEL_WIDTH*BLOCK_SIZE/2, QTETRIS_SCREEN_H/3-20, -1);
 
       textprintf_lit(bmp, datafile[FONTBIG_PCX].dat,
-        player->px+PANEL_WIDTH*BLOCK_SIZE/2-32, GAME_SCREEN_H/3+20,
+        player->px+PANEL_WIDTH*BLOCK_SIZE/2-32, QTETRIS_SCREEN_H/3+20,
         (player->name_pos == 0)? PAL_YELLOW: PAL_GRAY,
         "%c", player->name[0]);
 
       textprintf_lit(bmp, datafile[FONTBIG_PCX].dat,
-        player->px+PANEL_WIDTH*BLOCK_SIZE/2-8, GAME_SCREEN_H/3+20,
+        player->px+PANEL_WIDTH*BLOCK_SIZE/2-8, QTETRIS_SCREEN_H/3+20,
         (player->name_pos == 1)? PAL_YELLOW: PAL_GRAY,
         "%c", player->name[1]);
 
       textprintf_lit(bmp, datafile[FONTBIG_PCX].dat,
-        player->px+PANEL_WIDTH*BLOCK_SIZE/2+16, GAME_SCREEN_H/3+20,
+        player->px+PANEL_WIDTH*BLOCK_SIZE/2+16, QTETRIS_SCREEN_H/3+20,
         (player->name_pos == 2)? PAL_YELLOW: PAL_GRAY,
         "%c", player->name[2]);
     }
 
     /* MENU */
     if (player->flags & PLAYER_MENU) {
-      /* solamente hay que dibujar el men£ una vez, por lo que
-         si el jugador dos est  jugando y "player" es el jugador
-         uno, no hay que dibujar el men£ (siempre el men£ debe
+      /* solamente hay que dibujar el menú una vez, por lo que
+         si el jugador dos está jugando y "player" es el jugador
+         uno, no hay que dibujar el menú (siempre el menú debe
          dibujarse al final de todo, para que quede encima) */
       if ((player2.flags & PLAYER_PLAYING) && (player != &player2))
         return;
@@ -883,18 +883,18 @@ void draw_player(BITMAP *bmp, PLAYER *player)
       text_mode(-1);
 
       textout_centre(bmp, datafile[FONTBIG_PCX].dat, "MAIN MENU",
-        GAME_SCREEN_W/2, GAME_SCREEN_H/3-20*1, -1);
+        QTETRIS_SCREEN_W/2, QTETRIS_SCREEN_H/3-20*1, -1);
 
       textout_centre_lit(bmp, datafile[FONTBIG_PCX].dat, "CONTINUE",
-        GAME_SCREEN_W/2, GAME_SCREEN_H/3+20*1,
+        QTETRIS_SCREEN_W/2, QTETRIS_SCREEN_H/3+20*1,
           (main_menu_option == 0)? PAL_YELLOW: -1);
 
       textout_centre_lit(bmp, datafile[FONTBIG_PCX].dat, "RESTART",
-        GAME_SCREEN_W/2, GAME_SCREEN_H/3+20*2,
+        QTETRIS_SCREEN_W/2, QTETRIS_SCREEN_H/3+20*2,
            (main_menu_option == 1)? PAL_YELLOW: -1);
 
       textout_centre_lit(bmp, datafile[FONTBIG_PCX].dat, "QUIT",
-        GAME_SCREEN_W/2, GAME_SCREEN_H/3+20*3,
+        QTETRIS_SCREEN_W/2, QTETRIS_SCREEN_H/3+20*3,
            (main_menu_option == 2)? PAL_YELLOW: -1);
     }
   }

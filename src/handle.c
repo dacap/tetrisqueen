@@ -102,7 +102,7 @@ static int fadeout_a_frame(void)
   if (_midi_volume > 0) _midi_volume = MAX(0, _midi_volume-8);
   set_volume(_digi_volume, _midi_volume);
 
-  push_clock();
+  qtetris_push_clock();
   get_palette(pal);
   for (c=0; c<PAL_SIZE; c++) {
     r = pal[c].r - 2;
@@ -113,16 +113,16 @@ static int fadeout_a_frame(void)
     pal[c].b = MAX(0, b);
   }
   set_palette(pal);
-  pop_clock();
+  qtetris_pop_clock();
 
-  if ((game_clock - fadeout_start) > TICKS_PER_SEC/2) {
+  if ((game_clock - fadeout_start) > TPS/2) {
     fadeout_start = 0;
-    push_clock();
+    qtetris_push_clock();
     clear(screen);
-    clear_keybuf();
+    qtetris_clear_keybuf();
     stop_midi();
-    update_volume();
-    pop_clock();
+    qtetris_update_volume();
+    qtetris_pop_clock();
     return -1;
   }
 
@@ -139,7 +139,7 @@ void handle_game(void)
 
   resort_gameobj_list();
   
-  clear_keybuf();
+  qtetris_clear_keybuf();
 
   fadeout_start = 0;
   speed_counter = 0;
@@ -161,9 +161,9 @@ void handle_game(void)
         int x = SCREEN_W/2;
         int y = SCREEN_H/2-text_height(f)/2;
 
-        push_clock();
+        qtetris_push_clock();
 
-        clear_keybuf();
+        qtetris_clear_keybuf();
 
         drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
         color_map = trans_dark_map;
@@ -181,14 +181,14 @@ void handle_game(void)
           poll_keyboard();
         } while (!keypressed());
 
-        clear_keybuf();
+        qtetris_clear_keybuf();
         
-        pop_clock();
+        qtetris_pop_clock();
       }
 
       /* capturar la pantalla */
       if (key[KEY_F12]) {
-        push_clock();
+        qtetris_push_clock();
       
         capture_screen();
         
@@ -196,7 +196,7 @@ void handle_game(void)
           poll_keyboard();
         } while (key[KEY_F12]);
 
-        pop_clock();
+        qtetris_pop_clock();
       }
 
       /* realizar un fundido de la pantalla */
@@ -232,11 +232,11 @@ void handle_game(void)
     }
 
     /* pasar todo lo dibujado a la pantalla */
-    flip_to_screen();
+    qtetris_blit(virtual);
   }
 
   active_gameobj = old_gameobj;
-  clear_keybuf();
+  qtetris_clear_keybuf();
 }
 
 

@@ -98,10 +98,10 @@ Available options are:
       --version                   output version information and exit
 
 For example, if you want to play without sound (because you are already
-hearing to your favourite MP3 files with another program), you can start the
-game like this:
+hearing to your favourite MP3 files with another program), and you don't
+want the introduction, you can start the game like this:
 
-  qtetris -s
+  qtetris -is
 
 
 5. CONTROLS
@@ -178,7 +178,7 @@ initials.
   |  |  |
   |  |  +- RIGHT:    plays a sound through the right speaker;
   |  |  |
-  |  |  +- FLIP PAN: flips the sound orientation (if sounds play from
+  |  |  `- FLIP PAN: flips the sound orientation (if sounds play from
   |  |               through the wrong speakers, use this option and try
   |  |               again);
   |  |
@@ -188,18 +188,18 @@ initials.
   |  |  |
   |  |  +- PLAYER 2: shows player's two button configuration;
   |  |  |
-  |  |  +- CALIBRATE
+  |  |  `- CALIBRATE
   |  |     JOYSTICK: shows a screen where you can calibrate both joysticks;
   |  |
   |  |
-  |  +- RESET HIGH
+  |  `- RESET HIGH
   |     SCORES:      erases the scores, changing them for the default values
   |                  (you will first have to choose the mode's high scores
   |                  you want to delete);
   |
   +- CREDITS:        shows the game's credits;
   |
-  +- EXIT:           exits the game and returns to the operative system;
+  `- EXIT:           exits the game and returns to the operative system;
 
 
 7. PLAYING
@@ -303,9 +303,6 @@ A: A little bit more documentation and different internal improvements to
    different resolutions (or window sizes), and also `-m' for mix
    your records with your friends.
 
-Q: Will you release more versions?
-A: I am viewing the possibility of a `qtetriz', but I don't promise anything.
-
 Q: Did you take 3 years to write a simple TETRIS?
 A: The truth is that it was one and without motivation :-) The main
    culprit was that I changed my mind every day (something which shouldn't
@@ -322,7 +319,7 @@ A: The only way, for the moment, is to download some WAVETABLES to
    included in these wavetable files. You can find some links to them from
    the Allegro web page itself:
 
-     http://www.talula.demon.co.uk/allegro/digmid.html
+     http://alleg.sourceforge.net/digmid.html
 
 Q: Where do I get the CVS tool?
 A: The Windows CVS (Concurrent Versions Systems) version is at:

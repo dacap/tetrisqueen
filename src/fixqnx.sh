@@ -7,10 +7,9 @@ echo "MAKEFILE_INC = makefile.qnx" >> makefile
 echo "include makefile.all" >> makefile
 
 find .. -type f "(" \
-   -name "*.bat" -o -name "*.c" -o -name "*.h" -o -name "makefile.*" -o \
-   -name "*.arg" -o -name "*.cfg" -o -name "*.en" -o -name "*.es" -o -name "*.txt" \
+   -name "*.c" -o -name "*.h" -o -name "makefile.*" -o \
+   -name "*.cfg" -o -name "*.en" -o -name "*.es" -o -name "*.txt" \
    ")" \
    -exec textto -l {}
 
 echo "Done!"
-

@@ -23,9 +23,24 @@ SRC_FILES = \
 	qtetris/qtetris.ico \
 	qtetris/src/*.c \
 	qtetris/src/*.h \
-	qtetris/src/makefile* \
-	qtetris/src/fix* \
-	qtetris/src/*.arg \
+	qtetris/src/makedata.bat \
+	qtetris/src/makedata.sh \
+	qtetris/src/makefile.all \
+	qtetris/src/makefile.dj \
+	qtetris/src/makefile.lst \
+	qtetris/src/makefile.mgw \
+	qtetris/src/makefile.qnx \
+	qtetris/src/makefile.uni \
+	qtetris/src/makefile.vc \
+	qtetris/src/makefile.wat \
+	qtetris/src/fixdjgpp.bat \
+	qtetris/src/fixmingw.bat \
+	qtetris/src/fixmsvc.bat \
+	qtetris/src/fixqnx.sh \
+	qtetris/src/fixunix.sh \
+	qtetris/src/fixwat.bat \
+	qtetris/src/ldmsvc.arg \
+	qtetris/src/ldwat.arg \
 	qtetris/src/data/tmpfile.txt \
 	qtetris/src/obj/tmpfile.txt
 
@@ -66,6 +81,9 @@ pre:
 	rm -f ../qtetris.hof ../qtetris.dat makefile makefile.dep data.h
 	cat ../qtetris.cfg | sed -e "s/^\([^\#].*\=\).*/\1/g" > _tmpfile
 	mv _tmpfile ../qtetris.cfg
+	utod *.bat *.arg
+	dtou *.sh
+	chmod +x *.sh
 
 src:
 	@echo Making source distribution...
@@ -101,7 +119,7 @@ uni:
 	-make depend
 	./makedata.sh
 	make STATICLINK=1 DEBUGMODE=
-	cd ../.. ; tar -czf qtetris/qtetris-$(VERSION).bin-uni.tar.gz $(BIN_UNI_FILES)
+	cd ../.. ; tar -chozf qtetris/qtetris-$(VERSION).bin-uni.tar.gz $(BIN_UNI_FILES)
 	@echo Done!
 
 qnx:
@@ -114,5 +132,4 @@ qnx:
 	@echo Done!
 
 all:
-	@echo "Rules:"
-	@echo "  First \`pre', and then: src, dat, dos, win, uni, or qnx"
+	@echo "Rules: pre, src, dat, dos, win, uni, qnx"

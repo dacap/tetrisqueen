@@ -1,7 +1,6 @@
-2001-09-13  David A. Capello
+2001-10-09  David A. Capello
 
-	* Nueva release 1.4: luego de tanto tiempo, se arregló un error fatal
-	  en la distribución anterior: me había olvidado de `makedata.sh' :o)
+	* Mejorado: el reconocimiento de argumentos.
 
 2001-09-12  David A. Capello
 

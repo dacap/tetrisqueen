@@ -102,8 +102,8 @@ static MENU controls_menu[] =
 
 static MENU game_mode_menu[] =
 {
-  { "CLASSIC",          play_proc,              NULL, 0, (void *)GAME_MODE_CLASSIC },
-  { "DESTROYER",        play_proc,              NULL, 0, (void *)GAME_MODE_DESTROYER },
+  { "CLASSIC",          play_proc,              NULL, 0, (void *)QTETRIS_MODE_CLASSIC },
+  { "DESTROYER",        play_proc,              NULL, 0, (void *)QTETRIS_MODE_DESTROYER },
   { "BACK",             back_proc,              NULL, 0, NULL },
   { NULL,               NULL,                   NULL, 0, NULL }
 };
@@ -291,11 +291,7 @@ static int reconfig_control(void)
   }
 
   if (control) {
-    clear_keybuf();
-    for (i=0; i<KEY_MAX; i++) {
-      key[i] = 0;
-      _key[i] = 0;
-    }
+    qtetris_clear_keybuf();
 
     new_control = -1;
     while (new_control < 0) {
@@ -310,7 +306,7 @@ static int reconfig_control(void)
     }
     *control = new_control;
 
-    clear_keybuf();
+    qtetris_clear_keybuf();
   }
 
   active_menu->dp = NULL;
@@ -326,15 +322,15 @@ static int test_sound_proc(void)
   switch ((int)active_menu->dp) {
   
     case 1:
-      play(MENUSEL_WAV, 0, 255);
+      qtetris_sound(MENUSEL_WAV, 0, 255);
       break;
       
     case 2:
-      play(MENUSEL_WAV, GAME_SCREEN_W/2, 255);
+      qtetris_sound(MENUSEL_WAV, QTETRIS_SCREEN_W/2, 255);
       break;
       
     case 3:
-      play(MENUSEL_WAV, GAME_SCREEN_W-1, 255);
+      qtetris_sound(MENUSEL_WAV, QTETRIS_SCREEN_W-1, 255);
       break;
       
     case 4:
@@ -375,7 +371,7 @@ static int play_proc(void)
     player2.flags = PLAYER_PLAYING;
     
     player1.px = BLOCK_SIZE*2;
-    player2.px = GAME_SCREEN_W-BLOCK_SIZE*PANEL_WIDTH-BLOCK_SIZE*2;
+    player2.px = QTETRIS_SCREEN_W-BLOCK_SIZE*PANEL_WIDTH-BLOCK_SIZE*2;
   }
   /* RESET HIGH SCORES */
   else {
@@ -399,11 +395,11 @@ static int move(void *null)
 
   (void)null;
 
-  /* si la m£sica para, comenzar nuevamente */
+  /* si la música para, comenzar nuevamente */
   if (midi_pos < 0) {
-    push_clock();
-    play_music(MUSIC_MENU, FALSE);
-    pop_clock();
+    qtetris_push_clock();
+    qtetris_music(MUSIC_MENU, FALSE);
+    qtetris_pop_clock();
   }
 
   if (keypressed())
@@ -411,11 +407,11 @@ static int move(void *null)
 
   background_pos++;
 
-  if (!TIMEOUT(ani_time, TICKS_PER_SEC*2))
+  if (!TIMEOUT(ani_time, TPS*2))
     return 0;
 
   if (!fadeout_start) {
-    /* UP: mover la selecci¢n del men£ hacia arriba */
+    /* UP: mover la selección del menú hacia arriba */
     if ((scan == KEY_UP) || (scan == KEY_8_PAD)) {
       for (max=0; menu[max].text; max++);
       max--;
@@ -425,9 +421,9 @@ static int move(void *null)
       else
         selected = max;
 
-      play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+      qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
     }
-    /* DOWN: bajar la selecci¢n del men£ */
+    /* DOWN: bajar la selección del menú */
     else if ((scan == KEY_DOWN) || (scan == KEY_2_PAD)) {
       for (max=0; menu[max].text; max++);
       max--;
@@ -437,35 +433,35 @@ static int move(void *null)
       else
         selected = 0;
 
-      play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+      qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
     }
-    /* ENTER: seleccionar una opci¢n */
+    /* ENTER: seleccionar una opción */
     else if ((scan == KEY_ENTER) || (scan == KEY_ENTER_PAD) || (scan == KEY_SPACE)) {
       int ret = D_O_K;
 
       active_menu = &menu[selected];
 
       if ((menu[selected].proc != test_sound_proc) || (((int)active_menu->dp) == 4))
-        play(MENUSEL_WAV, GAME_SCREEN_W/2, 255);
+        qtetris_sound(MENUSEL_WAV, QTETRIS_SCREEN_W/2, 255);
 
       if (menu[selected].proc) {
-        /* para la m£sica MIDI */
+        /* para la música MIDI */
         if (menu[selected].flags & D_INTERNAL)
           stop_midi();
 
         /* llamar el proceso */
         ret |= menu[selected].proc();
-        clear_keybuf();
+        qtetris_clear_keybuf();
 
-        /* restaurar la paleta de colores y la m£sica */
+        /* restaurar la paleta de colores y la música */
         if (menu[selected].flags & D_INTERNAL) {
-          push_clock();
+          qtetris_push_clock();
           sel_palette(NULL);
-          pop_clock();
+          qtetris_pop_clock();
         }
 
         /* si el proceso es back_proc, significa que se quiere
-           volver al men£ anterior */
+           volver al menú anterior */
         if (menu[selected].proc == back_proc) {
           for (max=0; menu[max].text; max++);
           max--;
@@ -476,7 +472,7 @@ static int move(void *null)
       }
 
       if (menu[selected].child) {
-        /* seleccionar el men£ hijo */
+        /* seleccionar el menú hijo */
         old_menu[menu_counter++] = menu;
         menu = menu[selected].child;
 
@@ -499,7 +495,7 @@ static int move(void *null)
         if ((scan == KEY_LEFT)  || (scan == KEY_4_PAD)) value--;
         if ((scan == KEY_RIGHT) || (scan == KEY_6_PAD)) value++;
 
-        /* el volumen fu‚ cambiado? */
+        /* el volumen fué cambiado? */
         if (value) {
           /* actualizar la barra de volumen */
           char *s = strchr(menu[selected].text, ' ')+1;
@@ -529,7 +525,7 @@ static int move(void *null)
           if (selected == 1)
             midi_volume = MAX_VOLUME*l/20;
 
-          update_volume();
+          qtetris_update_volume();
         }
       }
     }
@@ -606,31 +602,31 @@ static void draw(void *null)
   /* background */
   drawing_mode(DRAW_MODE_COPY_PATTERN, datafile[TETRISBG_BMP].dat,
     background_pos/4, background_pos/6);
-  rectfill(virtual, 0, 0, GAME_SCREEN_W, GAME_SCREEN_H, -1);
+  rectfill(virtual, 0, 0, QTETRIS_SCREEN_W, QTETRIS_SCREEN_H, -1);
   solid_mode();
 
   /* tetris logo */
   v = 80;
-  if (!TIMEOUT(ani_time, TICKS_PER_SEC))
-    v = v * (game_clock - ani_time) / TICKS_PER_SEC;
+  if (!TIMEOUT(ani_time, TPS))
+    v = v * (game_clock - ani_time) / TPS;
 
   /* shadow */
   color_map = shadow_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
   draw_trans_sprite(virtual, datafile[TETRIS_BMP].dat,
-    GAME_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2 + 6,
-    GAME_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 - v + 12);
+    QTETRIS_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2 + 6,
+    QTETRIS_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 - v + 12);
   solid_mode();
 
   /* solid */
   draw_sprite(virtual, datafile[TETRIS_BMP].dat,
-    GAME_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2,
-    GAME_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 - v);
+    QTETRIS_SCREEN_W/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->w/2,
+    QTETRIS_SCREEN_H/2 - ((BITMAP *)datafile[TETRIS_BMP].dat)->h/2 - v);
 
   /* queen logo */
   v = 128;
-  if (!TIMEOUT(ani_time, TICKS_PER_SEC*3/2))
-    v = v * (game_clock - ani_time) / (TICKS_PER_SEC*3/2);
+  if (!TIMEOUT(ani_time, TPS*3/2))
+    v = v * (game_clock - ani_time) / (TPS*3/2);
 
   v = 128 - v;
   
@@ -638,29 +634,29 @@ static void draw(void *null)
   color_map = shadow_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
   draw_trans_sprite(virtual, datafile[QUEENMNI_BMP].dat,
-    GAME_SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2+6, 48-v+12);
+    QTETRIS_SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2+6, 48-v+12);
   solid_mode();
   
   /* solid */
   draw_sprite(virtual, datafile[QUEENMNI_BMP].dat,
-    GAME_SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2, 48-v);
+    QTETRIS_SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2, 48-v);
 
-  /* men£ */
-  v = GAME_SCREEN_W;
-  if (!TIMEOUT(ani_time, TICKS_PER_SEC*2))
-    v = v * (game_clock - ani_time) / (TICKS_PER_SEC*2);
+  /* menú */
+  v = QTETRIS_SCREEN_W;
+  if (!TIMEOUT(ani_time, TPS*2))
+    v = v * (game_clock - ani_time) / (TPS*2);
 
-  v = GAME_SCREEN_W - v;
+  v = QTETRIS_SCREEN_W - v;
 
   for (i=0; menu[i].text; i++) {
     menu_textout(virtual, menu[i].text, (menu != controls_config_menu),
-      GAME_SCREEN_W/2 + ((i&1)? -v:+v), GAME_SCREEN_H/2-28+i*20, (!v && (selected == i)));
+      QTETRIS_SCREEN_W/2 + ((i&1)? -v:+v), QTETRIS_SCREEN_H/2-28+i*20, (!v && (selected == i)));
   }
 }
 
 
 
-/* ejecuta la pantalla principal del juego: los men£s */
+/* ejecuta la pantalla principal del juego: los menús */
 void play_menu(void)
 {
   GAMEOBJ *old_list = gameobj_list;

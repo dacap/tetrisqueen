@@ -98,10 +98,10 @@ Las opciones disponibles son:
       --version                   mostrar información sobre la versión
 
 Por ejemplo, si desea iniciar sin instalar el sonido (ya que está
-escuchando sus MP3s favoritos con otro programa), puede iniciar el juego
-de la siguiente manera:
+escuchando sus MP3s favoritos con otro programa), y no quiere la
+introducción, puede iniciar el juego de la siguiente manera:
 
-  qtetris -s
+  qtetris -is
 
 
 5. CONTROLES
@@ -181,7 +181,7 @@ operación, ya que podría colocar iniciales no deseadas.
   |  |  |
   |  |  +- RIGHT:    reproduce un sonido que se escucha desde la derecha;
   |  |  |
-  |  |  +- FLIP PAN: invierte la orientación del sonido (si los sonidos no
+  |  |  `- FLIP PAN: invierte la orientación del sonido (si los sonidos no
   |  |               salen correctamente por los lados que se indican,
   |  |               utilice esta opción y vuelva a probar);
   |  |
@@ -191,18 +191,18 @@ operación, ya que podría colocar iniciales no deseadas.
   |  |  |
   |  |  +- PLAYER 2: muestra la configuración de los botones del 2do jugador;
   |  |  |
-  |  |  +- CALIBRATE
+  |  |  `- CALIBRATE
   |  |     JOYSTICK: muestra una pantalla donde se pueden calibrar los dos
   |  |               joysticks;
   |  |
-  |  +- RESET HIGH
+  |  `- RESET HIGH
   |     SCORES:      borra las puntuaciones, restaurándolas por los valores
   |                  por defecto (antes deberá elegir la tabla de records
   |                  específica del modo de juego que quiera borrar);
   |
   +- CREDITS:        muestra los créditos del juegos;
   |
-  +- EXIT:           sale del juego y vuelve al sistema operativo;
+  `- EXIT:           sale del juego y vuelve al sistema operativo;
 
 
 7. JUGANDO
@@ -312,9 +312,6 @@ R: Un poco más de documentación y varias mejoras internas para poder
    en diferentes resoluciones (o tamaños de ventanas), y también `-m'
    para mezclar records de tus amigos con los tuyos.
 
-P: ¿Habrá nuevas versiones?
-R: Estoy viendo la posibilidad de un `qtetriz', pero no prometo nada.
-
 P: ¿Estuviste 3 años para un simple TETRIS?
 R: En realidad habrá sido 1 y sin ganas :-) La razón principal era que
    cambiaba de idea cada día (cosa que no se debe hacer si se realiza un
@@ -331,7 +328,7 @@ R: La única forma, por ahora, es bajarse unos WAVETABLES para que los
    traen estos ficheros (los wavetables). Puede encontrar varios enlaces
    desde la misma página de Allegro:
 
-     http://www.talula.demon.co.uk/allegro/digmid.html
+     http://alleg.sourceforge.net/digmid.es.html
 
 P: ¿Dónde consigo la utilidad CVS?
 R: La versión para Windows de CVS (Concurrent Versions System) se encuentra

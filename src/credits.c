@@ -46,15 +46,15 @@ typedef struct CREDITS_LINE
 
 static CREDITS_LINE credits_line[] =
 {
-  { 4, TYPE_TITLE, GAME_NAME },
-  { 4, TYPE_TEXT, "Version " GAME_VERSION },
+  { 4, TYPE_TITLE, QTETRIS_NAME },
+  { 4, TYPE_TEXT, "Version " QTETRIS_VERSION },
   { 1, TYPE_TEXT, "Programmer, Graphics," },
   { 2, TYPE_TEXT, "Sounds, Documents, Tester:" },
-  { 1, TYPE_TEXT, AUTHOR_NAME },
-  { 3, TYPE_LINK, AUTHOR_URL },
+  { 1, TYPE_TEXT, QTETRIS_AUTHOR_NAME },
+  { 3, TYPE_LINK, QTETRIS_AUTHOR_WWW },
   { 2, TYPE_TEXT, "Translation of the docs." },
   { 1, TYPE_TEXT, "Grzegorz Adam Hankiewicz" },
-  { 3, TYPE_LINK, "http://gradha.infierno.org" },
+  { 3, TYPE_LINK, "http://gradha.infierno.org/" },
   { 1, TYPE_TEXT, "Musics:" },
   { 3, TYPE_LINK, "http://www.queentrivia.mcmail.com/" },
   { 2, TYPE_TEXT, "Thanks to:" },
@@ -70,9 +70,9 @@ static CREDITS_LINE credits_line[] =
   { 1, TYPE_TEXT, "Charles W Sandmann" },
   { 1, TYPE_TEXT, "for CWSDPMI" },
   {15, TYPE_LINK, "sandmann@clio.rice.edu" },
-  { 1, TYPE_TEXT, AUTHOR_NAME },
-  { 2, TYPE_TEXT, "Copyright (C) " GAME_DATE },
-  { 1, TYPE_LINK, GAME_URL }
+  { 1, TYPE_TEXT, QTETRIS_AUTHOR_NAME },
+  { 2, TYPE_TEXT, "Copyright (C) " QTETRIS_DATE },
+  { 1, TYPE_LINK, QTETRIS_HOSTED }
 };
 
 
@@ -93,29 +93,29 @@ static int move(void *null)
       fadeout_start = game_clock;
   }
 
-  /* calcular el m¡nimo al que puede llegar text_y */
+  /* calcular el mínimo al que puede llegar text_y */
   if (!min_y) {
     int i, y;
 
     /* calcular la cantidad de pixeles que ocupa todo el texto
-       de los cr‚ditos */
+       de los créditos */
     y = 0;
     for (i=0; i<credits_size; i++)
       y += credits_line[i].next * text_height(font);
 
-    /* el m¡nimo ser  desde el cuarto de pantalla para arriba */
-    min_y = itofix(GAME_SCREEN_H/4 - y);
+    /* el mínimo será desde el cuarto de pantalla para arriba */
+    min_y = itofix(QTETRIS_SCREEN_H/4 - y);
   }
 
   /* subir el texto 0.25 puntos */
   text_y = fsub(text_y, 0x4000);
 
-  /* el texto lleg¢ al l¡mite? */
+  /* el texto llegó al límite? */
   if (text_y < min_y) {
     /* trabarlo */
     text_y = min_y;
 
-    /* comenzar el fadein si es que no comenz¢ */
+    /* comenzar el fadein si es que no comenzó */
     if ((!fadein) && (!final_credits))
       fadein = 1;
   }
@@ -124,10 +124,10 @@ static int move(void *null)
   if ((!fadeout_start) && (fadein > 0)) {
     PALETTE pal;
 
-    push_clock();
+    qtetris_push_clock();
     get_palette(pal);
-    fade_from_range(pal, ALBUM_PAL(23), 2, 128, PAL_SIZE-1);
-    pop_clock();
+    fade_from_range(pal, ALBUM_PAL(ALBUM_CREDITS), 2, 128, PAL_SIZE-1);
+    qtetris_pop_clock();
 
     fadein = -1;
   }
@@ -145,16 +145,16 @@ static void draw(void *null)
   (void)null;
 
   if (!final_credits) {
-    for (y=0; y<GAME_SCREEN_H; y+=10)
-      for (x=0; x<GAME_SCREEN_W; x+=10)
-        blit(ALBUM_BMP(23), virtual, 0, 0, x, y, 10, 10);
+    for (y=0; y<QTETRIS_SCREEN_H; y+=10)
+      for (x=0; x<QTETRIS_SCREEN_W; x+=10)
+        blit(ALBUM_BMP(ALBUM_CREDITS), virtual, 0, 0, x, y, 10, 10);
 
-    blit(ALBUM_BMP(23), virtual, 0, 0,
-      GAME_SCREEN_W/2-ALBUM_W/2,
-      GAME_SCREEN_H-ALBUM_H+1, ALBUM_W, ALBUM_H);
+    blit(ALBUM_BMP(ALBUM_CREDITS), virtual, 0, 0,
+      QTETRIS_SCREEN_W/2-ALBUM_W/2,
+      QTETRIS_SCREEN_H-ALBUM_H+1, ALBUM_W, ALBUM_H);
   }
   else {
-    blit(datafile[FINAL_BMP].dat, virtual, 0, 0, 0, 0, GAME_SCREEN_W, GAME_SCREEN_H);
+    blit(datafile[FINAL_BMP].dat, virtual, 0, 0, 0, 0, QTETRIS_SCREEN_W, QTETRIS_SCREEN_H);
   }
 
   text_mode(-1);
@@ -163,7 +163,7 @@ static void draw(void *null)
   for (i=0; i<credits_size; i++) {
     f = datafile[(credits_line[i].type == TYPE_TITLE)? FONTBIG_PCX: FONTGAME_PCX].dat;
 
-    textout_centre_lit(virtual, f, credits_line[i].text, GAME_SCREEN_W/2, y,
+    textout_centre_lit(virtual, f, credits_line[i].text, QTETRIS_SCREEN_W/2, y,
       (credits_line[i].type == TYPE_LINK)? PAL_BLUE: -1);
 
     y += credits_line[i].next * text_height(font);
@@ -180,18 +180,18 @@ int play_credits(void)
 
   gameobj_list = NULL;
 
-  push_clock();
-  play_music((!final_credits)? MUSIC_CREDITS: MUSIC_FINAL, TRUE);
-  pop_clock();
+  qtetris_push_clock();
+  qtetris_music((!final_credits)? MUSIC_CREDITS: MUSIC_FINAL, TRUE);
+  qtetris_pop_clock();
 
-  text_y = itofix(GAME_SCREEN_H+16);
+  text_y = itofix(QTETRIS_SCREEN_H+16);
 
   fadeout_start = 0;
   fadein = 0;
 
-  push_clock();
+  qtetris_push_clock();
   if (!final_credits)
-    sel_palette(ALBUM_PAL(23));
+    sel_palette(ALBUM_PAL(ALBUM_CREDITS));
   else {
     PALETTE wpal;
   
@@ -201,22 +201,22 @@ int play_credits(void)
     get_palette(pal);
     fade_from(pal, wpal, 2);
   }
-  pop_clock();
+  qtetris_pop_clock();
     
   draw(NULL);
-  flip_to_screen();
+  qtetris_blit(virtual);
 
-  push_clock();
+  qtetris_push_clock();
   if (!final_credits) {
-    fade_interpolate(ALBUM_PAL(23), black_palette, pal, 32, 128, PAL_SIZE-1);
-    fade_from_range(ALBUM_PAL(23), pal, 2, 128, PAL_SIZE-1);
+    fade_interpolate(ALBUM_PAL(ALBUM_CREDITS), black_palette, pal, 32, 128, PAL_SIZE-1);
+    fade_from_range(ALBUM_PAL(ALBUM_CREDITS), pal, 2, 128, PAL_SIZE-1);
   }
   else {
     get_palette(pal);
     fade_from(pal, datafile[FINALPAL_BMP].dat, 2);
     sel_palette(datafile[FINALPAL_BMP].dat);
   }
-  pop_clock();
+  qtetris_pop_clock();
 
   add_gameobj(50, create_gameobj(move, draw, NULL));
   handle_game();
@@ -224,7 +224,7 @@ int play_credits(void)
   gameobj_list = old_list;
 
   clear(screen);
-  clear_keybuf();
+  qtetris_clear_keybuf();
   return D_O_K;
 }
 

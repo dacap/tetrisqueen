@@ -93,8 +93,8 @@ int load_records(void)
   PACKFILE *f = pack_fopen(hof_file, F_READ);
 
   if (!f) {
-    reset_high_scores(GAME_MODE_CLASSIC);
-    reset_high_scores(GAME_MODE_DESTROYER);
+    reset_high_scores(QTETRIS_MODE_CLASSIC);
+    reset_high_scores(QTETRIS_MODE_DESTROYER);
     return FALSE;
   }
   else {
@@ -126,9 +126,9 @@ int save_records(void)
 
 void reset_high_scores(int game_mode)
 {
-  if (game_mode == GAME_MODE_CLASSIC)
+  if (game_mode == QTETRIS_MODE_CLASSIC)
     memcpy(hallfame_classic, default_hallfame_classic, sizeof(hallfame_classic));
-  else if (game_mode == GAME_MODE_DESTROYER)
+  else if (game_mode == QTETRIS_MODE_DESTROYER)
     memcpy(hallfame_destroyer, default_hallfame_destroyer, sizeof(hallfame_destroyer));
 }
 
@@ -136,8 +136,8 @@ void reset_high_scores(int game_mode)
 
 int make_a_new_record(PLAYER *player, int game_mode)
 {
-  HALLFAME *hallfame = (game_mode == GAME_MODE_CLASSIC  )? hallfame_classic:
-                       (game_mode == GAME_MODE_DESTROYER)? hallfame_destroyer:
+  HALLFAME *hallfame = (game_mode == QTETRIS_MODE_CLASSIC  )? hallfame_classic:
+                       (game_mode == QTETRIS_MODE_DESTROYER)? hallfame_destroyer:
                        NULL;
   int i;
 
@@ -155,8 +155,8 @@ int make_a_new_record(PLAYER *player, int game_mode)
 
 void add_new_record(PLAYER *player, int game_mode)
 {
-  HALLFAME *hallfame = (game_mode == GAME_MODE_CLASSIC  )? hallfame_classic:
-                       (game_mode == GAME_MODE_DESTROYER)? hallfame_destroyer:
+  HALLFAME *hallfame = (game_mode == QTETRIS_MODE_CLASSIC  )? hallfame_classic:
+                       (game_mode == QTETRIS_MODE_DESTROYER)? hallfame_destroyer:
                        NULL;
   HALLFAME temp;
   int i, j;
@@ -187,8 +187,8 @@ void add_new_record(PLAYER *player, int game_mode)
 
 static int is_in_the_hall(PLAYER *player, int game_mode)
 {
-  HALLFAME *hallfame = (game_mode == GAME_MODE_CLASSIC  )? hallfame_classic:
-                       (game_mode == GAME_MODE_DESTROYER)? hallfame_destroyer:
+  HALLFAME *hallfame = (game_mode == QTETRIS_MODE_CLASSIC  )? hallfame_classic:
+                       (game_mode == QTETRIS_MODE_DESTROYER)? hallfame_destroyer:
                        NULL;
   int i;
 
@@ -225,9 +225,9 @@ int merge_records(const char *filename)
       player.lines = hallfame[i].lines;
       player.level = hallfame[i].level;
 
-      if (!is_in_the_hall(&player, GAME_MODE_CLASSIC) &&
-          make_a_new_record(&player, GAME_MODE_CLASSIC))
-        add_new_record(&player, GAME_MODE_CLASSIC);
+      if (!is_in_the_hall(&player, QTETRIS_MODE_CLASSIC) &&
+          make_a_new_record(&player, QTETRIS_MODE_CLASSIC))
+        add_new_record(&player, QTETRIS_MODE_CLASSIC);
     }
 
     pack_fread(&hallfame, sizeof(hallfame), f);
@@ -238,9 +238,9 @@ int merge_records(const char *filename)
       player.lines = hallfame[i].lines;
       player.level = hallfame[i].level;
 
-      if (!is_in_the_hall(&player, GAME_MODE_DESTROYER) &&
-          make_a_new_record(&player, GAME_MODE_DESTROYER))
-        add_new_record(&player, GAME_MODE_DESTROYER);
+      if (!is_in_the_hall(&player, QTETRIS_MODE_DESTROYER) &&
+          make_a_new_record(&player, QTETRIS_MODE_DESTROYER))
+        add_new_record(&player, QTETRIS_MODE_DESTROYER);
     }
 
     pack_fclose(f);
@@ -262,14 +262,14 @@ static int move(void *null)
   if (!fadeout_start && (scan == KEY_ESC))
     fadeout_start = game_clock;
 
-  /* mover la selecci¢n hacia arriba... */
+  /* mover la selección hacia arriba... */
   if ((scan == KEY_UP) || (scan == KEY_8_PAD)) {
     if (sel>0)
       sel--;
     else
       sel = MAX_PLAYERS-1;
 
-    play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+    qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
   }
   /* ...o hacia abajo */
   else if ((scan == KEY_DOWN) || (scan == KEY_2_PAD)) {
@@ -278,9 +278,9 @@ static int move(void *null)
     else
       sel = 0;
       
-    play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+    qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
   }
-  /* cambiar de sal¢n */
+  /* cambiar de salón */
   else if ((scan == KEY_LEFT)  || (scan == KEY_RIGHT) ||
            (scan == KEY_4_PAD) || (scan == KEY_6_PAD)) {
     if (hallfame == hallfame_classic)
@@ -288,7 +288,7 @@ static int move(void *null)
     else
       hallfame = hallfame_classic;
       
-    play(MENUSET_WAV, GAME_SCREEN_W/2, 255);
+    qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
   }
 
   return 0;
@@ -304,21 +304,21 @@ static void draw(void *null)
 
   (void)null;
 
-  blit(datafile[HALLFAME_BMP].dat, virtual, 0, 0, 0, 0, GAME_SCREEN_W, GAME_SCREEN_H);
+  blit(datafile[HALLFAME_BMP].dat, virtual, 0, 0, 0, 0, QTETRIS_SCREEN_W, QTETRIS_SCREEN_H);
 
   text_mode(-1);
 
   textout_centre(virtual, datafile[FONTBIG_PCX].dat, "HALL OF FAME",
-    GAME_SCREEN_W/2, 0, -1);
+    QTETRIS_SCREEN_W/2, 0, -1);
 
   str = ((hallfame == hallfame_classic)? "CLASSIC": "DESTROYER");
   y = text_height(datafile[FONTBIG_PCX].dat)-6;
 
-  textout_centre(virtual, f, str, GAME_SCREEN_W/2+1, y, 0);
-  textout_centre(virtual, f, str, GAME_SCREEN_W/2-1, y, 0);
-  textout_centre(virtual, f, str, GAME_SCREEN_W/2, y+1, 0);
-  textout_centre(virtual, f, str, GAME_SCREEN_W/2, y-1, 0);
-  textout_centre(virtual, f, str, GAME_SCREEN_W/2, y, -1);
+  textout_centre(virtual, f, str, QTETRIS_SCREEN_W/2+1, y, 0);
+  textout_centre(virtual, f, str, QTETRIS_SCREEN_W/2-1, y, 0);
+  textout_centre(virtual, f, str, QTETRIS_SCREEN_W/2, y+1, 0);
+  textout_centre(virtual, f, str, QTETRIS_SCREEN_W/2, y-1, 0);
+  textout_centre(virtual, f, str, QTETRIS_SCREEN_W/2, y, -1);
 
   color_map = trans_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
@@ -365,9 +365,9 @@ int play_hall_of_fame(void)
 
   gameobj_list = NULL;
 
-  push_clock();
-  play_music(MUSIC_HOF, TRUE);
-  pop_clock();
+  qtetris_push_clock();
+  qtetris_music(MUSIC_HOF, TRUE);
+  qtetris_pop_clock();
 
   hallfame = hallfame_classic;
   sel = 0;
