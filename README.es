@@ -370,7 +370,7 @@ P: Tengo problemas y no hay mucha documentación :-(
    ¿Dónde encuentro más ayuda?
 R: Puede enviarme un email a mi dirección personal:
 
-     davidcapello@yahoo.com
+     dacap@users.sourceforge.net
 
    Si encuentra un bug, error de documentación o algo extraño o confuso, no
    dude en ponerse en contacto y avisarme al respecto.

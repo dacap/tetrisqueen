@@ -294,7 +294,7 @@ int main(int argc, char *argv[])
 
     allegro_message(
       "\n" GAME_NAME " - Version " GAME_VERSION "\n"
-      "Copyright (C) " GAME_DATE ", by David A. Capello (" AUTHOR_EMAIL ")\n\n"
+      "Copyright (C) " GAME_DATE " by David A. Capello (" AUTHOR_EMAIL ")\n\n"
       "This game is FREEWARE (totaly free), and you can update from:\n"
       "Este juego es FREEWARE (totalmente gratuito), y lo puede actualizar desde:\n\n"
       GAME_URL "\n\n");

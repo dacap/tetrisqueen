@@ -1,6 +1,6 @@
 2001-06-27  David A. Capello
 
-	* New release 1.3.1: the packages src, dat, dos, uni and win.
+	* New release 1.3.1: the packages src and dat.
 	* Fixed some makefile* and fix*.
 
 2001-06-17  David A. Capello

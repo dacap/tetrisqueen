@@ -26,7 +26,7 @@
 #define GAME_URL		"http://qtetris.sourceforge.net/"
 
 #define AUTHOR_NAME		"David A. Capello"
-#define AUTHOR_EMAIL		"davidcapello@yahoo.com"
+#define AUTHOR_EMAIL		"dacap@users.sourceforge.net"
 #define AUTHOR_URL		"http://www.davidcapello.com.ar/"
 
 #define GAME_MODE_CLASSIC	0

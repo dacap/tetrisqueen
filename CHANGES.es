@@ -1,6 +1,6 @@
 2001-06-27  David A. Capello
 
-	* Nueva release 1.3.1: los paquetes src, dat, dos, uni y win.
+	* Nueva release 1.3.1: los paquetes src y dat.
 	* Arreglados algunos makefile* y fix*.
 
 2001-06-17  David A. Capello
