@@ -1,0 +1,112 @@
+# Copyright (C) 1999, 2000, 2001 by David A. Capello
+
+VERSION = 1.3
+
+default: all
+
+
+
+SRC_PACK_FILES = \
+	qtetris/leame.txt \
+	qtetris/license.txt \
+	qtetris/readme.txt \
+	qtetris/qtetris.cfg \
+	qtetris/qtetris.ico \
+	qtetris/src/*.c \
+	qtetris/src/*.h \
+	qtetris/src/makefile* \
+	qtetris/src/fix* \
+	qtetris/src/*.arg \
+	qtetris/src/data/tmpfile.txt
+
+DAT_PACK_FILES = \
+	qtetris/src/data/*.dat \
+	qtetris/src/data/*.pcx \
+	qtetris/src/data/info.txt \
+	qtetris/src/data/*.bmp \
+	qtetris/src/data/*.wav \
+	qtetris/src/data/*.mid
+
+BIN_PACK_FILES = \
+	qtetris/leame.txt \
+	qtetris/license.txt \
+	qtetris/readme.txt \
+	qtetris/qtetris.cfg \
+	qtetris/qtetris.dat \
+	qtetris/qtetris.ico
+
+BIN_DOS_PACK_FILES = \
+	$(BIN_PACK_FILES) \
+	qtetris/qtetris.exe \
+	qtetris/cwsdpmi.doc \
+	qtetris/cwsdpmi.exe
+
+BIN_WIN_PACK_FILES = \
+	$(BIN_PACK_FILES) \
+	qtetris/qtetris.exe \
+	qtetris/*.dll
+
+BIN_UNI_PACK_FILES = \
+	$(BIN_PACK_FILES) \
+	qtetris/qtetris
+
+
+
+srcpack:
+	@echo Making source distribution...
+	cd ../..
+	tar -czf qtetris-$(VERSION).src.tar.gz $(SRC_PACK_FILES)
+	cd qtetris/src
+	@echo Done!
+
+
+
+datpack:
+	@echo Making DATA distribution...
+	cd ../..
+	tar -czf qtetris-$(VERSION).dat.tar.gz $(DAT_PACK_FILES)
+	cd qtetris/src
+	@echo Done!
+
+
+
+dospack:
+	@echo Making MS-DOS packages...
+	-./fixdjgpp.bat
+	-make depend
+	make DEBUGMODE=
+	cd ../..
+	tar -czf qtetris-$(VERSION).bin-dos.tar.gz $(BIN_DOS_PACK_FILES)
+	cd qtetris/src
+	@echo Done!
+
+
+
+winpack:
+	@echo Making Windows packages...
+	-./fixmsvc.bat
+	-make depend
+	make DEBUGMODE=
+	cd ../..
+	tar -czf qtetris-$(VERSION).bin-win.tar.gz $(BIN_WIN_PACK_FILES)
+	cd qtetris/src
+	@echo Done!
+
+
+
+unipack:
+	@echo Making UNIX packages...
+	-./fixunix.sh
+	-make depend
+	make STATICLINK=1 DEBUGMODE=
+	cd ../.. ; tar -czf qtetris-$(VERSION).bin-uni.tar.gz $(BIN_UNI_PACK_FILES)
+	@echo Done!
+
+
+
+all:
+	@echo "Rules:"
+	@echo "  srcpack, datpack, dospack, winpack, unipack"
+
+
+
