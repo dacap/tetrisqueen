@@ -16,6 +16,6 @@ Colaboradores
   sistema operativo QNX.
 
   Norberto Alfredo Bensa (ceo@nbensacomputers.com)
-  Reportó uno error con el directorio obj/ y una mejora para
+  Reportó un error con el directorio obj/ y una mejora para
   el makefile.
 

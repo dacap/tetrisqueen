@@ -1,5 +1,5 @@
 /*
- * TETRIS Queen - Version 1.3
+ * TETRIS Queen
  * Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
@@ -29,18 +29,18 @@
 void play_intro(void)
 {
 #define COL(index,red,green,blue) \
-  if ((index>=min) && (index<=max)) {	\
-    pal[index].r = (red);		\
-    pal[index].g = (green);		\
-    pal[index].b = (blue);		\
+  if ((index>=min) && (index<=max)) { \
+    pal[index].r = (red);             \
+    pal[index].g = (green);           \
+    pal[index].b = (blue);            \
   }
 
 #define FADE(speed) \
-  fade_from(source, pal, speed);	\
+  fade_from(source, pal, speed); \
   get_palette(source)
 
 #define NORMAL() \
-  min = 0;	 \
+  min = 0;         \
   max = PAL_SIZE-1
   
 

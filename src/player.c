@@ -1,5 +1,5 @@
 /*
- * TETRIS Queen - Version 1.3
+ * TETRIS Queen
  * Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
@@ -212,11 +212,11 @@ int move_player(PLAYER *player)
     return 0;
 
   /* controles */
-  player->state.left		= get_control_state(player->control.left);
-  player->state.right		= get_control_state(player->control.right);
-  player->state.down		= get_control_state(player->control.down);
-  player->state.rot_left	= get_control_state(player->control.rot_left);
-  player->state.rot_right	= get_control_state(player->control.rot_right);
+  player->state.left      = get_control_state(player->control.left);
+  player->state.right     = get_control_state(player->control.right);
+  player->state.down      = get_control_state(player->control.down);
+  player->state.rot_left  = get_control_state(player->control.rot_left);
+  player->state.rot_right = get_control_state(player->control.rot_right);
 
   /* estados especiales */
   if (!(player->flags & PLAYER_NORMAL)) {

@@ -1,5 +1,5 @@
 /*
- * TETRIS Queen - Version 1.3
+ * TETRIS Queen
  * Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
@@ -43,7 +43,7 @@ static void create_shadow_table(COLOR_MAP *table, PALETTE pal, int r, int g, int
    RGB c;
 
    for (x=0; x<256; x++) {
-      tmp[x*3]	 = pal[x].r * (255-r) / 255;
+      tmp[x*3]   = pal[x].r * (255-r) / 255;
       tmp[x*3+1] = pal[x].g * (255-g) / 255;
       tmp[x*3+2] = pal[x].b * (255-b) / 255;
    }
@@ -96,12 +96,12 @@ int create_color_maps(void)
 
   int i, x, y;
 
-  rgb_map	= malloc(sizeof(RGB_MAP));
-  tint_map	= malloc(sizeof(COLOR_MAP));
-  tint_dark_map	= malloc(sizeof(COLOR_MAP));
-  trans_map	= malloc(sizeof(COLOR_MAP));
-  trans_dark_map= malloc(sizeof(COLOR_MAP));
-  shadow_map	= malloc(sizeof(COLOR_MAP));
+  rgb_map        = malloc(sizeof(RGB_MAP));
+  tint_map       = malloc(sizeof(COLOR_MAP));
+  tint_dark_map  = malloc(sizeof(COLOR_MAP));
+  trans_map      = malloc(sizeof(COLOR_MAP));
+  trans_dark_map = malloc(sizeof(COLOR_MAP));
+  shadow_map     = malloc(sizeof(COLOR_MAP));
 
   create_rgb_table(rgb_map, datafile[PALETTE_BMP].dat, NULL);
 
@@ -198,6 +198,8 @@ void textout_centre_lit(BITMAP *bmp, FONT *f, char *str, int x, int y, int color
   len = text_length(f, str);
   textout_lit(bmp, f, str, x - len/2, y, color);
 }
+
+
 
 
 

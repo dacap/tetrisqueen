@@ -1,5 +1,5 @@
 /*
- * TETRIS Queen - Version 1.3
+ * TETRIS Queen
  * Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
@@ -23,10 +23,11 @@
 
 
 #define GAME_NAME		"TETRIS Queen"
-#define GAME_VERSION		"1.3"
+#define GAME_VERSION		"1.3.1"
 #define GAME_DATE		"1999 - 2001"
 #define GAME_URL		"http://qtetris.sourceforge.net/"
 
+#define AUTHOR_NAME		"David A. Capello"
 #define AUTHOR_EMAIL		"davidcapello@yahoo.com"
 #define AUTHOR_URL		"http://www.davidcapello.com.ar/"
 

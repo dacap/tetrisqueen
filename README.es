@@ -1,4 +1,4 @@
-TETRIS Queen - Versión 1.3
+TETRIS Queen - Versión 1.3.1
 Copyright (C) 1999, 2000, 2001 por David A. Capello 
 ---------------------------------------------------
 

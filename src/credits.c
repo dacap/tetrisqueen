@@ -1,5 +1,5 @@
 /*
- * TETRIS Queen - Version 1.3
+ * TETRIS Queen
  * Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
@@ -28,19 +28,60 @@
 
 
 
-#define TYPE_END      -1
+int final_credits = FALSE;
+
+
+
 #define TYPE_TITLE     0
 #define TYPE_TEXT      1
 #define TYPE_LINK      2
 
 
 
-int final_credits = FALSE;
+typedef struct CREDITS_LINE
+{
+  int next;
+  char type;
+  char *text;
+} CREDITS_LINE;
 
 
-static int game_over = FALSE;
-static int text_y;
+static CREDITS_LINE credits_line[] =
+{
+  { 4, TYPE_TITLE, GAME_NAME },
+  { 4, TYPE_TEXT, "Version " GAME_VERSION },
+  { 1, TYPE_TEXT, "Programmer, Graphics," },
+  { 2, TYPE_TEXT, "Sounds, Documents, Tester:" },
+  { 1, TYPE_TEXT, AUTHOR_NAME },
+  { 3, TYPE_LINK, AUTHOR_URL },
+  { 2, TYPE_TEXT, "Translation of the docs." },
+  { 1, TYPE_TEXT, "Grzegorz Adam Hankiewicz" },
+  { 3, TYPE_LINK, "http://gradha.infierno.org" },
+  { 1, TYPE_TEXT, "Musics:" },
+  { 3, TYPE_LINK, "http://www.queentrivia.mcmail.com/" },
+  { 2, TYPE_TEXT, "Thanks to:" },
+  { 1, TYPE_TEXT, "Shawn Hargreaves" },
+  { 1, TYPE_TEXT, "for ALLEGRO library" },
+  { 2, TYPE_LINK, "http://www.talula.demon.co.uk/allegro/" },
+  { 1, TYPE_TEXT, "DJ Delorie" },
+  { 1, TYPE_TEXT, "for DJGPP compiler" },
+  { 2, TYPE_LINK, "http://www.delorie.com/djgpp/" },
+  { 1, TYPE_TEXT, "Robert Hohne" },
+  { 1, TYPE_TEXT, "for RHIDE" },
+  { 2, TYPE_LINK, "http://www.lanet.lv/~pavenis/rhide.html" },
+  { 1, TYPE_TEXT, "Charles W Sandmann" },
+  { 1, TYPE_TEXT, "for CWSDPMI" },
+  {15, TYPE_LINK, "sandmann@clio.rice.edu" },
+  { 1, TYPE_TEXT, AUTHOR_NAME },
+  { 2, TYPE_TEXT, "Copyright (C) " GAME_DATE },
+  { 1, TYPE_LINK, GAME_URL }
+};
+
+
+static int credits_size = sizeof(credits_line) / sizeof(CREDITS_LINE);
 static int fadein;
+static fixed text_y;
+static fixed min_y = 0;
 
 
 
@@ -48,21 +89,43 @@ static int move(void *null)
 {
   (void)null;
 
-  if (!fadeout_start && keypressed()) {
+  /* si se presionar una tecla comenzar el fadeout */
+  if ((!fadeout_start) && (keypressed())) {
     if ((readkey() >> 8) == KEY_ESC)
       fadeout_start = game_clock;
   }
 
-  text_y -= 2;
-  if (text_y < ((24-56*8) << 3)) {
-    text_y = ((24-56*8) << 3);
-    if (!(fadein) && !(final_credits))
+  /* calcular el m¡nimo al que puede llegar text_y */
+  if (!min_y) {
+    int i, y;
+
+    /* calcular la cantidad de pixeles que ocupa todo el texto
+       de los cr‚ditos */
+    y = 0;
+    for (i=0; i<credits_size; i++)
+      y += credits_line[i].next * text_height(font);
+
+    /* el m¡nimo ser  desde el cuarto de pantalla para arriba */
+    min_y = itofix(SCREEN_H/4 - y);
+  }
+
+  /* subir el texto 0.25 puntos */
+  text_y = fsub(text_y, 0x4000);
+
+  /* el texto lleg¢ al l¡mite? */
+  if (text_y < min_y) {
+    /* trabarlo */
+    text_y = min_y;
+
+    /* comenzar el fadein si es que no comenz¢ */
+    if ((!fadein) && (!final_credits))
       fadein = 1;
   }
 
-  if (!fadeout_start && fadein > 0) {
+  /* realizar fadein? */
+  if ((!fadeout_start) && (fadein > 0)) {
     PALETTE pal;
-    
+
     push_clock();
     get_palette(pal);
     fade_from_range(pal, ALBUM_PAL(23), 2, 128, PAL_SIZE-1);
@@ -78,65 +141,6 @@ static int move(void *null)
 
 static void draw(void *null)
 {
-  static struct {
-    char type;
-    char *text;
-  } info[] = {
-	{ TYPE_TITLE, "TETRIS Queen" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Version " GAME_VERSION },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Programmer, Graphics," },
-	{ TYPE_TEXT, "Sounds, Documents, Tester:" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "David Alfredo Capello" },
-	{ TYPE_LINK, AUTHOR_URL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Translation of the docs." },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Grzegorz Adam Hankiewicz" },
-	{ TYPE_LINK, "http://gradha.infierno.org" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Musics:" },
-	{ TYPE_LINK, "http://www.queentrivia.mcmail.com/" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Thanks to:" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Shawn Hargreaves" },
-	{ TYPE_TEXT, "for ALLEGRO library" },
-	{ TYPE_LINK, "http://www.talula.demon.co.uk/allegro/" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "DJ Delorie" },
-	{ TYPE_TEXT, "for DJGPP compiler" },
-	{ TYPE_LINK, "http://www.delorie.com/djgpp/" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Robert Hohne" },
-	{ TYPE_TEXT, "for RHIDE" },
-	{ TYPE_LINK, "http://www.lanet.lv/~pavenis/rhide.html" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, "Charles W Sandmann" },
-	{ TYPE_TEXT, "for CWSDPMI" },
-	{ TYPE_LINK, "sandmann@clio.rice.edu" },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_TEXT, NULL }, { TYPE_TEXT,  NULL }, { TYPE_TEXT,  NULL },
-	{ TYPE_TEXT, NULL }, { TYPE_TEXT,  NULL }, { TYPE_TEXT,  NULL },
-	{ TYPE_TEXT, NULL }, { TYPE_TEXT,  NULL }, { TYPE_TEXT,  NULL },
-	{ TYPE_TEXT, NULL }, { TYPE_TEXT,  NULL }, { TYPE_TEXT,  NULL },
-	{ TYPE_TEXT, "David Alfredo Capello" },
-	{ TYPE_TEXT, "Copyright (C) " GAME_DATE },
-	{ TYPE_TEXT, NULL },
-	{ TYPE_LINK, GAME_URL },
-	{ TYPE_END, NULL }
-  };
-
   int i, x, y;
   FONT *f;
 
@@ -156,14 +160,14 @@ static void draw(void *null)
 
   text_mode(-1);
 
-  for (i=0; info[i].type != TYPE_END; i++) {
-    if (info[i].text) {
-      f = datafile[(info[i].type == TYPE_TITLE)? FONTBIG_PCX: FONTGAME_PCX].dat;
+  y = fixtoi(text_y);
+  for (i=0; i<credits_size; i++) {
+    f = datafile[(credits_line[i].type == TYPE_TITLE)? FONTBIG_PCX: FONTGAME_PCX].dat;
 
-      textout_centre_lit(virtual, f, info[i].text,
-        SCREEN_W/2, (text_y >> 3)+i*8,
-        (info[i].type == TYPE_LINK)? PAL_BLUE: -1);
-    }
+    textout_centre_lit(virtual, f, credits_line[i].text, SCREEN_W/2, y,
+      (credits_line[i].type == TYPE_LINK)? PAL_BLUE: -1);
+
+    y += credits_line[i].next * text_height(font);
   }
 }
 
@@ -181,9 +185,8 @@ int play_credits(void)
   play_music((!final_credits)? MUSIC19_MID: MUSIC02_MID, TRUE);
   pop_clock();
 
-  text_y = (SCREEN_H+16) << 3;
+  text_y = itofix(SCREEN_H+16);
 
-  game_over = FALSE;
   fadeout_start = 0;
   fadein = 0;
 
@@ -204,19 +207,17 @@ int play_credits(void)
   draw(NULL);
   flip_to_screen();
 
+  push_clock();
   if (!final_credits) {
-    push_clock();
     fade_interpolate(ALBUM_PAL(23), black_palette, pal, 32, 128, PAL_SIZE-1);
     fade_from_range(ALBUM_PAL(23), pal, 2, 128, PAL_SIZE-1);
-    pop_clock();
   }
   else {
-    push_clock();
     get_palette(pal);
     fade_from(pal, datafile[FINALPAL_BMP].dat, 2);
     sel_palette(datafile[FINALPAL_BMP].dat);
-    pop_clock();
   }
+  pop_clock();
 
   add_gameobj(50, create_gameobj(move, draw, NULL));
   handle_game();

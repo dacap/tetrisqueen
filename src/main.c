@@ -1,5 +1,5 @@
 /*
- * TETRIS Queen - Version 1.3
+ * TETRIS Queen
  * Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
@@ -128,23 +128,27 @@ void flip_to_screen(void)
 
 
 
-static void usage(void)
+static void usage(char *name, int status)
 {
-  char buf[256];
+  if (!status) {
+    fprintf(stdout,
+      "\n%s v%s, Copyright (C) %s, by %s\n"
+      "\n"
+      "Use: %s [OPTIONS]\n"
+      "\n"
+      "Options:\n"
+      "  -i, --nointro   doesn't display the introduction\n"
+      "  -s, --nosound   doesn't install sounds\n"
+      "  -j, --nojoy     doesn't install joystick\n"
+      "  -?, --help      shows the program's help\n"
+      "\nReport bugs to %s\n",
+      GAME_NAME, GAME_VERSION, GAME_DATE, AUTHOR_NAME, name, AUTHOR_EMAIL);
+  }
+  else {
+    fprintf(stderr, "Try `%s --help' for more information.\n", name);
+  }
 
-  get_executable_name(buf, 256);
-
-  allegro_message(
-    "\n" GAME_NAME " v" GAME_VERSION ", Copyright (C) " GAME_DATE ", by David A. Capello\n"
-    "\n"
-    "Use: %s [OPTIONS]\n"
-    "\n"
-    "Options:\n"
-    "  -i, --nointro   doesn't display the introduction\n"
-    "  -s, --nosound   doesn't install sounds\n"
-    "  -j, --nojoy     doesn't install joystick\n"
-    "  -?, --help      shows the program's help\n"
-    "\nReport bugs to " AUTHOR_EMAIL ".\n", buf);
+  exit(status);
 }
 
 
@@ -155,26 +159,26 @@ int main(int argc, char *argv[])
   int sound = TRUE;
   int joystick = TRUE;
   char buf[256], path[256];
-  int c;
+  int i;
 
   srand(time(NULL));
 
   allegro_init();
   set_window_title(GAME_NAME);
 
-  for (c=1; c<argc; c++) {
-    if ((stricmp(argv[c], "-i") == 0) || (stricmp(argv[c], "--nointro") == 0))
+  for (i=1; i<argc; i++) {
+    if ((stricmp(argv[i], "-i") == 0) || (stricmp(argv[i], "--nointro") == 0))
       intro = FALSE;
-
-    if ((stricmp(argv[c], "-s") == 0) || (stricmp(argv[c], "--nosound") == 0))
+    else if ((stricmp(argv[i], "-s") == 0) || (stricmp(argv[i], "--nosound") == 0))
       sound = FALSE;
-      
-    if ((stricmp(argv[c], "-j") == 0) || (stricmp(argv[c], "--nojoy") == 0))
+    else if ((stricmp(argv[i], "-j") == 0) || (stricmp(argv[i], "--nojoy") == 0))
       joystick = FALSE;
-
-    if ((stricmp(argv[c], "-?") == 0) || (stricmp(argv[c], "--help") == 0)) {
-      usage();
-      return 0;
+    else if ((stricmp(argv[i], "-?") == 0) || (stricmp(argv[i], "--help") == 0)) {
+      usage(argv[0], 0);
+    }
+    else {
+      fprintf(stderr, "%s: unrecognized option `%s'\n", argv[0], argv[i]);
+      usage(argv[0], 1);
     }
   }
 
@@ -189,7 +193,7 @@ int main(int argc, char *argv[])
   }
 
   text_mode(-1);
-  textout(screen, font, "Loading...", 0, 0, makecol(255, 255, 255));
+  textout(screen, font, GAME_NAME ": loading...", 0, 0, makecol(255, 255, 255));
 
   install_timer();
   install_keyboard();
@@ -284,7 +288,7 @@ int main(int argc, char *argv[])
 
   if (datafile)
     unload_datafile(datafile);
-  
+
   clear(screen);
   set_gfx_mode(GFX_TEXT, 0, 0, 0, 0);
 

@@ -1,5 +1,5 @@
 /*
- * TETRIS Queen - Version 1.3
+ * TETRIS Queen
  * Copyright (C) 1999, 2000, 2001 by David A. Capello
  *
  * This program is free software; you can redistribute it and/or modify
@@ -117,7 +117,7 @@ int save_records(void)
     return FALSE;
   }
   else {
-    pack_fwrite(hallfame_classic,   sizeof(hallfame_classic),	f);
+    pack_fwrite(hallfame_classic,   sizeof(hallfame_classic),   f);
     pack_fwrite(hallfame_destroyer, sizeof(hallfame_destroyer), f);
     pack_fclose(f);
     return TRUE;
@@ -138,7 +138,7 @@ void reset_high_scores(int game_mode)
 
 int make_a_new_record(PLAYER *player, int game_mode)
 {
-  HALLFAME *hallfame = (game_mode == GAME_MODE_CLASSIC	)? hallfame_classic:
+  HALLFAME *hallfame = (game_mode == GAME_MODE_CLASSIC  )? hallfame_classic:
 		       (game_mode == GAME_MODE_DESTROYER)? hallfame_destroyer:
 		       NULL;
   int i;
@@ -157,7 +157,7 @@ int make_a_new_record(PLAYER *player, int game_mode)
 
 void add_new_record(PLAYER *player, int game_mode)
 {
-  HALLFAME *hallfame = (game_mode == GAME_MODE_CLASSIC	)? hallfame_classic:
+  HALLFAME *hallfame = (game_mode == GAME_MODE_CLASSIC  )? hallfame_classic:
 		       (game_mode == GAME_MODE_DESTROYER)? hallfame_destroyer:
 		       NULL;
   HALLFAME temp;
@@ -282,8 +282,8 @@ static void draw(void *null)
   
     textout_centre_lit(virtual, f, hallfame[i].name, 8*5, y+1, -1);
 
-    textprintf_lit(virtual, f, 8*9,  y+1, -1, "%6d",	  hallfame[i].score);
-    textprintf_lit(virtual, f, 8*20, y+1, -1, "%6d",	  hallfame[i].lines);
+    textprintf_lit(virtual, f, 8*9,  y+1, -1, "%6d", hallfame[i].score);
+    textprintf_lit(virtual, f, 8*20, y+1, -1, "%6d", hallfame[i].lines);
 
     if (hallfame[i].level <= 50)
       textprintf_lit(virtual, f, 8*30, y+1, -1, " %02d/50", hallfame[i].level);
