@@ -1,6 +1,6 @@
 # Copyright (C) 1999, 2000, 2001 by David A. Capello
 
-DAT = $(ALLEGRO)\tools\dat.exe
+DAT = $(ALLEGRO)/tools/dat.exe
 
 include makefile.lst
 include $(MAKEFILE_INC)

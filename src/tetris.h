@@ -25,9 +25,10 @@
 #define GAME_NAME		"TETRIS Queen"
 #define GAME_VERSION		"1.3"
 #define GAME_DATE		"1999 - 2001"
-#define GAME_URL		"http://qtetris.sourceforge.net"
+#define GAME_URL		"http://qtetris.sourceforge.net/"
 
 #define AUTHOR_EMAIL		"davidcapello@yahoo.com"
+#define AUTHOR_URL		"http://www.davidcapello.com.ar/"
 
 #define GAME_MODE_CLASSIC	0
 #define GAME_MODE_DESTROYER	1

@@ -17,7 +17,8 @@ SRC_PACK_FILES = \
 	qtetris/src/makefile* \
 	qtetris/src/fix* \
 	qtetris/src/*.arg \
-	qtetris/src/data/tmpfile.txt
+	qtetris/src/data/tmpfile.txt \
+	qtetris/src/obj/tmpfile.txt
 
 DAT_PACK_FILES = \
 	qtetris/leame.txt \
@@ -43,6 +44,10 @@ BIN_DOS_PACK_FILES = \
 	qtetris/qtetris.exe \
 	qtetris/cwsdpmi.doc \
 	qtetris/cwsdpmi.exe
+
+BIN_QNX_PACK_FILES = \
+	$(BIN_PACK_FILES) \
+	qtetris/qtetris
 
 BIN_WIN_PACK_FILES = \
 	$(BIN_PACK_FILES) \
@@ -85,6 +90,16 @@ dospack:
 
 
 
+qnxpack:
+	@echo Making QNX packages...
+	-./fixqnx.sh
+	-make depend
+	make STATICLINK=1 DEBUGMODE=
+	cd ../.. ; tar -czf qtetris-$(VERSION).bin-qnx.tar.gz $(BIN_QNX_PACK_FILES)
+	@echo Done!
+
+
+
 winpack:
 	@echo Making Windows packages...
 	-./fixmsvc.bat
@@ -109,7 +124,7 @@ unipack:
 
 all:
 	@echo "Rules:"
-	@echo "  srcpack, datpack, dospack, winpack, unipack"
+	@echo "  srcpack, datpack, dospack, qnxpack, winpack, unipack"
 
 
 

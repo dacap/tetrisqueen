@@ -94,7 +94,7 @@ static void draw(void *null)
 	{ TYPE_TEXT, "Sounds, Documents, Tester:" },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, "David Alfredo Capello" },
-	{ TYPE_LINK, AUTHOR_EMAIL },
+	{ TYPE_LINK, AUTHOR_URL },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, NULL },
 	{ TYPE_TEXT, "Translation of the docs." },

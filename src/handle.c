@@ -204,7 +204,7 @@ void handle_game(void)
       /* realizar un fundido de la pantalla */
       if (fadeout_start)
 	game_over = fadeout_a_frame();
-      
+
       /* mover los objetos */
       pos = gameobj_list;
       while ((pos) && !(game_over)) {
@@ -224,7 +224,7 @@ void handle_game(void)
 
     /* borrar la pantalla virtual */
     clear(virtual);
-    
+
     /* dibujar los objetos en la pantalla virtual */
     pos = gameobj_list;
     while (pos) {
@@ -248,13 +248,13 @@ GAMEOBJ *create_gameobj(void *move, void *draw, void *data)
   GAMEOBJ *obj;
 
   obj = malloc(sizeof(GAMEOBJ));
-  
+
   obj->priority = 0;
   obj->move = move;
   obj->draw = draw;
   obj->data = data;
   obj->next = NULL;
-  
+
   return obj;
 }
 
