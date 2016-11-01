@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <allegro.h>
@@ -195,7 +185,7 @@ int player_death(PLAYER *player)
       return TRUE;
     }
   }
-  
+
   return FALSE;
 }
 
@@ -496,7 +486,7 @@ int move_player(PLAYER *player)
           /* crear el bitmap necesario para la animación */
           player->piece.bmp = create_piece_bitmap(player,
             &player->piece.bmp_x, &player->piece.bmp_y);
-            
+
           qtetris_sound(ROTATE_WAV, player->px+player->piece.x, 255);
         }
       }
@@ -587,7 +577,7 @@ int move_player(PLAYER *player)
               create_linetype(x, player->py + y, player->kill));
             update_gameobj_list();
           }
-            
+
           qtetris_sound(PUTPIECE_WAV, player->px+player->piece.x, 255);
         }
         else {
@@ -675,20 +665,20 @@ void draw_player(BITMAP *bmp, PLAYER *player)
 
   if (!(player->flags & PLAYER_PLAYING))
     return;
-    
+
   /* posición del indicador de la próxima pieza */
   next_y = player->py-8;
   if (player == &player1)
     next_x = player->px+BLOCK_SIZE*PANEL_WIDTH+8+1;
   else
     next_x = player->px-((BITMAP *)datafile[NEXT_BMP].dat)->w-8-1;
-  
+
   /* PANEL */
   color_map = tint_map;
-  
+
   draw_lit_sprite(bmp, datafile[PANEL_BMP].dat, player->px-8, player->py-8,
     (player == &player1)? PAL_BLUE: PAL_RED);
-    
+
   draw_lit_sprite(bmp, datafile[NEXT_BMP].dat, next_x, next_y,
     (player == &player1)? PAL_BLUE: PAL_RED);
 
@@ -805,7 +795,7 @@ void draw_player(BITMAP *bmp, PLAYER *player)
       draw_block(bmp, player->piece.bx[c]-x+next_x+BLOCK_SIZE*3-w/2,
                       player->piece.by[c]-y+next_y+BLOCK_SIZE*3-h/2,
                       player->piece.block[c], FALSE);
-  
+
     player->piece.x     = old_x;
     player->piece.y     = old_y;
     player->piece.rot   = old_rot;
@@ -815,7 +805,7 @@ void draw_player(BITMAP *bmp, PLAYER *player)
   /* SCORER */
   x = next_x;
   y = player->py + BLOCK_SIZE*6;
-  
+
   text_mode(-1);
 
   textout(virtual, f, "SCORE", x, y+8*0, -1);
@@ -842,7 +832,7 @@ void draw_player(BITMAP *bmp, PLAYER *player)
         angle = 0;
         scale = itofix(1);
       }
-      
+
       pivot_scaled_sprite(bmp, sprite,
         player->px+PANEL_WIDTH*BLOCK_SIZE/2,
         player->py, sprite->w/2, sprite->h/2, angle, scale);
@@ -899,7 +889,3 @@ void draw_player(BITMAP *bmp, PLAYER *player)
     }
   }
 }
-
-
-
-

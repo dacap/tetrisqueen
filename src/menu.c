@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <stdio.h>
@@ -183,7 +173,7 @@ static int options_start(void)
   else {
     strcpy(s, "OFF");
   }
-  
+
   return D_O_K;
 }
 
@@ -320,19 +310,19 @@ static int reconfig_control(void)
 static int test_sound_proc(void)
 {
   switch ((int)active_menu->dp) {
-  
+
     case 1:
       qtetris_sound(MENUSEL_WAV, 0, 255);
       break;
-      
+
     case 2:
       qtetris_sound(MENUSEL_WAV, QTETRIS_SCREEN_W/2, 255);
       break;
-      
+
     case 3:
       qtetris_sound(MENUSEL_WAV, QTETRIS_SCREEN_W-1, 255);
       break;
-      
+
     case 4:
       if (!_sound_flip_pan)
         _sound_flip_pan = TRUE;
@@ -369,7 +359,7 @@ static int play_proc(void)
   /* 2 PLAYERS */
   else if (player_selected == 1) {
     player2.flags = PLAYER_PLAYING;
-    
+
     player1.px = BLOCK_SIZE*2;
     player2.px = QTETRIS_SCREEN_W-BLOCK_SIZE*PANEL_WIDTH-BLOCK_SIZE*2;
   }
@@ -378,10 +368,10 @@ static int play_proc(void)
     reset_high_scores(game_mode);
     return D_O_K;
   }
-  
+
   player1.py =
   player2.py = BLOCK_SIZE*3;
-    
+
   play_game();
   return D_O_K;
 }
@@ -415,7 +405,7 @@ static int move(void *null)
     if ((scan == KEY_UP) || (scan == KEY_8_PAD)) {
       for (max=0; menu[max].text; max++);
       max--;
-      
+
       if (selected>0)
         selected--;
       else
@@ -509,7 +499,7 @@ static int move(void *null)
           if (l) {
             for (i=0; i<l; i++)
               s[i] = 'l';
-              
+
             s[i] = 0;
           }
           else {
@@ -520,7 +510,7 @@ static int move(void *null)
           /* DIGI */
           if (selected == 0)
             digi_volume = MAX_VOLUME*l/20;
-            
+
           /* MIDI */
           if (selected == 1)
             midi_volume = MAX_VOLUME*l/20;
@@ -578,7 +568,7 @@ static void menu_textout(BITMAP *bmp, char *text, int big, int x, int y, int sel
       draw_character(bmp, sprite, x, y-1, 0);
       draw_character(bmp, sprite, x, y+1, 0);
     }
-    
+
     if (!sel)
       draw_sprite(bmp, sprite, x, y);
     else {
@@ -629,14 +619,14 @@ static void draw(void *null)
     v = v * (game_clock - ani_time) / (TPS*3/2);
 
   v = 128 - v;
-  
+
   /* shadow */
   color_map = shadow_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
   draw_trans_sprite(virtual, datafile[QUEENMNI_BMP].dat,
     QTETRIS_SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2+6, 48-v+12);
   solid_mode();
-  
+
   /* solid */
   draw_sprite(virtual, datafile[QUEENMNI_BMP].dat,
     QTETRIS_SCREEN_W/2-((BITMAP *)datafile[QUEENMNI_BMP].dat)->w/2, 48-v);
@@ -662,9 +652,9 @@ void play_menu(void)
   GAMEOBJ *old_list = gameobj_list;
 
   gameobj_list = NULL;
-  
+
   sel_palette(NULL);
-  
+
   game_over = FALSE;
   fadeout_start = 0;
 
@@ -679,5 +669,3 @@ void play_menu(void)
   delete_gameobj_list();
   gameobj_list = old_list;
 }
-
-

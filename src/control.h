@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #ifndef CONTROL_H
@@ -48,11 +38,10 @@ void save_player_control(struct PLAYER *player, char *section);
 
 void get_player_control(struct PLAYER *player, char *section,
   int left, int right, int down, int rot_left, int rot_right);
-  
+
 int get_control_state(int control);
 char *get_control_name(int control);
 
 
 
 #endif /* #ifndef CONTROL_H */
-

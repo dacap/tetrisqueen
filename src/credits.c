@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <stdio.h>
@@ -194,7 +184,7 @@ int play_credits(void)
     sel_palette(ALBUM_PAL(ALBUM_CREDITS));
   else {
     PALETTE wpal;
-  
+
     for (c=0; c<PAL_SIZE; c++)
       wpal[c].r = wpal[c].g = wpal[c].b = 63;
 
@@ -202,7 +192,7 @@ int play_credits(void)
     fade_from(pal, wpal, 2);
   }
   qtetris_pop_clock();
-    
+
   draw(NULL);
   qtetris_blit(virtual);
 
@@ -227,6 +217,3 @@ int play_credits(void)
   qtetris_clear_keybuf();
   return D_O_K;
 }
-
-
-

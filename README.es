@@ -2,21 +2,6 @@ TETRIS Queen - Versión 1.4
 Copyright (C) 1999, 2000, 2001 por David A. Capello
 ---------------------------------------------------
 
-Este programa es software libre. Puede redistribuirlo y/o modificarlo bajo
-los términos de la Licencia Pública General GNU según es publicada por la
-Free Software Foundation, bien de la versión 2 de dicha Licencia o bien
-(según su elección) de cualquier versión posterior.
-
-Este programa es distribuido con la esperanza de que sea útil, pero SIN
-GARANTIA ALGUNA, incluso sin la garantía implícita de COMERCIALIZACION o
-IDONEIDAD PARA UN PROPOSITO PARTICULAR. Véase la Licencia Pública General
-de GNU para más detalles.
-
-Debería haber recibido una copia de la Licencia Pública General junto con
-este programa. Si no ha sido así, escriba a la Free Software Foundation,
-Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-
 1. ÍNDICE
 ---------
 

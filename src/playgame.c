@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <allegro.h>
@@ -180,7 +170,7 @@ static int move(void *null)
   /* move all players */
   if (move_player(&player1))
     return -1;
-  
+
   if (move_player(&player2))
     return -1;
 
@@ -348,7 +338,7 @@ void play_game(void)
   gameobj_list = NULL;
 
   stop_midi();
-  
+
   add_gameobj(50, create_gameobj(move, draw, NULL));
   add_gameobj(0, create_stars());
 
@@ -357,7 +347,7 @@ void play_game(void)
   player2.level = 0;
   player1.level_lines = 0;
   player2.level_lines = 0;
-  
+
 restart:;
   /* resetear la lista de piezas */
   reset_pieces_list();
@@ -419,6 +409,3 @@ restart:;
   delete_gameobj_list();
   gameobj_list = old_list;
 }
-
-
-

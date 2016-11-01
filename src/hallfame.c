@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <stdio.h>
@@ -258,7 +248,7 @@ static int move(void *null)
 
   if (keypressed())
     scan = (readkey() >> 8);
-    
+
   if (!fadeout_start && (scan == KEY_ESC))
     fadeout_start = game_clock;
 
@@ -277,7 +267,7 @@ static int move(void *null)
       sel++;
     else
       sel = 0;
-      
+
     qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
   }
   /* cambiar de salón */
@@ -287,7 +277,7 @@ static int move(void *null)
       hallfame = hallfame_destroyer;
     else
       hallfame = hallfame_classic;
-      
+
     qtetris_sound(MENUSET_WAV, QTETRIS_SCREEN_W/2, 255);
   }
 
@@ -337,12 +327,12 @@ static void draw(void *null)
     drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
     rectfill(virtual, 8*2, y, 8*8, y+8+2,
       (sel == i)? makecol(255, 255, 0): makecol(192, 192, 192));
-      
+
     rectfill(virtual, 8*9, y, 8*36, y+8+2,
       (sel == i)? makecol(255, 255, 0): makecol(128, 128, 128));
-      
+
     solid_mode();
-  
+
     textout_centre_lit(virtual, f, hallfame[i].name, 8*5, y+1, -1);
 
     textprintf_lit(virtual, f, 8*9,  y+1, -1, "%6d", hallfame[i].score);
@@ -382,6 +372,3 @@ int play_hall_of_fame(void)
 
   return D_O_K;
 }
-
-
-

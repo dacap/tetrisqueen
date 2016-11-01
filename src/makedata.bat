@@ -1,5 +1,5 @@
 @echo off
-rem Copyright (C) 1999, 2000, 2001 by David A. Capello
+rem Copyright (C) 1999, 2000, 2001  David Capello
 
 set datautil=%ALLEGRO%\tools\dat.exe
 set datafile=..\qtetris.dat

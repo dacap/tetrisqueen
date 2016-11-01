@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <stdlib.h>
@@ -34,7 +24,7 @@ int fadeout_start = 0;
 
 static int update_list = FALSE;
 
-      
+
 static int qsort_game_list(const void *e1, const void *e2)
 {
   GAMEOBJ *o1 = *(GAMEOBJ **)e1;
@@ -97,7 +87,7 @@ static int fadeout_a_frame(void)
 {
   PALETTE pal;
   int c, r, g, b;
-    
+
   if (_digi_volume > 0) _digi_volume = MAX(0, _digi_volume-8);
   if (_midi_volume > 0) _midi_volume = MAX(0, _midi_volume-8);
   set_volume(_digi_volume, _midi_volume);
@@ -138,7 +128,7 @@ void handle_game(void)
   int game_over = FALSE;
 
   resort_gameobj_list();
-  
+
   qtetris_clear_keybuf();
 
   fadeout_start = 0;
@@ -182,16 +172,16 @@ void handle_game(void)
         } while (!keypressed());
 
         qtetris_clear_keybuf();
-        
+
         qtetris_pop_clock();
       }
 
       /* capturar la pantalla */
       if (key[KEY_F12]) {
         qtetris_push_clock();
-      
+
         capture_screen();
-        
+
         do {
           poll_keyboard();
         } while (key[KEY_F12]);
@@ -316,6 +306,3 @@ void update_gameobj_list(void)
 {
   update_list = TRUE;
 }
-
-
-

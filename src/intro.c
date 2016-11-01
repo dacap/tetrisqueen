@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <allegro.h>
@@ -40,7 +30,7 @@ void play_intro(void)
 #define NORMAL() \
   min = 0;         \
   max = PAL_SIZE-1
-  
+
   BITMAP *bg = (BITMAP *)datafile[MYLOGO_BMP].dat;
   PALETTE source, pal;
   int n, n2;
@@ -92,7 +82,7 @@ void play_intro(void)
     COL(n+4, 63, 63, 63);
     COL(n+2, 63,  0,  0);
     COL(n,   63, 63,  0);
-              
+
     FADE(64);
   }
 
@@ -125,7 +115,7 @@ void play_intro(void)
 
   /* TETRIS ******************************/
   set_palette(black_palette);
-  
+
   get_palette(source);
   get_palette(pal);
 
@@ -139,7 +129,7 @@ void play_intro(void)
   clear(virtual);
   drawing_mode(DRAW_MODE_COPY_PATTERN, datafile[TETRISBG_BMP].dat, 0, 0);
   rectfill(virtual, 0, 0, QTETRIS_SCREEN_W, QTETRIS_SCREEN_H, -1);
-  
+
   color_map = shadow_map;
   drawing_mode(DRAW_MODE_TRANS, NULL, 0, 0);
   draw_trans_sprite(virtual, datafile[TETRIS_BMP].dat,
@@ -160,6 +150,3 @@ void play_intro(void)
 
   fade_from(pal, datafile[PALETTE_BMP].dat, 2);
 }
-
-
-

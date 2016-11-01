@@ -1,5 +1,5 @@
 #! /bin/sh
-# Copyright (C) 1999, 2000, 2001 by David A. Capello
+# Copyright (C) 1999, 2000, 2001  David Capello
 
 datautil=dat
 datafile=../qtetris.dat

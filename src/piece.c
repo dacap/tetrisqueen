@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <math.h>
@@ -116,7 +106,7 @@ static int get_new_piece(void)
     while (n == last)
       n = rand()%MAX_PIECES;
   }
-  
+
   last2 = last;
   last  = n;
 
@@ -194,7 +184,7 @@ void get_piece_blocks(PLAYER *player)
 
   for (c=0; c<4; c++) {
     player->piece.block[c] = ((player->piece.shape & 0x0f)+1);
-      
+
     if (game_mode == QTETRIS_MODE_DESTROYER) {
       if ((num == c) || (num == 4))
         player->piece.block[c] |= BLOCK_SPECIAL; // | (player->piece.shape & 0xf00);
@@ -213,7 +203,7 @@ void get_piece_metrics(struct PLAYER *player, int *x, int *y, int *w, int *h)
   int xmax, ymax;
   int xmin, ymin;
   int c, piece_y = (int)floor(player->piece.y);
-  
+
   /* encontrar los bloques que esten en los extremos */
   xmax = player->piece.x;
   ymax =         piece_y;
@@ -271,7 +261,3 @@ BITMAP *create_piece_bitmap(PLAYER *player, int *xout, int *yout)
 
   return bmp;
 }
-
-
-
-

@@ -1,18 +1,8 @@
-/* TETRIS Queen - Copyright (C) 1999, 2000, 2001 by David A. Capello
+/* TETRIS Queen
+ * Copyright (C) 1999, 2000, 2001  David Capello
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * This file is released under the terms of the MIT license.
+ * Read LICENSE.txt for more information.
  */
 
 #include <math.h>
@@ -74,7 +64,7 @@ static int move_stars(STAR_OBJECT *data)
       data[c].z = 0;
     }
   }
-  
+
   return 0;
 }
 
@@ -83,7 +73,7 @@ static int move_stars(STAR_OBJECT *data)
 static void draw_stars(STAR_OBJECT *data)
 {
   int c, c2;
-  
+
   for (c=0; c<MAX_STARS; c++) {
     c2 = 15 - (int)(data[c].z>>17);
     putpixel(virtual, data[c].ox, data[c].oy, MID(0, c2, 15));
@@ -103,7 +93,7 @@ GAMEOBJ *create_stars(void)
     data[c].z = 0;
     data[c].ox = data[c].oy = -1;
   }
-  
+
   return create_gameobj(move_stars, draw_stars, data);
 }
 
@@ -122,7 +112,7 @@ static int move_explosion(EXPLOSION_OBJECT *data)
 {
   if (TIMEOUT(data->ani_time, data->time))
     del_gameobj(active_gameobj);
-    
+
   return 0;
 }
 
@@ -144,7 +134,7 @@ static void draw_explosion(EXPLOSION_OBJECT *data)
 GAMEOBJ *create_explosion(int x, int y, int mega)
 {
   EXPLOSION_OBJECT *data;
-  
+
   data = malloc(sizeof(EXPLOSION_OBJECT));
 
   data->x = x;
@@ -177,7 +167,7 @@ static int move_linetype(LINETYPE_OBJECT *data)
 {
   if (TIMEOUT(data->ani_time, TPS))
     del_gameobj(active_gameobj);
-    
+
   return 0;
 }
 
@@ -193,7 +183,7 @@ static void draw_linetype(LINETYPE_OBJECT *data)
   /* dibujar el sprite */
   if (sprite) {
     float scale;
-      
+
     /* calcular la posición del bitmap */
     x = data->x;
     y = data->y;
@@ -246,7 +236,7 @@ static void draw_linetype(LINETYPE_OBJECT *data)
 GAMEOBJ *create_linetype(int x, int y, int lines)
 {
   LINETYPE_OBJECT *data;
-  
+
   data = malloc(sizeof(LINETYPE_OBJECT));
 
   data->x = x;
@@ -302,7 +292,7 @@ static int move_flyblock(FLYBLOCK_OBJECT *data)
     del_gameobj(active_gameobj);
 
   data->draw_angle += SGN(data->x - QTETRIS_SCREEN_W/2) * ((data->speed) / (float)(10.0));
-    
+
   return 0;
 }
 
@@ -312,7 +302,7 @@ static void draw_flyblock(FLYBLOCK_OBJECT *data)
 {
   fixed scale = itofix(1) +
     ftofix(0.5) * (game_clock - data->ani_time) / TPS;
-  
+
   draw_block(block_bmp, 0, 0, data->block, TRUE);
 
   scale -= ftofix(0.25) * ABS(data->x - QTETRIS_SCREEN_W/2) / (QTETRIS_SCREEN_W/2);
@@ -327,7 +317,7 @@ static void draw_flyblock(FLYBLOCK_OBJECT *data)
 GAMEOBJ *create_flyblock(int x, int y, BLOCK block, int super_speed)
 {
   FLYBLOCK_OBJECT *data;
-  
+
   data = malloc(sizeof(FLYBLOCK_OBJECT));
 
   data->startx = x;
@@ -335,7 +325,7 @@ GAMEOBJ *create_flyblock(int x, int y, BLOCK block, int super_speed)
   data->block  = block;
 
   data->angle  = ((float)(rand()%900) / (float)(10.0)) + (float)(45.0);
-  
+
   data->speed  = (super_speed)? (float)(100.0):
     ((float)(rand()%200) / (float)(10.0)) +
                            (float)(40.0) + ABS(data->angle - (float)(90.0));
@@ -347,4 +337,3 @@ GAMEOBJ *create_flyblock(int x, int y, BLOCK block, int super_speed)
 
   return create_gameobj(move_flyblock, draw_flyblock, data);
 }
-
