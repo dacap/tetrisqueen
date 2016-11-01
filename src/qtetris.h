@@ -18,8 +18,8 @@
 
 /* author information */
 #define QTETRIS_AUTHOR_NAME         "David A. Capello"
-#define QTETRIS_AUTHOR_ADDRESS      "dacap@users.sourceforge.net"
-#define QTETRIS_AUTHOR_WWW          "http://www.davidcapello.com.ar/"
+#define QTETRIS_AUTHOR_ADDRESS      "davidcapello@gmail.com"
+#define QTETRIS_AUTHOR_WWW          "http://davidcapello.com/"
 
 /* game modes */
 #define QTETRIS_MODE_CLASSIC        0

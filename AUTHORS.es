@@ -2,7 +2,7 @@ Angelo Mottola <a.mottola@libero.it>
 Hizo el makefile y fix* necesarios para compilar el juego en el sistema
 operativo QNX.
 
-David A. Capello <dacap@users.sourceforge.net>
+David A. Capello <davidcapello@gmail.com>
 Programador, gráficos, sonidos, documentación en español y administrador del
 proyecto.
 
